@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QListView,
     QMainWindow, QMenuBar, QPushButton, QSizePolicy,
     QStatusBar, QWidget)
 
-class Ui_MainWindow(object):
+class Ui_MainWindow1(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
@@ -102,4 +102,4 @@ class Ui_MainWindow(object):
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"File Size", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"                           \ub0a8\uc740 \uc6a9\ub7c9", None))
     # retranslateUi
-
+    
