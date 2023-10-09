@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_1nEVVov.ui'
+## Form generated from reading UI file 'ui_3BxptNV.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.5.2
 ##
@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QListView,
     QMainWindow, QMenuBar, QPushButton, QSizePolicy,
     QStatusBar, QWidget)
 
-class Ui_MainWindow1(object):
+class Ui_MainWindow3(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
@@ -58,7 +58,7 @@ class Ui_MainWindow1(object):
         self.pushButton_3.setGeometry(QRect(220, 430, 61, 31))
         self.pushButton_4 = QPushButton(self.centralwidget)
         self.pushButton_4.setObjectName(u"pushButton_4")
-        self.pushButton_4.setGeometry(QRect(700, 430, 101, 31))
+        self.pushButton_4.setGeometry(QRect(590, 430, 211, 31))
         self.label_3 = QLabel(self.centralwidget)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setGeometry(QRect(210, 30, 71, 21))
@@ -76,9 +76,6 @@ class Ui_MainWindow1(object):
         self.listView = QListView(self.centralwidget)
         self.listView.setObjectName(u"listView")
         self.listView.setGeometry(QRect(180, 50, 641, 371))
-        self.pushButton_5 = QPushButton(self.centralwidget)
-        self.pushButton_5.setObjectName(u"pushButton_5")
-        self.pushButton_5.setGeometry(QRect(290, 430, 91, 31))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -100,10 +97,9 @@ class Ui_MainWindow1(object):
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Masked Data", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Home", None))
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Back", None))
-        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"File Upload", None))
+        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Masked selected file", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Name", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"File Size", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"                           \ub0a8\uc740 \uc6a9\ub7c9", None))
-        self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"\ub514\ub809\ud1a0\ub9ac \uc124\uc815", None))
     # retranslateUi
 
