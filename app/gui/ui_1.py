@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_1OeNRkS.ui'
+## Form generated from reading UI file 'ui_1dcheNo.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.5.2
 ##
@@ -76,6 +76,9 @@ class Ui_MainWindow1(object):
         self.listView = QListView(self.centralwidget)
         self.listView.setObjectName(u"listView")
         self.listView.setGeometry(QRect(180, 50, 641, 371))
+        self.pushButton_5 = QPushButton(self.centralwidget)
+        self.pushButton_5.setObjectName(u"pushButton_5")
+        self.pushButton_5.setGeometry(QRect(290, 430, 91, 31))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -101,5 +104,6 @@ class Ui_MainWindow1(object):
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Name", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"File Size", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"                           \ub0a8\uc740 \uc6a9\ub7c9", None))
+        self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"\ub514\ub809\ud1a0\ub9ac \uc124\uc815", None))
     # retranslateUi
-    
+
