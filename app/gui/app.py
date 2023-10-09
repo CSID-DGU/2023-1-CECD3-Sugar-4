@@ -1,6 +1,7 @@
 import sys
 import os
-from PySide6.QtWidgets import QApplication, QMainWindow, QListView, QPushButton, QFileDialog
+import shutil
+from PySide6.QtWidgets import QApplication, QMainWindow, QListView, QPushButton, QFileDialog, QMessageBox
 from PySide6.QtCore import QDir, Qt, Slot
 from PySide6.QtGui import QStandardItemModel, QStandardItem
 from ui_1 import Ui_MainWindow1
@@ -9,8 +10,9 @@ from ui_3 import Ui_MainWindow3
 from ui_4 import Ui_MainWindow4
 
 class CheckableItem(QStandardItem):
-    def __init__(self, text):
+    def __init__(self, text, is_folder=False):
         super(CheckableItem, self).__init__(text)
+        self.is_folder = is_folder
         self.setCheckable(True)
         self.setCheckState(Qt.Unchecked)
 
@@ -19,6 +21,7 @@ class UI_1App(QMainWindow):
         super(UI_1App, self).__init__()
         self.ui = Ui_MainWindow1()
         self.ui.setupUi(self)
+        self.selected_directory = ""  # Initialize the selected directory variable
 
         self.ui.listView.setEditTriggers(QListView.NoEditTriggers)
         self.ui.listView.setSelectionMode(QListView.MultiSelection)
@@ -29,26 +32,66 @@ class UI_1App(QMainWindow):
         self.ui.pushButton_3.clicked.connect(self.open_ui_2)
         # pushButton_2 클릭 이벤트에 대한 핸들러를 연결합니다.
         self.ui.pushButton_2.clicked.connect(self.open_ui_4)
+        
+        self.ui.pushButton_4.clicked.connect(self.save_files)
+        self.default_save_directory = "C:\\Users\\chan\\Desktop\\2023-1-CECD3-Sugar-4\\GUI\\venv"
 
     def show_file_list(self, directory):
+        model = QStandardItemModel()
+        
+    # 현재 디렉토리 내의 파일 목록을 가져옵니다.
         file_list = os.listdir(directory)
 
-        model = QStandardItemModel()
         for item_text in file_list:
-            item = CheckableItem(item_text)
-            model.appendRow(item)
+            item_path = os.path.join(directory, item_text)
+            is_folder = os.path.isdir(item_path)
+
+            if is_folder or item_text.lower().endswith(('.png', '.jpg', '.jpeg', '.pdf', '.txt')):
+                item = CheckableItem(item_text, is_folder)
+                model.appendRow(item)
 
         self.ui.listView.setModel(model)
+    
+    def get_save_directory(self):
+        return self.selected_directory
+    
+    @Slot()
+    def save_files(self):
+        if not self.selected_directory:
+            QMessageBox.information(self, "알림", "디렉토리를 선택하세요.")
+            return
+
+        save_directory = self.default_save_directory
+
+        # 모델에서 체크된 아이템을 가져옵니다.
+        model = self.ui.listView.model()
+        checked_items = [model.item(row) for row in range(model.rowCount()) if model.item(row).checkState() == Qt.Checked]
+
+        if not checked_items:
+            QMessageBox.information(self, "알림", "선택된 파일이 없습니다.")
+            return
+
+        # 체크된 아이템을 복사합니다.
+        for item in checked_items:
+            file = item.text()
+            source_path = os.path.join(self.selected_directory, file)
+            destination_path = os.path.join(save_directory, file)
+
+            try:
+                shutil.copy(source_path, destination_path)
+            except Exception as e:
+                QMessageBox.critical(self, "오류", f"파일을 저장하는 중 오류가 발생했습니다: {str(e)}")
+                return
+
+        QMessageBox.information(self, "알림", "선택한 파일이 저장되었습니다.")
+
 
     @Slot()
     def select_directory(self):
-        # pushButton_5를 클릭했을 때 실행될 함수입니다.
-        # 사용자에게 디렉토리를 선택하도록 대화 상자를 엽니다.
-        selected_directory = QFileDialog.getExistingDirectory(self, "디렉토리 선택", QDir.currentPath())
+        self.selected_directory = QFileDialog.getExistingDirectory(self, "디렉토리 선택", QDir.currentPath())
 
-        if selected_directory:
-            # 사용자가 디렉토리를 선택한 경우 선택한 디렉토리의 파일 목록을 표시합니다.
-            self.show_file_list(selected_directory)
+        if self.selected_directory:
+            self.show_file_list(self.selected_directory)
 
     @Slot()
     def open_ui_2(self):
@@ -115,6 +158,23 @@ class UI_3App(QMainWindow):
         self.ui.pushButton_2.clicked.connect(self.close_ui_3_and_open_ui_4)
         # pushButton_2클릭 이벤트에 대한 핸들러를 연결합니다.
         self.ui.pushButton_3.clicked.connect(self.close_ui_3_and_open_ui_2)
+        
+        directory = r'C:\\Users\\chan\\Desktop\\2023-1-CECD3-Sugar-4\\GUI\\venv'
+        self.show_file_list(directory)
+
+    def show_file_list(self, directory):
+        # 선택한 디렉토리 내의 파일 목록을 가져옵니다.
+        file_list = os.listdir(directory)
+
+        # .jpg, .pdf, .txt 확장자를 가진 파일만 필터링합니다.
+        filtered_files = [item for item in file_list if item.endswith((".jpg", ".pdf", ".txt"))]
+
+        model = QStandardItemModel()
+        for item_text in filtered_files:
+            item = CheckableItem(item_text)
+            model.appendRow(item)
+
+        self.ui.listView.setModel(model)
 
     @Slot()
     def close_ui_3_and_open_ui_1(self):
