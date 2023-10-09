@@ -3,7 +3,7 @@ import os
 from PySide6.QtWidgets import QApplication, QMainWindow, QListView
 from PySide6.QtCore import QDir, Qt
 from PySide6.QtGui import QStandardItemModel, QStandardItem
-from ui_1 import Ui_MainWindow
+from ui_1 import Ui_MainWindow1
 
 class CheckableItem(QStandardItem):
     def __init__(self, text):
@@ -14,7 +14,7 @@ class CheckableItem(QStandardItem):
 class UI_1App(QMainWindow):
     def __init__(self):
         super(UI_1App, self).__init__()
-        self.ui = Ui_MainWindow()
+        self.ui = Ui_MainWindow1()  # Ui_MainWindow1 사용
         self.ui.setupUi(self)
 
         self.ui.listView.setEditTriggers(QListView.NoEditTriggers)  # 읽기 전용으로 설정
