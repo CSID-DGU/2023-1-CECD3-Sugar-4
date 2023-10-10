@@ -1,0 +1,7 @@
+PPOCR Labeling process
+1. 프로그램 실행 (PPOCRLabel -kie True
+2. auto recognition
+3. bbox 수정, re-recognition
+4. text 수정, labeling -> check -> 해당 디렉토리에 txt파일 생성됨
+5. KIE_labeling.py에 따라 txt파일 수정, 저장
+6. txt파일 데이터(linking) 수정 후 json으로 저장
