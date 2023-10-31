@@ -40,3 +40,6 @@ subprocess.run(["pip", "install", "paddlenlp==2.5.2"])
 
 # font
 subprocess.run(["pip", "install", "--upgrade", "pillow"])
+
+# gdonw to download model
+subprocess.run(["pip", "install", "gdown"])
