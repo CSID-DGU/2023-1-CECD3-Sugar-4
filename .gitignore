@@ -219,7 +219,7 @@ instance/
 .scrapy
 
 # Sphinx documentation
-docs/_build/
+required/_build/
 
 # PyBuilder
 .pybuilder/
