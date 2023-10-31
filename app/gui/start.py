@@ -1,4 +1,8 @@
 import sys
+from pathlib import Path
+current_path = Path(__file__).resolve().parent
+sys.path.append(str(current_path / 'UI'))
+
 import os
 import shutil
 from PySide6.QtWidgets import QApplication, QMainWindow, QListView, QPushButton, QFileDialog, QMessageBox
@@ -72,6 +76,12 @@ class UI_1App(QMainWindow):
 
         if not checked_items:
             QMessageBox.information(self, "알림", "선택된 파일이 없습니다.")
+            return
+
+        try:
+            os.makedirs(save_directory, exist_ok=True)  # 디렉토리가 존재하지 않으면 생성
+        except Exception as e:
+            QMessageBox.critical(self, "오류", f"디렉토리 생성 중 오류가 발생했습니다: {str(e)}")
             return
 
         # 체크된 아이템을 복사합니다.
