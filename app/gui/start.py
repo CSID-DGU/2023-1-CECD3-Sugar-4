@@ -167,10 +167,7 @@ class UI_3App(QMainWindow):
         directory = os.path.join(script_directory, 'down')
 
         self.show_file_list(directory)
-<<<<<<< HEAD
-        
-=======
->>>>>>> d28a496ea8954982acd332ed7e74fdc16d1e9c3a
+
 
     def show_file_list(self, directory):
     # 선택한 디렉토리 내의 파일 목록을 가져옵니다.
