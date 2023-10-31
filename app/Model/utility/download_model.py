@@ -2,10 +2,10 @@ import gdown
 import os
 import zipfile
 
-"""# 파일 ID와 다운로드 경로를 설정
+# 파일 ID와 다운로드 경로를 설정
 file_link = "https://drive.google.com/file/d/1WpkqQo1oFMMBrWqFavRbii1-RaFFAzFj/view?usp=drive_link"
 file_id = file_link.split("/d/")[1].split("/view")[0]
-"""
+
 # 상위 폴더로 이동
 parent_directory = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
 
