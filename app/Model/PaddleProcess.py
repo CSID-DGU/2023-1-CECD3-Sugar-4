@@ -4,7 +4,11 @@ import subprocess
 # run only one time
 # Clone the PaddleOCR repository
 git_repo_url = "https://github.com/PaddlePaddle/PaddleOCR.git"
-destination_dir = "C:\\Users\\gwonl\\Desktop\\2023-1-CECD3-Sugar-4\\app\\Model\\PaddleOCR"  # 경로 지정 따로 처리 필요
+# 사용자의 홈 디렉토리
+user_home = os.path.expanduser("~")
+
+# 데스크톱 폴더 경로를 설정
+destination_dir = os.path.join(user_home, "Desktop", "2023-1-CECD3-Sugar-4", "app", "Model", "PaddleOCR")
 
 # Clone the repository to the specified directory
 subprocess.run(["git", "clone", git_repo_url, destination_dir])
@@ -21,9 +25,8 @@ subprocess.run(["pip", "install", "paddleocr", "-U"])
 
 # Install PaddlePaddle with a specified mirror
 subprocess.run(["python", "-m", "pip", "install", "paddlepaddle", "-i", "https://mirror.baidu.com/pypi/simple"])
-
-# If you have GPU device, run following code
 """
+# If you have GPU device, run following code
 subprocess.run(["python", "-m", "pip", "install", "paddlepaddle-gpu", "-i", "https://mirror.baidu.com/pypi/simple"])
 """
 
