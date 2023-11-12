@@ -6,8 +6,11 @@ import zipfile
 file_link = "https://drive.google.com/file/d/1WpkqQo1oFMMBrWqFavRbii1-RaFFAzFj/view?usp=drive_link"
 file_id = file_link.split("/d/")[1].split("/view")[0]
 
-# 상위 폴더로 이동
-parent_directory = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
+# 현재 스크립트 파일이 위치한 디렉토리를 얻어옴
+current_directory = os.path.dirname(os.path.abspath(__file__))
+
+# 상위 디렉토리를 얻어옴
+parent_directory = os.path.abspath(os.path.join(current_directory, os.pardir))
 
 # 다운로드한 파일을 저장할 경로
 output_path = os.path.join(parent_directory, 'inference.zip')

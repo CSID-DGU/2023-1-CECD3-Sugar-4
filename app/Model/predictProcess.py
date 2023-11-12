@@ -7,15 +7,15 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 
 def run_ser_prediction():
     kie_algorithm = "LayoutXLM"
-    ser_model_dir = "inference/ser_vi_layoutxlm"
-    image_dir = os.path.join(current_dir, '..', 'gui', 'down', 'kor10.jpg' )
-    ser_dict_path = "utility/class_list.txt"
-    vis_font_path = "PaddleOCR/doc/fonts/korean.ttf"
+    ser_model_dir = "app/Model/inference/ser_vi_layoutxlm"
+    image_dir = os.path.join(current_dir, '..', 'gui', 'down', 'kor25.jpg')
+    ser_dict_path = "app/Model/utility/class_list.txt"
+    vis_font_path = "app/Model/PaddleOCR/doc/fonts/korean.ttf"
     ocr_order_method = "tb-yx"
 
     command = [
         "python",
-        "PaddleOCR/ppstructure/kie/predict_kie_token_ser.py",
+        "app/Model/PaddleOCR/ppstructure/kie/predict_kie_token_ser.py",
         f"--kie_algorithm={kie_algorithm}",
         f"--ser_model_dir={ser_model_dir}",
         f"--use_visual_backbone= {False}",
@@ -30,16 +30,16 @@ def run_ser_prediction():
         print(f"An error occurred: {e}")
 def run_ser_re_prediction():
     kie_algorithm = "LayoutXLM"
-    re_model_dir = "inference/re_vi_layoutxlm"
-    ser_model_dir = "inference/ser_vi_layoutxlm"
-    image_dir = "kor43.jpg"
-    ser_dict_path = "utility/class_list.txt"
-    vis_font_path = "PaddleOCR/doc/fonts/korean.ttf"
+    re_model_dir = "app/Model/inference/re_vi_layoutxlm"
+    ser_model_dir = "app/Model/inference/ser_vi_layoutxlm"
+    image_dir = os.path.join(current_dir, '..', 'gui', 'down', 'kor25.jpg')
+    ser_dict_path = "app/Model/utility/class_list.txt"
+    vis_font_path = "app/Model/PaddleOCR/doc/fonts/korean.ttf"
     ocr_order_method = "tb-yx"
 
     command = [
         "python",
-        "PaddleOCR/ppstructure/kie/predict_kie_token_ser_re.py",
+        "app/Model/PaddleOCR/ppstructure/kie/predict_kie_token_ser_re.py",
         f"--kie_algorithm={kie_algorithm}",
         f"--re_model_dir={re_model_dir}",
         f"--ser_model_dir={ser_model_dir}",
@@ -57,3 +57,4 @@ def run_ser_re_prediction():
 
 if __name__ == "__main__":
     run_ser_prediction()
+    run_ser_re_prediction()
