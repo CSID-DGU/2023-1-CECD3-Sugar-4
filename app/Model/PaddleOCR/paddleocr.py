@@ -404,7 +404,7 @@ def parse_args(mMain=True):
     import argparse
     parser = init_args()
     parser.add_help = mMain
-    parser.add_argument("--lang", type=str, default='ch')
+    parser.add_argument("--lang", type=str, default='korean')
     parser.add_argument("--det", type=str2bool, default=True)
     parser.add_argument("--rec", type=str2bool, default=True)
     parser.add_argument("--type", type=str, default='ocr')
