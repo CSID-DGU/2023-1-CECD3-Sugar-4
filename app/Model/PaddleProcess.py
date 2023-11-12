@@ -1,18 +1,19 @@
 import os
 import subprocess
-
+"""
 # run only one time
 # Clone the PaddleOCR repository
 git_repo_url = "https://github.com/PaddlePaddle/PaddleOCR.git"
+"""
 # 사용자의 홈 디렉토리
 user_home = os.path.expanduser("~")
 
 # 데스크톱 폴더 경로를 설정
 destination_dir = os.path.join(user_home, "Desktop", "2023-1-CECD3-Sugar-4", "app", "Model", "PaddleOCR")
-
+"""
 # Clone the repository to the specified directory
 subprocess.run(["git", "clone", git_repo_url, destination_dir])
-
+"""
 # Change the current working directory to the cloned PaddleOCR directory
 os.chdir(destination_dir)
 

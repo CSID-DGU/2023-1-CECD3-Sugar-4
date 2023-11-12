@@ -11,10 +11,10 @@ parent_directory = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
 
 # 다운로드한 파일을 저장할 경로
 output_path = os.path.join(parent_directory, 'inference.zip')
-"""
+
 # 파일 다운로드
 gdown.download(f'https://drive.google.com/uc?id={file_id}', output_path, quiet=False)
-"""
+
 # 압축을 해제할 경로
 new_directory_name = 'inference'  # 새로운 디렉토리 이름
 extraction_directory = os.path.join(parent_directory, new_directory_name)
