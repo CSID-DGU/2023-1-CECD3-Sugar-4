@@ -28,7 +28,7 @@ def run_ser_re_prediction():
     kie_algorithm = "LayoutXLM"
     re_model_dir = "inference/re_vi_layoutxlm"
     ser_model_dir = "inference/ser_vi_layoutxlm"
-    image_dir = "image root"
+    image_dir = "kor43.jpg"
     ser_dict_path = "utility/class_list.txt"
     vis_font_path = "PaddleOCR/doc/fonts/korean.ttf"
     ocr_order_method = "tb-yx"

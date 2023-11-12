@@ -16,7 +16,7 @@ subprocess.run(["git", "clone", git_repo_url, destination_dir])
 # Change the current working directory to the cloned PaddleOCR directory
 os.chdir(destination_dir)
 
-# Install required packages from requirements.txt
+# Install requirements packages from requirements.txt
 subprocess.run(["pip", "install", "-r", "requirements.txt"])
 subprocess.run(["pip", "install", "-r", "ppstructure/kie/requirements.txt"])
 
