@@ -15,7 +15,6 @@ from ui_2 import Ui_MainWindow2
 from ui_3 import Ui_MainWindow3
 from ui_4 import Ui_MainWindow4
 from ui_6 import Ui_MainWindow6
-from ui_7 import Ui_MainWindow7
 
 script_directory = os.path.dirname(os.path.abspath(sys.argv[0]))
 
@@ -338,7 +337,6 @@ class UI_6App(QMainWindow):
         self.ui.pushButton_3.clicked.connect(self.close_ui_6_and_open_ui_2)
         # pushButton_2 클릭 이벤트에 대한 핸들러를 연결합니다.
         self.ui.pushButton_2.clicked.connect(self.close_ui_6_and_open_ui_4)
-        self.ui.pushButton_4.clicked.connect(self.close_ui_6_and_open_ui_7)
         
         self.current_dir = os.path.dirname(os.path.abspath(__file__))
         # Set the directory to a relative path within the script's directory
@@ -396,19 +394,6 @@ class UI_6App(QMainWindow):
         self.ui_4_window = UI_4App()
         self.ui_4_window.show()
         self.close()
-
-    @Slot()
-    def close_ui_6_and_open_ui_7(self):
-        # pushButton_4를 클릭했을 때 실행될 함수입니다.
-        # UI_7App 인스턴스를 생성하여 UI_7 화면으로 전환합니다.
-        if self.selected_file_path:
-            self.ui_7_window = UI_7App(self.selected_file_path)
-            self.ui_7_window.show()
-            self.close()
-        
-        else:
-            QMessageBox.information(self, "알림", "파일을 선택하세요.")
-            return
         
     @Slot("QModelIndex")
     def display_image_preview(self, index):
@@ -418,55 +403,15 @@ class UI_6App(QMainWindow):
             file_name = item.text()
             file_path = os.path.join(self.current_dir, '..', '..', 'output', file_name)
             self.selected_file_path = file_path
-
-class UI_7App(QMainWindow):
-    def __init__(self, selected_file_path=None):
-        super(UI_7App, self).__init__()
-        self.ui = Ui_MainWindow7()
-        self.ui.setupUi(self)
-
-        pixmap = QPixmap(selected_file_path)
-        self.ui.label_3.setPixmap(pixmap.scaledToWidth(400))
-        if selected_file_path is not None:
-            # 파일 경로를 받았을 때의 추가 동작 수행
-            self.load_image(selected_file_path)
-        # pushButton 클릭 이벤트에 대한 핸들러를 연결합니다.
-        self.ui.pushButton.clicked.connect(self.close_ui_7_and_open_ui_1)
-        # pushButton_3 클릭 이벤트에 대한 핸들러를 연결합니다.
-        self.ui.pushButton_2.clicked.connect(self.close_ui_7_and_open_ui_4)
-        # pushButton_6 클릭 이벤트에 대한 핸들러를 연결합니다.
-        self.ui.pushButton_3.clicked.connect(self.close_ui_7_and_open_ui_6)
-        self.ui.pushButton_6.clicked.connect(self.close_ui_7_and_open_ui_6)
-        
-    def load_image(self, file_path):
-        # 이미지 로드 및 표시 로직
+            
+        # 미리보기 업데이트 코드 추가
         pixmap = QPixmap(file_path)
-        self.ui.label_3.setPixmap(pixmap.scaledToWidth(400))
+        # 이미지 크기 조절
+        target_width = 281
+        target_height = 351
+        scaled_pixmap = pixmap.scaled(target_width, target_height, Qt.KeepAspectRatio)
+        self.ui.label_6.setPixmap(scaled_pixmap)
         
-    @Slot()
-    def close_ui_7_and_open_ui_1(self):
-        # pushButton를 클릭했을 때 실행될 함수입니다.
-        # UI_1App 인스턴스를 생성하여 UI_1 화면으로 전환합니다.
-        self.ui_1_window = UI_1App()
-        self.ui_1_window.show()
-        self.close()
-
-    @Slot()
-    def close_ui_7_and_open_ui_4(self):
-        # pushButton_2를 클릭했을 때 실행될 함수입니다.
-        # UI_4App 인스턴스를 생성하여 UI_4 화면으로 전환합니다.
-        self.ui_4_window = UI_4App()
-        self.ui_4_window.show()
-        self.close()
-        
-    @Slot()
-    def close_ui_7_and_open_ui_6(self):
-        # pushButton_3,6를 클릭했을 때 실행될 함수입니다.
-        # UI_6App 인스턴스를 생성하여 UI_6 화면으로 전환합니다.
-        self.ui_6_window = UI_6App()
-        self.ui_6_window.show()
-        self.close()
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 

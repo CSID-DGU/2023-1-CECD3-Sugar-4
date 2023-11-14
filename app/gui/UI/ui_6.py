@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_6SIJAdl.ui'
+## Form generated from reading UI file 'ui_6SPQlRQ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -82,6 +82,9 @@ class Ui_MainWindow6(object):
         self.pushButton_5 = QPushButton(self.centralwidget)
         self.pushButton_5.setObjectName(u"pushButton_5")
         self.pushButton_5.setGeometry(QRect(570, 430, 61, 31))
+        self.label_6 = QLabel(self.centralwidget)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setGeometry(QRect(530, 60, 281, 351))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -109,5 +112,6 @@ class Ui_MainWindow6(object):
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"                           \ub0a8\uc740 \uc6a9\ub7c9", None))
         self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample Data", None))
         self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
+        self.label_6.setText("")
     # retranslateUi
 
