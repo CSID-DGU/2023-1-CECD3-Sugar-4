@@ -337,7 +337,39 @@ class UI_6App(QMainWindow):
         self.ui.pushButton_3.clicked.connect(self.close_ui_6_and_open_ui_2)
         # pushButton_2 클릭 이벤트에 대한 핸들러를 연결합니다.
         self.ui.pushButton_2.clicked.connect(self.close_ui_6_and_open_ui_4)
+        self.current_dir = os.path.dirname(os.path.abspath(__file__))
+        # Set the directory to a relative path within the script's directory
+        directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'output')
+        self.show_file_list(directory)
+        
+    def show_file_list(self, directory):
+    # 선택한 디렉토리 내의 파일 목록을 가져옵니다.
+        file_list = os.listdir(directory)
 
+    # 모든 파일을 필터링합니다.
+        filtered_files = file_list
+
+        model = QStandardItemModel()
+        for item_text in filtered_files:
+            item = CheckableItem(item_text)
+            model.appendRow(item)
+
+        self.ui.listView.setModel(model)
+        self.ui.pushButton_5.clicked.connect(lambda: self.delete_selected_files(model, directory))
+        
+    def delete_selected_files(self, model, directory):
+        selected_items = [model.item(i) for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
+
+        for item in selected_items:
+            # 선택한 항목의 파일 경로
+            file_path = os.path.join(directory, item.text())
+
+            try:
+                os.remove(file_path)  # 파일 삭제
+                model.removeRow(item.row())  # 모델에서 항목 제거
+            except OSError as e:
+                print(f"Failed to delete {item.text()}: {str(e)}")
+    
     @Slot()
     def close_ui_6_and_open_ui_1(self):
         # pushButton를 클릭했을 때 실행될 함수입니다.
