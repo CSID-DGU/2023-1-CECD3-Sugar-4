@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_2rNhWEf.ui'
+## Form generated from reading UI file 'ui_2uDBaak.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.5.2
+## Created by: Qt User Interface Compiler version 6.6.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -66,6 +66,9 @@ class Ui_MainWindow2(object):
         font2.setPointSize(10)
         font2.setBold(False)
         self.label_3.setFont(font2)
+        self.pushButton_6 = QPushButton(self.centralwidget)
+        self.pushButton_6.setObjectName(u"pushButton_6")
+        self.pushButton_6.setGeometry(QRect(-1, 236, 171, 91))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -89,5 +92,6 @@ class Ui_MainWindow2(object):
         self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Press to mask data", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"                           \ub0a8\uc740 \uc6a9\ub7c9", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\ucd5c\uadfc \uc0ac\uc6a9", None))
+        self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample Data", None))
     # retranslateUi
 

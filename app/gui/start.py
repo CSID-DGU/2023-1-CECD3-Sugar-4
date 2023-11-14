@@ -14,6 +14,7 @@ from ui_1 import Ui_MainWindow1
 from ui_2 import Ui_MainWindow2
 from ui_3 import Ui_MainWindow3
 from ui_4 import Ui_MainWindow4
+from ui_6 import Ui_MainWindow6
 
 script_directory = os.path.dirname(os.path.abspath(sys.argv[0]))
 
@@ -40,6 +41,8 @@ class UI_1App(QMainWindow):
         self.ui.pushButton_3.clicked.connect(self.open_ui_2)
         # pushButton_2 클릭 이벤트에 대한 핸들러를 연결합니다.
         self.ui.pushButton_2.clicked.connect(self.open_ui_4)
+        
+        self.ui.pushButton_6.clicked.connect(self.open_ui_6)
 
         self.ui.pushButton_4.clicked.connect(self.save_files)
         self.default_save_directory = os.path.join(script_directory, 'down')
@@ -123,6 +126,14 @@ class UI_1App(QMainWindow):
         self.ui_4_window = UI_4App()
         self.ui_4_window.show()
         self.close()
+        
+    @Slot()
+    def open_ui_6(self):
+        # pushButton_6를 클릭했을 때 실행될 함수입니다.
+        # UI_4App 인스턴스를 생성하여 UI_4 화면으로 전환합니다.
+        self.ui_6_window = UI_6App()
+        self.ui_6_window.show()
+        self.close()
 
 class UI_2App(QMainWindow):
     def __init__(self):
@@ -136,6 +147,7 @@ class UI_2App(QMainWindow):
         self.ui.pushButton_2.clicked.connect(self.close_ui_2_and_open_ui_4)
         # pushButton_3클릭 이벤트에 대한 핸들러를 연결합니다.
         self.ui.pushButton_4.clicked.connect(self.close_ui_2_and_open_ui_3)
+        self.ui.pushButton_6.clicked.connect(self.close_ui_2_and_open_ui_6)
 
     @Slot()
     def close_ui_2_and_open_ui_1(self):
@@ -160,6 +172,14 @@ class UI_2App(QMainWindow):
         self.ui_3_window = UI_3App()
         self.ui_3_window.show()
         self.close()
+        
+    @Slot()
+    def close_ui_2_and_open_ui_6(self):
+        # pushButton_4를 클릭했을 때 실행될 함수입니다.
+        # UI_3App 인스턴스를 생성하여 UI_3 화면으로 전환합니다.
+        self.ui_6_window = UI_6App()
+        self.ui_6_window.show()
+        self.close()
 
 class UI_3App(QMainWindow):
     def __init__(self):
@@ -173,6 +193,7 @@ class UI_3App(QMainWindow):
         self.ui.pushButton_2.clicked.connect(self.close_ui_3_and_open_ui_4)
         # pushButton_2클릭 이벤트에 대한 핸들러를 연결합니다.
         self.ui.pushButton_3.clicked.connect(self.close_ui_3_and_open_ui_2)
+        self.ui.pushButton_6.clicked.connect(self.close_ui_3_and_open_ui_6)
         self.ui.pushButton_4.clicked.connect(self.run_predict_process)
 
         self.current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -258,6 +279,14 @@ class UI_3App(QMainWindow):
         self.ui_2_window = UI_2App()
         self.ui_2_window.show()
         self.close()
+    
+    @Slot()
+    def close_ui_3_and_open_ui_6(self):
+        # pushButton_6를 클릭했을 때 실행될 함수입니다.
+        # UI_6App 인스턴스를 생성하여 UI_6 화면으로 전환합니다.
+        self.ui_6_window = UI_6App()
+        self.ui_6_window.show()
+        self.close()
 
 class UI_4App(QMainWindow):
     def __init__(self):
@@ -269,6 +298,8 @@ class UI_4App(QMainWindow):
         self.ui.pushButton.clicked.connect(self.close_ui_4_and_open_ui_1)
         # pushButton_3 클릭 이벤트에 대한 핸들러를 연결합니다.
         self.ui.pushButton_3.clicked.connect(self.close_ui_4_and_open_ui_2)
+        # pushButton_6 클릭 이벤트에 대한 핸들러를 연결합니다.
+        self.ui.pushButton_6.clicked.connect(self.close_ui_4_and_open_ui_6)
 
     @Slot()
     def close_ui_4_and_open_ui_1(self):
@@ -285,6 +316,52 @@ class UI_4App(QMainWindow):
         self.ui_2_window = UI_2App()
         self.ui_2_window.show()
         self.close()
+        
+    @Slot()
+    def close_ui_4_and_open_ui_6(self):
+        # pushButton_6를 클릭했을 때 실행될 함수입니다.
+        # UI_6App 인스턴스를 생성하여 UI_6 화면으로 전환합니다.
+        self.ui_6_window = UI_6App()
+        self.ui_6_window.show()
+        self.close()
+
+class UI_6App(QMainWindow):
+    def __init__(self):
+        super(UI_6App, self).__init__()
+        self.ui = Ui_MainWindow6()
+        self.ui.setupUi(self)
+
+        # pushButton 클릭 이벤트에 대한 핸들러를 연결합니다.
+        self.ui.pushButton.clicked.connect(self.close_ui_6_and_open_ui_1)
+        # pushButton_3 클릭 이벤트에 대한 핸들러를 연결합니다.
+        self.ui.pushButton_3.clicked.connect(self.close_ui_6_and_open_ui_2)
+        # pushButton_2 클릭 이벤트에 대한 핸들러를 연결합니다.
+        self.ui.pushButton_2.clicked.connect(self.close_ui_6_and_open_ui_4)
+
+    @Slot()
+    def close_ui_6_and_open_ui_1(self):
+        # pushButton를 클릭했을 때 실행될 함수입니다.
+        # UI_1App 인스턴스를 생성하여 UI_1 화면으로 전환합니다.
+        self.ui_1_window = UI_1App()
+        self.ui_1_window.show()
+        self.close()
+
+    @Slot()
+    def close_ui_6_and_open_ui_2(self):
+        # pushButton_3를 클릭했을 때 실행될 함수입니다.
+        # UI_2App 인스턴스를 생성하여 UI_2 화면으로 전환합니다.
+        self.ui_2_window = UI_2App()
+        self.ui_2_window.show()
+        self.close()
+        
+    @Slot()
+    def close_ui_6_and_open_ui_4(self):
+        # pushButton_2를 클릭했을 때 실행될 함수입니다.
+        # UI_4App 인스턴스를 생성하여 UI_4 화면으로 전환합니다.
+        self.ui_4_window = UI_4App()
+        self.ui_4_window.show()
+        self.close()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

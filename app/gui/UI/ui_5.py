@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QListView,
     QMainWindow, QMenuBar, QPushButton, QSizePolicy,
     QStatusBar, QWidget)
 
-class Ui_MainWindow1(object):
+class Ui_MainWindow5(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
