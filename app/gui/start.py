@@ -1,8 +1,10 @@
+import subprocess
 import sys
 from pathlib import Path
 current_path = Path(__file__).resolve().parent
 sys.path.append(str(current_path / 'UI'))
 
+from enum import Enum
 import os
 import shutil
 from PySide6.QtWidgets import QApplication, QMainWindow, QListView, QPushButton, QFileDialog, QMessageBox
@@ -38,14 +40,14 @@ class UI_1App(QMainWindow):
         self.ui.pushButton_3.clicked.connect(self.open_ui_2)
         # pushButton_2 클릭 이벤트에 대한 핸들러를 연결합니다.
         self.ui.pushButton_2.clicked.connect(self.open_ui_4)
-        
+
         self.ui.pushButton_4.clicked.connect(self.save_files)
         self.default_save_directory = os.path.join(script_directory, 'down')
 
 
     def show_file_list(self, directory):
         model = QStandardItemModel()
-        
+
     # 현재 디렉토리 내의 파일 목록을 가져옵니다.
         file_list = os.listdir(directory)
 
@@ -58,10 +60,10 @@ class UI_1App(QMainWindow):
                 model.appendRow(item)
 
         self.ui.listView.setModel(model)
-    
+
     def get_save_directory(self):
         return self.selected_directory
-    
+
     @Slot()
     def save_files(self):
         if not self.selected_directory:
@@ -113,7 +115,7 @@ class UI_1App(QMainWindow):
         self.ui_2_window = UI_2App()
         self.ui_2_window.show()
         self.close()
-    
+
     @Slot()
     def open_ui_4(self):
         # pushButton_2를 클릭했을 때 실행될 함수입니다.
@@ -142,7 +144,7 @@ class UI_2App(QMainWindow):
         self.ui_1_window = UI_1App()
         self.ui_1_window.show()
         self.close()
-    
+
     @Slot()
     def close_ui_2_and_open_ui_4(self):
         # pushButton_2를 클릭했을 때 실행될 함수입니다.
@@ -150,7 +152,7 @@ class UI_2App(QMainWindow):
         self.ui_4_window = UI_4App()
         self.ui_4_window.show()
         self.close()
-    
+
     @Slot()
     def close_ui_2_and_open_ui_3(self):
         # pushButton_4를 클릭했을 때 실행될 함수입니다.
@@ -171,8 +173,9 @@ class UI_3App(QMainWindow):
         self.ui.pushButton_2.clicked.connect(self.close_ui_3_and_open_ui_4)
         # pushButton_2클릭 이벤트에 대한 핸들러를 연결합니다.
         self.ui.pushButton_3.clicked.connect(self.close_ui_3_and_open_ui_2)
-        
-        current_directory = os.path.dirname(os.path.abspath(__file__))
+        self.ui.pushButton_4.clicked.connect(self.run_predict_process)
+
+        self.current_dir = os.path.dirname(os.path.abspath(__file__))
 # Set the directory to a relative path within the script's directory
         directory = os.path.join(script_directory, 'down')
 
@@ -194,7 +197,18 @@ class UI_3App(QMainWindow):
         self.ui.listView.setModel(model)
         self.ui.pushButton_5.clicked.connect(lambda: self.delete_selected_files(model, directory))
 
-    
+    def get_selected_file_name(self):
+        model = self.ui.listView.model()
+        selected_items = [model.item(i) for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
+
+        if selected_items:
+            file_name = selected_items[0].text()
+            directory = os.path.join('app','gui', 'down')  # 또는 원하는 디렉토리로 수정
+            file_path = os.path.join(directory, file_name)
+            return file_path
+        else:
+            return None
+
     def delete_selected_files(self, model, directory):
         selected_items = [model.item(i) for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
 
@@ -209,13 +223,26 @@ class UI_3App(QMainWindow):
                 print(f"Failed to delete {item.text()}: {str(e)}")
 
     @Slot()
+    def run_predict_process(self):
+        selected_file_name = self.get_selected_file_name()
+
+        if selected_file_name:
+            # 다른 디렉토리에 있는 predictProcess.py의 run_ser_prediction 실행
+            other_directory = os.path.join(self.current_dir, '..', 'Model')
+            predict_process_path = os.path.join(other_directory, 'predictProcess.py')
+
+            try:
+                subprocess.run(["python", predict_process_path, selected_file_name])
+            except Exception as e:
+                print(f"An error occurred: {e}")
+    @Slot()
     def close_ui_3_and_open_ui_1(self):
         # pushButton를 클릭했을 때 실행될 함수입니다.
         # UI_1App 인스턴스를 생성하여 UI_1 화면으로 전환합니다.
         self.ui_1_window = UI_1App()
         self.ui_1_window.show()
         self.close()
-    
+
     @Slot()
     def close_ui_3_and_open_ui_4(self):
         # pushButton_2를 클릭했을 때 실행될 함수입니다.
@@ -223,7 +250,7 @@ class UI_3App(QMainWindow):
         self.ui_4_window = UI_4App()
         self.ui_4_window.show()
         self.close()
-    
+
     @Slot()
     def close_ui_3_and_open_ui_2(self):
         # pushButton_3를 클릭했을 때 실행될 함수입니다.
@@ -250,7 +277,7 @@ class UI_4App(QMainWindow):
         self.ui_1_window = UI_1App()
         self.ui_1_window.show()
         self.close()
-    
+
     @Slot()
     def close_ui_4_and_open_ui_2(self):
         # pushButton_3를 클릭했을 때 실행될 함수입니다.

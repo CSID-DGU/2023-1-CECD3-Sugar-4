@@ -88,7 +88,7 @@ def main(args):
 
     os.makedirs(args.output, exist_ok=True)
     with open(
-            os.path.join(args.output, 'infer.txt'), mode='w',
+            os.path.join(args.output, 'infer_re.txt'), mode='a',
             encoding='utf-8') as f_w:
         for image_file in image_file_list:
             img, flag, _ = check_and_read(image_file)
