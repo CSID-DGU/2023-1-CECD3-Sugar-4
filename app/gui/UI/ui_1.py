@@ -99,8 +99,8 @@ class Ui_MainWindow1(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.label.setText("")
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Upload Data", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Masked Data", None))
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Upload Sample Data", None))
+        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Results", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Home", None))
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Back", None))
         self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"File Upload", None))
@@ -108,6 +108,6 @@ class Ui_MainWindow1(object):
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"File Size", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"                           \ub0a8\uc740 \uc6a9\ub7c9", None))
         self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"\ub514\ub809\ud1a0\ub9ac \uc124\uc815", None))
-        self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample Data", None))
+        self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample List", None))
     # retranslateUi
 

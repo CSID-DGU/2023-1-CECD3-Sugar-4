@@ -96,8 +96,8 @@ class Ui_MainWindow5(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.label.setText("")
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Upload Data", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Masked Data", None))
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Upload Sample Image", None))
+        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Results", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Home", None))
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Back", None))
         self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"File Upload", None))

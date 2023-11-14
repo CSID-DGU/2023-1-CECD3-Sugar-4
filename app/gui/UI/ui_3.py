@@ -99,15 +99,15 @@ class Ui_MainWindow3(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.label.setText("")
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Upload Data", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Masked Data", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Home", None))
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Upload Sample Image", None))
+        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Results", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Privacy Detact", None))
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Back", None))
-        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Masked selected file", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Name", None))
+        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Privacy Detact", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Sample Images", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"File Size", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"                           \ub0a8\uc740 \uc6a9\ub7c9", None))
         self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
-        self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample Data", None))
+        self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample List", None))
     # retranslateUi
 

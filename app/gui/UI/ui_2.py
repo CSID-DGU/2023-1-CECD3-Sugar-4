@@ -86,12 +86,12 @@ class Ui_MainWindow2(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.label.setText("")
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Upload Data", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Masked Data", None))
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Upload Sample Image", None))
+        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Results", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Home", None))
-        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Press to mask data", None))
+        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Privacy detaction", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"                           \ub0a8\uc740 \uc6a9\ub7c9", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\ucd5c\uadfc \uc0ac\uc6a9", None))
-        self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample Data", None))
+        self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample List", None))
     # retranslateUi
 
