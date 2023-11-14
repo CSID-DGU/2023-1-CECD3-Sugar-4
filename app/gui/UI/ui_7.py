@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_6SIJAdl.ui'
+## Form generated from reading UI file 'ui_7WIEpIR.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QListView,
     QMainWindow, QMenuBar, QPushButton, QSizePolicy,
     QStatusBar, QWidget)
 
-class Ui_MainWindow6(object):
+class Ui_MainWindow7(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
@@ -58,30 +58,22 @@ class Ui_MainWindow6(object):
         self.pushButton_3.setGeometry(QRect(220, 430, 61, 31))
         self.pushButton_4 = QPushButton(self.centralwidget)
         self.pushButton_4.setObjectName(u"pushButton_4")
-        self.pushButton_4.setGeometry(QRect(650, 430, 151, 31))
-        self.label_3 = QLabel(self.centralwidget)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setGeometry(QRect(210, 30, 71, 21))
-        font2 = QFont()
-        font2.setPointSize(10)
-        font2.setBold(False)
-        self.label_3.setFont(font2)
-        self.label_4 = QLabel(self.centralwidget)
-        self.label_4.setObjectName(u"label_4")
-        self.label_4.setGeometry(QRect(710, 30, 71, 21))
-        self.label_4.setFont(font2)
+        self.pushButton_4.setGeometry(QRect(700, 430, 111, 31))
         self.label_5 = QLabel(self.centralwidget)
         self.label_5.setObjectName(u"label_5")
         self.label_5.setGeometry(QRect(0, 320, 171, 51))
         self.listView = QListView(self.centralwidget)
         self.listView.setObjectName(u"listView")
         self.listView.setGeometry(QRect(180, 50, 641, 371))
+        self.listView_2 = QListView(self.centralwidget)
+        self.listView_2.setObjectName(u"listView_2")
+        self.listView_2.setGeometry(QRect(190, 60, 301, 351))
         self.pushButton_6 = QPushButton(self.centralwidget)
         self.pushButton_6.setObjectName(u"pushButton_6")
-        self.pushButton_6.setGeometry(QRect(-1, 235, 171, 91))
-        self.pushButton_5 = QPushButton(self.centralwidget)
-        self.pushButton_5.setObjectName(u"pushButton_5")
-        self.pushButton_5.setGeometry(QRect(570, 430, 61, 31))
+        self.pushButton_6.setGeometry(QRect(-1, 236, 171, 91))
+        self.label_3 = QLabel(self.centralwidget)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setGeometry(QRect(500, 60, 301, 351))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -103,11 +95,9 @@ class Ui_MainWindow6(object):
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Masked Data", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Home", None))
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Back", None))
-        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Modify", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Name", None))
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"File Size", None))
+        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Mask selected item", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"                           \ub0a8\uc740 \uc6a9\ub7c9", None))
         self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample Data", None))
-        self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
+        self.label_3.setText("")
     # retranslateUi
 
