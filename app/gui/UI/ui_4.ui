@@ -46,20 +46,20 @@
      </rect>
     </property>
     <property name="text">
-     <string>Upload Data</string>
+     <string>Upload Sample Image</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
       <x>-1</x>
-      <y>148</y>
+      <y>236</y>
       <width>171</width>
       <height>91</height>
      </rect>
     </property>
     <property name="text">
-     <string>Masked Data</string>
+     <string>Results</string>
     </property>
    </widget>
    <widget class="Line" name="line">
@@ -94,7 +94,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Home</string>
+     <string>Results</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_3">
@@ -139,39 +139,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Name</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>710</x>
-      <y>30</y>
-      <width>71</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>File Size</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>320</y>
-      <width>171</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>                           남은 용량</string>
+     <string>Images</string>
     </property>
    </widget>
    <widget class="QListView" name="listView">
@@ -188,13 +156,13 @@
     <property name="geometry">
      <rect>
       <x>-1</x>
-      <y>236</y>
+      <y>148</y>
       <width>171</width>
       <height>91</height>
      </rect>
     </property>
     <property name="text">
-     <string>Sample Data</string>
+     <string>Sample List</string>
     </property>
    </widget>
   </widget>
