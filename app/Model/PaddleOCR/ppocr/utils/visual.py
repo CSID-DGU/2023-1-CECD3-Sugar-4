@@ -14,7 +14,9 @@
 import cv2
 import os
 import numpy as np
+import re
 from PIL import Image, ImageDraw, ImageFont
+
 
 
 def draw_ser_results(image,
@@ -97,19 +99,30 @@ def draw_re_results(image,
     color_line = (0, 255, 0)
 
     for ocr_info_head, ocr_info_tail in result:
-        draw_box_txt(ocr_info_head["bbox"], ocr_info_head["transcription"],
+        privacy = ['성명', '주소', '휴대전화','이메일','연락처','생년월일', '이름']
+        if ocr_info_head["transcription"] in privacy :
+            draw_box_txt(ocr_info_head["bbox"], ocr_info_head["transcription"],
                      draw, font, font_size, color_head)
-        draw_box_txt(ocr_info_tail["bbox"], ocr_info_tail["transcription"],
+            draw_box_txt(ocr_info_tail["bbox"], ocr_info_tail["transcription"],
                      draw, font, font_size, color_tail)
 
-        center_head = (
-            (ocr_info_head['bbox'][0] + ocr_info_head['bbox'][2]) // 2,
-            (ocr_info_head['bbox'][1] + ocr_info_head['bbox'][3]) // 2)
-        center_tail = (
-            (ocr_info_tail['bbox'][0] + ocr_info_tail['bbox'][2]) // 2,
-            (ocr_info_tail['bbox'][1] + ocr_info_tail['bbox'][3]) // 2)
-
-        draw.line([center_head, center_tail], fill=color_line, width=5)
+            center_head = (
+                (ocr_info_head['bbox'][0] + ocr_info_head['bbox'][2]) // 2,
+                (ocr_info_head['bbox'][1] + ocr_info_head['bbox'][3]) // 2)
+            center_tail = (
+                (ocr_info_tail['bbox'][0] + ocr_info_tail['bbox'][2]) // 2,
+                (ocr_info_tail['bbox'][1] + ocr_info_tail['bbox'][3]) // 2)
+        else :
+            email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+            email_match = re.match(email_pattern, ocr_info_tail["transcription"])
+            if email_match:
+                draw_box_txt(ocr_info_tail["bbox"], ocr_info_tail["transcription"],
+                             draw, font, font_size, color_line) 
+            phone_pattern = r'\b\d{3}[-.\s]?\d{3,4}[-.\s]?\d{4}\b'
+            phone_match = re.match(phone_pattern, ocr_info_tail["transcription"])
+            if phone_match:
+                draw_box_txt(ocr_info_tail["bbox"], ocr_info_tail["transcription"],
+                             draw, font, font_size, color_line)
 
     img_new = Image.blend(image, img_new, 0.5)
     return np.array(img_new)
@@ -123,3 +136,37 @@ def draw_rectangle(img_path, boxes):
         x1, y1, x2, y2 = box
         cv2.rectangle(img_show, (x1, y1), (x2, y2), (255, 0, 0), 2)
     return img_show
+
+
+def calculate_minimum_bounding_box(bboxes):
+    min_x = min(bbox[0] for bbox in bboxes)
+    min_y = min(bbox[1] for bbox in bboxes)
+    max_x = max(bbox[2] for bbox in bboxes)
+    max_y = max(bbox[3] for bbox in bboxes)
+    return [min_x, min_y, max_x, max_y]
+
+def extract_privacy_bboxes(result):
+    bbox_groups = {}
+    privacy = ['성명', '주소', '휴대전화', '이메일', '연락처', '생년월일', '이름']
+    email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+    phone_pattern = r'\b\d{3}[-.\s]?\d{3,4}[-.\s]?\d{4}\b'
+
+    for ocr_info_head, ocr_info_tail in result:
+        key_head = ocr_info_head["transcription"]
+        key_tail = ocr_info_tail["transcription"]
+
+        if key_head in privacy:
+            bbox_groups.setdefault(key_head, []).append(ocr_info_tail["bbox"])
+        else:
+            if re.match(email_pattern, key_tail) or re.match(phone_pattern, key_tail):
+                bbox_groups.setdefault('연락처', []).append(ocr_info_tail["bbox"])
+
+    merged_bboxes = []
+    for privacy_key, bboxes in bbox_groups.items():
+        if privacy_key == '주소':
+            merged_bbox = calculate_minimum_bounding_box(bboxes)
+            merged_bboxes.append(merged_bbox)
+        else:
+            merged_bboxes.extend(bboxes)
+
+    return merged_bboxes

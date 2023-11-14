@@ -29,7 +29,7 @@ import tools.infer.utility as utility
 from tools.infer_kie_token_ser_re import make_input
 from ppocr.postprocess import build_post_process
 from ppocr.utils.logging import get_logger
-from ppocr.utils.visual import draw_ser_results, draw_re_results
+from ppocr.utils.visual import draw_ser_results, draw_re_results, extract_privacy_bboxes
 from ppocr.utils.utility import get_image_file_list, check_and_read
 from ppstructure.utility import parse_args
 from ppstructure.kie.predict_kie_token_ser import SerPredictor
@@ -100,7 +100,22 @@ def main(args):
                 continue
             re_res, elapse = ser_re_predictor(img)
             re_res = re_res[0]
+            
+            # bbox 추출
+            privacy_bboxes = extract_privacy_bboxes(re_res)    
+                   
+            # bbox 정보를 텍스트 파일로 저장
+            bbox_save_path = os.path.join(
+                args.output,
+                os.path.splitext(os.path.basename(image_file))[0] +
+                "_privacy_bbox.txt")
 
+            with open(bbox_save_path, 'w') as bbox_file:
+                for bbox in privacy_bboxes:
+                    bbox_str = ','.join(map(str, bbox))
+                    bbox_file.write(bbox_str + '\n')
+
+            logger.info("save bbox data to {}".format(bbox_save_path))
             res_str = '{}\t{}\n'.format(
                 image_file,
                 json.dumps(
