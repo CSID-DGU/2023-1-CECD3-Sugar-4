@@ -100,10 +100,10 @@ def main(args):
                 continue
             re_res, elapse = ser_re_predictor(img)
             re_res = re_res[0]
-            
+
             # bbox 추출
-            privacy_bboxes = extract_privacy_bboxes(re_res)    
-                   
+            privacy_bboxes = extract_privacy_bboxes(re_res)
+
             # bbox 정보를 텍스트 파일로 저장
             bbox_save_path = os.path.join(
                 args.output,
@@ -111,11 +111,14 @@ def main(args):
                 "_privacy_bbox.txt")
 
             with open(bbox_save_path, 'w') as bbox_file:
-                for bbox in privacy_bboxes:
+                bbox_file.write("[\n")
+                for i, bbox in enumerate(privacy_bboxes):
                     bbox_str = ','.join(map(str, bbox))
-                    bbox_file.write(bbox_str + '\n')
-
-            logger.info("save bbox data to {}".format(bbox_save_path))
+                    if i != len(privacy_bboxes) - 1:
+                        bbox_file.write('{' + f"'bbox': [{bbox_str}]" + '},\n')
+                    else:
+                        bbox_file.write('{' + f"'bbox': [{bbox_str}]" + '}\n')
+                bbox_file.write("]\n")
             res_str = '{}\t{}\n'.format(
                 image_file,
                 json.dumps(

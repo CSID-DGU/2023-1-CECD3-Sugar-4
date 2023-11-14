@@ -1,6 +1,9 @@
 import subprocess
 import sys
 from pathlib import Path
+
+from userProcess import LabelingTool
+
 current_path = Path(__file__).resolve().parent
 sys.path.append(str(current_path / 'UI'))
 
@@ -325,24 +328,22 @@ class UI_4App(QMainWindow):
         self.ui_6_window.show()
         self.close()
 
+
 class UI_6App(QMainWindow):
     def __init__(self):
         super(UI_6App, self).__init__()
         self.ui = Ui_MainWindow6()
         self.ui.setupUi(self)
 
-        # pushButton 클릭 이벤트에 대한 핸들러를 연결합니다.
         self.ui.pushButton.clicked.connect(self.close_ui_6_and_open_ui_1)
-        # pushButton_3 클릭 이벤트에 대한 핸들러를 연결합니다.
         self.ui.pushButton_3.clicked.connect(self.close_ui_6_and_open_ui_2)
-        # pushButton_2 클릭 이벤트에 대한 핸들러를 연결합니다.
         self.ui.pushButton_2.clicked.connect(self.close_ui_6_and_open_ui_4)
-        
+        self.ui.pushButton_4.clicked.connect(self.run_labeling_tool)
+
         self.current_dir = os.path.dirname(os.path.abspath(__file__))
-        # Set the directory to a relative path within the script's directory
-        directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'output')
+        directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'down')
         self.show_file_list(directory)
-        
+
         self.selected_file_path = ""
         
     def show_file_list(self, directory):
@@ -370,7 +371,15 @@ class UI_6App(QMainWindow):
                 model.removeRow(item.row())  # 모델에서 항목 제거
             except OSError as e:
                 print(f"Failed to delete {item.text()}: {str(e)}")
-            
+
+    @Slot()
+    def run_labeling_tool(self):
+        file_base_path, _ = os.path.splitext(self.selected_file_path)
+        file_name = os.path.basename(file_base_path)
+        bbox_path = os.path.join('output', file_name + '_privacy_bbox.txt')
+        self.labeling_tool_window = LabelingTool(self.selected_file_path, bbox_path)
+        self.labeling_tool_window.show()
+
     @Slot()
     def close_ui_6_and_open_ui_1(self):
         # pushButton를 클릭했을 때 실행될 함수입니다.
@@ -401,7 +410,7 @@ class UI_6App(QMainWindow):
         item = self.ui.listView.model().itemFromIndex(index)
         if item is not None:
             file_name = item.text()
-            file_path = os.path.join(self.current_dir, '..', '..', 'output', file_name)
+            file_path = os.path.join(self.current_dir, 'down', file_name)
             self.selected_file_path = file_path
             
         # 미리보기 업데이트 코드 추가
