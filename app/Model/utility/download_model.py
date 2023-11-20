@@ -3,7 +3,7 @@ import os
 import zipfile
 
 # 파일 ID와 다운로드 경로를 설정
-file_link = "https://drive.google.com/file/d/1qO0Ys43zROO5jaUVwsqpwz5W4P9lyOmb/view?usp=drive_link"
+file_link = "https://drive.google.com/file/d/14eRZ65C4PJ8Xq8CTAUUhR7pJQUky2W4l/view?usp=drive_link"
 file_id = file_link.split("/d/")[1].split("/view")[0]
 
 # 현재 스크립트 파일이 위치한 디렉토리를 얻어옴
