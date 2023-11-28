@@ -262,12 +262,15 @@ class UI_3App(QMainWindow):
         selected_file_name = self.get_selected_file_name()
 
         if selected_file_name:
-            # 다른 디렉토리에 있는 predictProcess.py의 run_ser_prediction 실행
+            # 다른 디렉토리에 있는 predictProcess.py의 run_ser_prediction 또는 run_ser_re_prediction 실행
             other_directory = os.path.join(self.current_dir, '..', 'Model')
             predict_process_path = os.path.join(other_directory, 'predictProcess.py')
 
+            # 'ser' 또는 'ser_re'를 선택하여 실행
+            function_name = 'ser_re'  # 'ser' 또는 'ser_re' 중 선택
+
             try:
-                subprocess.run(["python", predict_process_path, selected_file_name])
+                subprocess.run(["python", predict_process_path, function_name, selected_file_name])
             except Exception as e:
                 print(f"An error occurred: {e}")
     @Slot()

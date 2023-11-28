@@ -52,18 +52,17 @@ def run_ser_re_prediction(image_dir):
         print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
-    if __name__ == "__main__":
-        # 명령행 인수로 파일 경로 받아오기
-        if len(sys.argv) != 3:
-            print("Usage: python predictProcess.py <function_name> <image_dir>")
-            sys.exit(1)
+    # 명령행 인수로 파일 경로 받아오기
+    if len(sys.argv) != 3:
+        print("Usage: python predictProcess.py <function_name> <image_dir>")
+        sys.exit(1)
 
-        function_name = sys.argv[1]
-        image_dir = sys.argv[2]
+    function_name = sys.argv[1]
+    image_dir = sys.argv[2]
 
-        if function_name == "ser":
-            run_ser_prediction(image_dir)
-        elif function_name == "ser_re":
-            run_ser_re_prediction(image_dir)
-        else:
-            print("Invalid function name. Choose either 'ser' or 'ser_re'.")
+    if function_name == "ser":
+        run_ser_prediction(image_dir)
+    elif function_name == "ser_re":
+        run_ser_re_prediction(image_dir)
+    else:
+        print("Invalid function name. Choose either 'ser' or 'ser_re'.")

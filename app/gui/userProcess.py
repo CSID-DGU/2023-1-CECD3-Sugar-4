@@ -229,6 +229,10 @@ class LabelingTool(QWidget):
                 else:
                     f.write(str(bbox) + '\n')
             f.write("]\n")
+
+        dir_path_results = os.path.join('app', 'gui', 'Results', file_name)
+        if not os.path.exists(dir_path_results):
+            os.makedirs(dir_path_results)
 def main():
     app = QApplication([])
     window = LabelingTool()
