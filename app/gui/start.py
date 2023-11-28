@@ -562,7 +562,6 @@ class UI_8App(QMainWindow):
         self.ui.pushButton_7.clicked.connect(self.close_ui_8_and_open_ui_7)
         self.ui.pushButton_2.clicked.connect(self.close_ui_8_and_open_ui_4)
         self.ui.pushButton_6.clicked.connect(self.close_ui_8_and_open_ui_6)
-        self.ui.pushButton_5.clicked.connect(lambda: self.delete_selected_files(model, directory))
 
     def show_file_list(self, directory):
         file_list = os.listdir(directory)
@@ -573,6 +572,7 @@ class UI_8App(QMainWindow):
             self.model.appendRow(item)
         
         self.ui.listView.setModel(self.model)
+        self.ui.pushButton_5.clicked.connect(lambda: self.delete_selected_files(self.model, directory))
         self.ui.pushButton_8.clicked.connect(self.upload_file)
         
     def upload_file(self):
