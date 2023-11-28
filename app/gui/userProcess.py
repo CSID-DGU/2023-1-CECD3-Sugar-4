@@ -214,7 +214,12 @@ class LabelingTool(QWidget):
 
         base_name = os.path.basename(self.image_path)
         file_name, _ = os.path.splitext(base_name)
-        save_path = os.path.join('app', 'gui', f'{file_name}_bbox.txt')
+
+        # 'app/gui/SampleRepo/원본이미지명' 디렉토리에 txt 파일을 저장
+        dir_path = os.path.join('app', 'gui', 'SampleRepo', file_name)
+        if not os.path.exists(dir_path):
+            os.makedirs(dir_path)
+        save_path = os.path.join(dir_path, f'{file_name}_bbox.txt')
 
         with open(save_path, 'w') as f:
             f.write("[\n")

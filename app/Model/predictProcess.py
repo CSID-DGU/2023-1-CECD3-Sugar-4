@@ -59,5 +59,5 @@ if __name__ == "__main__":
 
     image_dir = sys.argv[1]
 
-    run_ser_prediction(image_dir)
+    # run_ser_prediction(image_dir)
     run_ser_re_prediction(image_dir)
