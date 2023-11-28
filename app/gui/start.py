@@ -19,6 +19,7 @@ from ui_3 import Ui_MainWindow3
 from ui_4 import Ui_MainWindow4
 from ui_6 import Ui_MainWindow6
 from ui_7 import Ui_MainWindow7
+from ui_8 import Ui_MainWindow8
 
 script_directory = os.path.dirname(os.path.abspath(sys.argv[0]))
 
@@ -484,7 +485,23 @@ class UI_7App(QMainWindow):
 
         self.ui.listView.setModel(model)
         self.ui.pushButton_5.clicked.connect(lambda: self.delete_selected_files(model, directory))
+        self.ui.listView.doubleClicked.connect(lambda index: self.show_folder_contents(model, directory, index))
         
+    def show_folder_contents(self, model, directory, index):
+        item = model.itemFromIndex(index)
+        folder_path = os.path.join(directory, item.text())
+
+        if os.path.isdir(folder_path):
+            # 선택한 폴더 내의 파일 목록을 가져와서 ListView에 출력
+            self.show_file_list_in_ui_8(folder_path)
+        else:
+            print(f"{folder_path}은(는) 폴더가 아닙니다.")
+    
+    def show_file_list_in_ui_8(self, directory):
+        self.ui_8_window = UI_8App(directory)
+        self.ui_8_window.show()
+        self.close()
+
     def delete_selected_files(self, model, directory):
         selected_items = [model.item(i) for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
 
@@ -497,7 +514,7 @@ class UI_7App(QMainWindow):
                 model.removeRow(item.row())  # 모델에서 항목 제거
             except OSError as e:
                 print(f"Failed to delete {item.text()}: {str(e)}")
-                
+     
     @Slot()
     def close_ui_7_and_open_ui_1(self):
         # pushButton를 클릭했을 때 실행될 함수입니다.
@@ -530,6 +547,97 @@ class UI_7App(QMainWindow):
         self.ui_6_window.show()
         self.close()
         
+class UI_8App(QMainWindow):
+    def __init__(self, directory):
+        super(UI_8App, self).__init__()
+        self.ui = Ui_MainWindow8()
+        self.ui.setupUi(self)
+        self.model = QStandardItemModel()
+        self.current_dir = directory
+        self.show_file_list(self.current_dir)
+        
+        self.ui.label_2.setText(os.path.basename(directory))
+        self.ui.pushButton.clicked.connect(self.close_ui_8_and_open_ui_1)
+        self.ui.pushButton_3.clicked.connect(self.close_ui_8_and_open_ui_7)
+        self.ui.pushButton_7.clicked.connect(self.close_ui_8_and_open_ui_7)
+        self.ui.pushButton_2.clicked.connect(self.close_ui_8_and_open_ui_4)
+        self.ui.pushButton_6.clicked.connect(self.close_ui_8_and_open_ui_6)
+        self.ui.pushButton_5.clicked.connect(lambda: self.delete_selected_files(model, directory))
+
+    def show_file_list(self, directory):
+        file_list = os.listdir(directory)
+        self.model.clear()
+
+        for item_text in file_list:
+            item = CheckableItem(item_text)
+            self.model.appendRow(item)
+        
+        self.ui.listView.setModel(self.model)
+        self.ui.pushButton_8.clicked.connect(self.upload_file)
+        
+    def upload_file(self):
+        file_dialog = QFileDialog()
+        file_paths, _ = file_dialog.getOpenFileNames(self, "파일 선택", "", "모든 파일 (*);;텍스트 파일 (*.txt);;이미지 파일 (*.png *.jpg)")
+
+        for file_path in file_paths:
+        # 복사될 파일의 목적지 경로
+            destination_path = os.path.join(self.current_dir, os.path.basename(file_path))
+
+            try:
+                # 파일을 목적지 경로로 복사
+                shutil.copy(file_path, destination_path)
+                item = CheckableItem(os.path.basename(destination_path))
+                self.model.appendRow(item)
+            except Exception as e:
+                print(f"파일 업로드 중 오류 발생: {str(e)}")
+                
+        self.ui.listView.setModel(self.model)
+    
+    def delete_selected_files(self, model, directory):
+        selected_items = [model.item(i) for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
+
+        for item in selected_items:
+            # 선택한 항목의 파일 경로
+            file_path = os.path.join(directory, item.text())
+
+            try:
+                os.remove(file_path)  # 파일 삭제
+                model.removeRow(item.row())  # 모델에서 항목 제거
+            except OSError as e:
+                print(f"Failed to delete {item.text()}: {str(e)}")
+        
+    @Slot()
+    def close_ui_8_and_open_ui_1(self):
+        # pushButton를 클릭했을 때 실행될 함수입니다.
+        # UI_1App 인스턴스를 생성하여 UI_1 화면으로 전환합니다.
+        self.ui_1_window = UI_1App()
+        self.ui_1_window.show()
+        self.close()
+
+    @Slot()
+    def close_ui_8_and_open_ui_7(self):
+        # pushButton_3를 클릭했을 때 실행될 함수입니다.
+        # UI_2App 인스턴스를 생성하여 UI_2 화면으로 전환합니다.
+        self.ui_7_window = UI_7App()
+        self.ui_7_window.show()
+        self.close()
+        
+    @Slot()
+    def close_ui_8_and_open_ui_4(self):
+        # pushButton_2를 클릭했을 때 실행될 함수입니다.
+        # UI_4App 인스턴스를 생성하여 UI_4 화면으로 전환합니다.
+        self.ui_4_window = UI_4App()
+        self.ui_4_window.show()
+        self.close()
+    
+    @Slot()
+    def close_ui_8_and_open_ui_6(self):
+        # pushButton_7를 클릭했을 때 실행될 함수입니다.
+        # UI_7App 인스턴스를 생성하여 UI_7 화면으로 전환합니다.
+        self.ui_6_window = UI_6App()
+        self.ui_6_window.show()
+        self.close()
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 

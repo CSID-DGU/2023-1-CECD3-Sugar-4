@@ -94,7 +94,7 @@
      </font>
     </property>
     <property name="text">
-     <string>File Repository</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_3">
@@ -110,12 +110,25 @@
      <string>Back</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_4">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>430</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Masking Data</string>
+    </property>
+   </widget>
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
       <x>210</x>
       <y>30</y>
-      <width>81</width>
+      <width>71</width>
       <height>21</height>
      </rect>
     </property>
@@ -126,7 +139,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Folder name</string>
+     <string>File name</string>
     </property>
    </widget>
    <widget class="QListView" name="listView">
@@ -155,7 +168,7 @@
    <widget class="QPushButton" name="pushButton_5">
     <property name="geometry">
      <rect>
-      <x>730</x>
+      <x>580</x>
       <y>430</y>
       <width>61</width>
       <height>31</height>
@@ -189,6 +202,19 @@
     </property>
     <property name="text">
      <string>File Repository</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_8">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>430</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>File Upload</string>
     </property>
    </widget>
   </widget>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_7hQubLY.ui'
+## Form generated from reading UI file 'ui_8gIIvbK.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QListView,
     QMainWindow, QMenuBar, QPushButton, QSizePolicy,
     QStatusBar, QWidget)
 
-class Ui_MainWindow7(object):
+class Ui_MainWindow8(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
@@ -56,9 +56,12 @@ class Ui_MainWindow7(object):
         self.pushButton_3 = QPushButton(self.centralwidget)
         self.pushButton_3.setObjectName(u"pushButton_3")
         self.pushButton_3.setGeometry(QRect(220, 430, 61, 31))
+        self.pushButton_4 = QPushButton(self.centralwidget)
+        self.pushButton_4.setObjectName(u"pushButton_4")
+        self.pushButton_4.setGeometry(QRect(650, 430, 151, 31))
         self.label_3 = QLabel(self.centralwidget)
         self.label_3.setObjectName(u"label_3")
-        self.label_3.setGeometry(QRect(210, 30, 81, 21))
+        self.label_3.setGeometry(QRect(210, 30, 71, 21))
         font2 = QFont()
         font2.setPointSize(10)
         font2.setBold(False)
@@ -71,13 +74,16 @@ class Ui_MainWindow7(object):
         self.pushButton_6.setGeometry(QRect(-1, 148, 171, 91))
         self.pushButton_5 = QPushButton(self.centralwidget)
         self.pushButton_5.setObjectName(u"pushButton_5")
-        self.pushButton_5.setGeometry(QRect(730, 430, 61, 31))
+        self.pushButton_5.setGeometry(QRect(580, 430, 61, 31))
         self.label_6 = QLabel(self.centralwidget)
         self.label_6.setObjectName(u"label_6")
         self.label_6.setGeometry(QRect(530, 60, 281, 351))
         self.pushButton_7 = QPushButton(self.centralwidget)
         self.pushButton_7.setObjectName(u"pushButton_7")
         self.pushButton_7.setGeometry(QRect(-1, 236, 171, 91))
+        self.pushButton_8 = QPushButton(self.centralwidget)
+        self.pushButton_8.setObjectName(u"pushButton_8")
+        self.pushButton_8.setGeometry(QRect(480, 430, 91, 31))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -97,12 +103,14 @@ class Ui_MainWindow7(object):
         self.label.setText("")
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Upload Sample Image", None))
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Results", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"File Repository", None))
+        self.label_2.setText("")
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Back", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Folder name", None))
+        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Masking Data", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"File name", None))
         self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample List", None))
         self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
         self.label_6.setText("")
         self.pushButton_7.setText(QCoreApplication.translate("MainWindow", u"File Repository", None))
+        self.pushButton_8.setText(QCoreApplication.translate("MainWindow", u"File Upload", None))
     # retranslateUi
 
