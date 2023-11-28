@@ -53,7 +53,7 @@
     <property name="geometry">
      <rect>
       <x>-1</x>
-      <y>236</y>
+      <y>324</y>
       <width>171</width>
       <height>91</height>
      </rect>
@@ -176,6 +176,19 @@
     </property>
     <property name="text">
      <string>Sample List</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_7">
+    <property name="geometry">
+     <rect>
+      <x>-1</x>
+      <y>236</y>
+      <width>171</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>File Repository</string>
     </property>
    </widget>
   </widget>
