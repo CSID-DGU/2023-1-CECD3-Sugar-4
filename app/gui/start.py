@@ -562,6 +562,7 @@ class UI_8App(QMainWindow):
         self.ui.pushButton_7.clicked.connect(self.close_ui_8_and_open_ui_7)
         self.ui.pushButton_2.clicked.connect(self.close_ui_8_and_open_ui_4)
         self.ui.pushButton_6.clicked.connect(self.close_ui_8_and_open_ui_6)
+        self.ui.pushButton_4.clicked.connect(self.perform_ser)
 
     def show_file_list(self, directory):
         file_list = os.listdir(directory)
@@ -592,7 +593,12 @@ class UI_8App(QMainWindow):
                 print(f"파일 업로드 중 오류 발생: {str(e)}")
                 
         self.ui.listView.setModel(self.model)
-    
+
+    def perform_ser(self):
+        # SER 작업 수행
+        script_path = os.path.join("app", "Model", "predictProcess.py")
+        subprocess.run(["python", script_path, "ser", self.current_dir])
+
     def delete_selected_files(self, model, directory):
         selected_items = [model.item(i) for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
 
