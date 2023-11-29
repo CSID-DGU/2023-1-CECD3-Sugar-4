@@ -135,39 +135,39 @@ def main(args):
     count = 0
     total_time = 0
 
-    for image_file in image_file_list:
-        img, flag, _ = check_and_read(image_file)
-        if not flag:
-            img = cv2.imread(image_file)
-            img = img[:, :, ::-1]
-        if img is None:
-            logger.info("error in loading image:{}".format(image_file))
-            continue
-        ser_res, _, elapse = ser_predictor(img)
-        ser_res = ser_res[0]
-
-        # 결과를 저장할 디렉토리 지정
-        dir_name = os.path.basename(os.path.dirname(image_file))  # 디렉토리명을 가져옴
-        output_dir = os.path.join('app', 'gui', 'Results', dir_name)
-        os.makedirs(output_dir, exist_ok=True)
-
-        # 결과 문자열 작성
-        res_str = '{}\t{}'.format(image_file, json.dumps({"ocr_info": ser_res}, ensure_ascii=False))
-
-        # 해당 디렉토리에 'infer.txt' 파일에 결과 문자열 저장
-        with open(os.path.join(output_dir, 'infer.txt'), mode='a', encoding='utf-8') as f_w:
-            f_w.write(res_str + '\n')
-
-        img_res = draw_ser_results(image_file, ser_res, font_path=args.vis_font_path)
-
-        # 해당 디렉토리에 결과 이미지 저장
-        img_save_path = os.path.join(output_dir, os.path.basename(image_file))
-        cv2.imwrite(img_save_path, img_res)
-        logger.info("save vis result to {}".format(img_save_path))
-        if count > 0:
-            total_time += elapse
-        count += 1
-        logger.info("Predict time of {}: {}".format(image_file, elapse))
+    os.makedirs(args.output, exist_ok=True)
+    with open(
+            os.path.join(args.output, 'infer.txt'), mode='a',
+            encoding='utf-8') as f_w:
+        for image_file in image_file_list:
+            img, flag, _ = check_and_read(image_file)
+            if not flag:
+                img = cv2.imread(image_file)
+                img = img[:, :, ::-1]
+            if img is None:
+                logger.info("error in loading image:{}".format(image_file))
+                continue
+            ser_res, _, elapse = ser_predictor(img)
+            ser_res = ser_res[0]
+            res_str = '{}\t{}\n'.format(
+                image_file,
+                json.dumps(
+                    {
+                        "ocr_info": ser_res,
+                    }, ensure_ascii=False))
+            f_w.write(res_str)
+            img_res = draw_ser_results(
+                image_file,
+                ser_res,
+                font_path=args.vis_font_path, )
+            img_save_path = os.path.join(args.output,
+                                         os.path.basename(image_file))
+            cv2.imwrite(img_save_path, img_res)
+            logger.info("save vis result to {}".format(img_save_path))
+            if count > 0:
+                total_time += elapse
+            count += 1
+            logger.info("Predict time of {}: {}".format(image_file, elapse))
 
 
 
