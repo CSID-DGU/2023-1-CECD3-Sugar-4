@@ -78,75 +78,94 @@ class SerRePredictor(object):
 
         elapse = time.time() - starttime
         return post_result, elapse
-
-
+    
 def main(args):
     image_file_list = get_image_file_list(args.image_dir)
     ser_re_predictor = SerRePredictor(args)
-    count = 0
-    total_time = 0
 
-    os.makedirs(args.output, exist_ok=True)
-    with open(
-            os.path.join(args.output, 'infer_re.txt'), mode='a',
-            encoding='utf-8') as f_w:
-        for image_file in image_file_list:
-            img, flag, _ = check_and_read(image_file)
-            if not flag:
-                img = cv2.imread(image_file)
-                img = img[:, :, ::-1]
-            if img is None:
-                logger.info("error in loading image:{}".format(image_file))
-                continue
-            re_res, elapse = ser_re_predictor(img)
-            re_res = re_res[0]
+    # infer_re.txt 파일 경로
+    infer_re_path = os.path.join(args.output, 'infer_re.txt')
 
-            # bbox 추출
-            privacy_bboxes = extract_privacy_bboxes(re_res)
+    for image_file in image_file_list:
+        img, flag, _ = check_and_read(image_file)
+        if not flag:
+            img = cv2.imread(image_file)
+            img = img[:, :, ::-1]
+        if img is None:
+            logger.info("error in loading image:{}".format(image_file))
+            continue
 
-            # bbox 정보를 텍스트 파일로 저장
-            bbox_save_path = os.path.join(
+        # 이미지 처리
+        re_res, elapse = ser_re_predictor(img)
+        re_res = re_res[0]
+
+        # bbox 추출 및 저장
+        privacy_bboxes = extract_privacy_bboxes(re_res)
+        bbox_save_path = os.path.join(
+            args.output,
+            os.path.splitext(os.path.basename(image_file))[0] +
+            "_privacy_bbox.txt")
+
+        with open(bbox_save_path, 'w') as bbox_file:
+            bbox_file.write("[\n")
+            for i, bbox in enumerate(privacy_bboxes):
+                bbox_str = ','.join(map(str, bbox))
+                if i != len(privacy_bboxes) - 1:
+                    bbox_file.write('{' + f"'bbox': [{bbox_str}]" + '},\n')
+                else:
+                    bbox_file.write('{' + f"'bbox': [{bbox_str}]" + '}\n')
+            bbox_file.write("]\n")
+
+        # 이미지 결과 저장
+        if ser_re_predictor.predictor is not None:
+            img_res = draw_re_results(
+                image_file, re_res, font_path=args.vis_font_path)
+            img_save_path = os.path.join(
                 args.output,
                 os.path.splitext(os.path.basename(image_file))[0] +
-                "_privacy_bbox.txt")
+                "_ser_re.jpg")
+        else:
+            img_res = draw_ser_results(
+                image_file, re_res, font_path=args.vis_font_path)
+            img_save_path = os.path.join(
+                args.output,
+                os.path.splitext(os.path.basename(image_file))[0] +
+                "_ser.jpg")
 
-            with open(bbox_save_path, 'w') as bbox_file:
-                bbox_file.write("[\n")
-                for i, bbox in enumerate(privacy_bboxes):
-                    bbox_str = ','.join(map(str, bbox))
-                    if i != len(privacy_bboxes) - 1:
-                        bbox_file.write('{' + f"'bbox': [{bbox_str}]" + '},\n')
-                    else:
-                        bbox_file.write('{' + f"'bbox': [{bbox_str}]" + '}\n')
-                bbox_file.write("]\n")
-            res_str = '{}\t{}\n'.format(
-                image_file,
-                json.dumps(
-                    {
-                        "ocr_info": re_res,
-                    }, ensure_ascii=False))
-            f_w.write(res_str)
-            if ser_re_predictor.predictor is not None:
-                img_res = draw_re_results(
-                    image_file, re_res, font_path=args.vis_font_path)
-                img_save_path = os.path.join(
-                    args.output,
-                    os.path.splitext(os.path.basename(image_file))[0] +
-                    "_ser_re.jpg")
+        cv2.imwrite(img_save_path, img_res)
+        logger.info("save vis result to {}".format(img_save_path))
+
+        # infer_re.txt 내용 업데이트
+        res_str = '{}\t{}\n'.format(
+            image_file,
+            json.dumps(
+                {
+                    "ocr_info": re_res,
+                }, ensure_ascii=False))
+        update_file_content(infer_re_path, image_file, res_str)
+
+        logger.info("Predict time of {}: {}".format(image_file, elapse))
+
+def update_file_content(file_path, image_name, new_content):
+    # 파일이 존재하지 않으면 새로 생성
+    if not os.path.exists(file_path):
+        with open(file_path, 'w') as file:
+            file.write(new_content)
+        return
+
+    updated = False
+    with open(file_path, 'r+') as file:
+        lines = file.readlines()
+        file.seek(0)
+        file.truncate()
+        for line in lines:
+            if line.startswith(image_name):
+                file.write(new_content)
+                updated = True
             else:
-                img_res = draw_ser_results(
-                    image_file, re_res, font_path=args.vis_font_path)
-                img_save_path = os.path.join(
-                    args.output,
-                    os.path.splitext(os.path.basename(image_file))[0] +
-                    "_ser.jpg")
-
-            cv2.imwrite(img_save_path, img_res)
-            logger.info("save vis result to {}".format(img_save_path))
-            if count > 0:
-                total_time += elapse
-            count += 1
-            logger.info("Predict time of {}: {}".format(image_file, elapse))
+                file.write(line)
+        if not updated:
+            file.write(new_content)
 
 
 if __name__ == "__main__":
