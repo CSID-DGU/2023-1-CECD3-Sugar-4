@@ -40,7 +40,7 @@
     <property name="geometry">
      <rect>
       <x>-1</x>
-      <y>60</y>
+      <y>98</y>
       <width>171</width>
       <height>91</height>
      </rect>
@@ -53,7 +53,7 @@
     <property name="geometry">
      <rect>
       <x>-1</x>
-      <y>324</y>
+      <y>362</y>
       <width>171</width>
       <height>91</height>
      </rect>
@@ -169,7 +169,7 @@
     <property name="geometry">
      <rect>
       <x>-1</x>
-      <y>148</y>
+      <y>186</y>
       <width>171</width>
       <height>91</height>
      </rect>
@@ -182,13 +182,26 @@
     <property name="geometry">
      <rect>
       <x>-1</x>
-      <y>236</y>
+      <y>274</y>
       <width>171</width>
       <height>91</height>
      </rect>
     </property>
     <property name="text">
      <string>File Repository</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_8">
+    <property name="geometry">
+     <rect>
+      <x>-1</x>
+      <y>10</y>
+      <width>171</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Privacy Detaction</string>
     </property>
    </widget>
   </widget>

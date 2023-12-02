@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_1NKEfRe.ui'
+## Form generated from reading UI file 'ui_1RqarAK.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -36,10 +36,10 @@ class Ui_MainWindow1(object):
         self.label.setStyleSheet(u"background-color:white;")
         self.pushButton = QPushButton(self.centralwidget)
         self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setGeometry(QRect(-1, 60, 171, 91))
+        self.pushButton.setGeometry(QRect(-1, 98, 171, 91))
         self.pushButton_2 = QPushButton(self.centralwidget)
         self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setGeometry(QRect(-1, 324, 171, 91))
+        self.pushButton_2.setGeometry(QRect(-1, 362, 171, 91))
         self.line = QFrame(self.centralwidget)
         self.line.setObjectName(u"line")
         self.line.setGeometry(QRect(161, -30, 16, 521))
@@ -74,10 +74,13 @@ class Ui_MainWindow1(object):
         self.pushButton_5.setGeometry(QRect(290, 430, 91, 31))
         self.pushButton_6 = QPushButton(self.centralwidget)
         self.pushButton_6.setObjectName(u"pushButton_6")
-        self.pushButton_6.setGeometry(QRect(-1, 148, 171, 91))
+        self.pushButton_6.setGeometry(QRect(-1, 186, 171, 91))
         self.pushButton_7 = QPushButton(self.centralwidget)
         self.pushButton_7.setObjectName(u"pushButton_7")
-        self.pushButton_7.setGeometry(QRect(-1, 236, 171, 91))
+        self.pushButton_7.setGeometry(QRect(-1, 274, 171, 91))
+        self.pushButton_8 = QPushButton(self.centralwidget)
+        self.pushButton_8.setObjectName(u"pushButton_8")
+        self.pushButton_8.setGeometry(QRect(-1, 10, 171, 91))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -104,5 +107,6 @@ class Ui_MainWindow1(object):
         self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"\ub514\ub809\ud1a0\ub9ac \uc124\uc815", None))
         self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample List", None))
         self.pushButton_7.setText(QCoreApplication.translate("MainWindow", u"File Repository", None))
+        self.pushButton_8.setText(QCoreApplication.translate("MainWindow", u"Privacy Detaction", None))
     # retranslateUi
 
