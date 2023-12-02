@@ -11,6 +11,7 @@ from enum import Enum
 import os
 import shutil
 import subprocess
+import shutil
 from PySide6.QtWidgets import QApplication, QMainWindow, QListView, QPushButton, QFileDialog, QMessageBox, QLabel, QVBoxLayout, QWidget, QListWidget
 from PySide6.QtCore import QDir, Qt, Slot, QModelIndex
 from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap
@@ -286,7 +287,20 @@ class UI_3App(QMainWindow):
             function_name = 'ser_re'  # 'ser' 또는 'ser_re' 중 선택
 
             try:
+                # 'SampleRepo/이미지파일명' 및 'Results/이미지파일명' 폴더 생성
+                base_name = os.path.basename(selected_file_name)
+                file_name, _ = os.path.splitext(base_name)
+                sample_repo_dir = os.path.join('app', 'gui', 'SampleRepo', file_name)
+                results_dir = os.path.join('app', 'gui', 'Results', file_name)
+
+                os.makedirs(sample_repo_dir, exist_ok=True)
+                os.makedirs(results_dir, exist_ok=True)
+
+                # 입력받은 파일을 SampleRepo/이미지파일명 내부에 복사
+                shutil.copy2(selected_file_name, sample_repo_dir)
+
                 subprocess.run(["python", predict_process_path, function_name, selected_file_name])
+
             except Exception as e:
                 print(f"An error occurred: {e}")
     @Slot()
@@ -398,7 +412,7 @@ class UI_6App(QMainWindow):
         self.ui.pushButton_4.clicked.connect(self.run_labeling_tool)
 
         self.current_dir = os.path.dirname(os.path.abspath(__file__))
-        directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'down')
+        directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'SampleRepo')
         self.show_file_list(directory)
 
         self.selected_file_path = ""
@@ -444,7 +458,7 @@ class UI_6App(QMainWindow):
     def run_labeling_tool(self):
         file_base_path, _ = os.path.splitext(self.selected_file_path)
         file_name = os.path.basename(file_base_path)
-        bbox_path = os.path.join('output', file_name + '_privacy_bbox.txt')
+        bbox_path = os.path.join('app', 'gui', 'SampleRepo', file_name, file_name + '_privacy_bbox.txt')
         self.labeling_tool_window = LabelingTool(self.selected_file_path, bbox_path)
         self.labeling_tool_window.show()
 

@@ -217,9 +217,8 @@ class LabelingTool(QWidget):
 
         # 'app/gui/SampleRepo/원본이미지명' 디렉토리에 txt 파일을 저장
         dir_path = os.path.join('app', 'gui', 'SampleRepo', file_name)
-        if not os.path.exists(dir_path):
-            os.makedirs(dir_path)
-        save_path = os.path.join(dir_path, f'{file_name}_bbox.txt')
+        os.makedirs(dir_path, exist_ok=True)  # 디렉토리가 없으면 생성하고, 이미 있다면 그대로 둡니다.
+        save_path = os.path.join(dir_path, f'{file_name}_privacy_bbox.txt')
 
         with open(save_path, 'w') as f:
             f.write("[\n")
@@ -229,10 +228,6 @@ class LabelingTool(QWidget):
                 else:
                     f.write(str(bbox) + '\n')
             f.write("]\n")
-
-        dir_path_results = os.path.join('app', 'gui', 'Results', file_name)
-        if not os.path.exists(dir_path_results):
-            os.makedirs(dir_path_results)
 def main():
     app = QApplication([])
     window = LabelingTool()

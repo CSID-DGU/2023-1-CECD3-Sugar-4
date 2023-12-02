@@ -82,6 +82,9 @@ class SerRePredictor(object):
 def main(args):
     image_file_list = get_image_file_list(args.image_dir)
     ser_re_predictor = SerRePredictor(args)
+    # 'output' 디렉토리가 존재하지 않으면 생성
+    if not os.path.exists(args.output):
+        os.makedirs(args.output)
 
     # infer_re.txt 파일 경로
     infer_re_path = os.path.join(args.output, 'infer_re.txt')
@@ -101,10 +104,12 @@ def main(args):
 
         # bbox 추출 및 저장
         privacy_bboxes = extract_privacy_bboxes(re_res)
-        bbox_save_path = os.path.join(
-            args.output,
-            os.path.splitext(os.path.basename(image_file))[0] +
-            "_privacy_bbox.txt")
+
+        # 'SampleRepo/이미지파일명' 디렉토리에 txt 파일을 저장
+        base_name = os.path.basename(image_file)
+        file_name, _ = os.path.splitext(base_name)
+        dir_path = os.path.join('app', 'gui', 'SampleRepo', file_name)
+        bbox_save_path = os.path.join(dir_path, f'{file_name}_privacy_bbox.txt')
 
         with open(bbox_save_path, 'w', encoding='utf-8') as bbox_file:
             bbox_file.write("[\n")
