@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_8eEQsBS.ui'
+## Form generated from reading UI file 'ui_8aQfFkl.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -115,6 +115,6 @@ class Ui_MainWindow8(object):
         self.label_6.setText("")
         self.pushButton_7.setText(QCoreApplication.translate("MainWindow", u"File Repository", None))
         self.pushButton_8.setText(QCoreApplication.translate("MainWindow", u"File Upload", None))
-        self.pushButton_9.setText(QCoreApplication.translate("MainWindow", u"Privacy Detaction", None))
+        self.pushButton_9.setText(QCoreApplication.translate("MainWindow", u"Privacy Detection", None))
     # retranslateUi
 

@@ -107,7 +107,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Back</string>
+     <string>Home</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_4">
@@ -188,7 +188,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Privacy Detaction</string>
+     <string>Privacy Detection</string>
     </property>
    </widget>
   </widget>
