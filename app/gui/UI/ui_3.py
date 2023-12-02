@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_3uvwBvJ.ui'
+## Form generated from reading UI file 'ui_3qLWbHe.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -100,13 +100,13 @@ class Ui_MainWindow3(object):
         self.label.setText("")
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Upload Sample Image", None))
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Results", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Privacy Detaction", None))
-        self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Back", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Privacy Detection", None))
+        self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Home", None))
         self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Privacy Detact", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Sample Image", None))
         self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
         self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample List", None))
         self.pushButton_7.setText(QCoreApplication.translate("MainWindow", u"File Repository", None))
-        self.pushButton_8.setText(QCoreApplication.translate("MainWindow", u"Privacy Detaction", None))
+        self.pushButton_8.setText(QCoreApplication.translate("MainWindow", u"Privacy Detection", None))
     # retranslateUi
 

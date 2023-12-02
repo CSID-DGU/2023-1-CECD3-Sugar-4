@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_2GkibSK.ui'
+## Form generated from reading UI file 'ui_2rfiFEz.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -89,7 +89,7 @@ class Ui_MainWindow2(object):
         self.label.setText("")
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Upload Sample Image", None))
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Results", None))
-        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Privacy Detaction", None))
+        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Privacy Detection", None))
         self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample List", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\uac1c\uc778\uc815\ubcf4 \ube44\uc2dd\ubcc4\ud654 \uc2dc\uc2a4\ud15c", None))
     # retranslateUi

@@ -107,7 +107,7 @@ color:white;</string>
 color:white;</string>
     </property>
     <property name="text">
-     <string>Privacy Detaction</string>
+     <string>Privacy Detection</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_6">
