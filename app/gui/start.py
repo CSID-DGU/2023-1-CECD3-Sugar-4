@@ -279,30 +279,32 @@ class UI_3App(QMainWindow):
         selected_file_name = self.get_selected_file_name()
 
         if selected_file_name:
-            # 다른 디렉토리에 있는 predictProcess.py의 run_ser_prediction 또는 run_ser_re_prediction 실행
             other_directory = os.path.join(self.current_dir, '..', 'Model')
             predict_process_path = os.path.join(other_directory, 'predictProcess.py')
-
-            # 'ser' 또는 'ser_re'를 선택하여 실행
             function_name = 'ser_re'  # 'ser' 또는 'ser_re' 중 선택
 
             try:
-                # 'SampleRepo/이미지파일명' 및 'Results/이미지파일명' 폴더 생성
                 base_name = os.path.basename(selected_file_name)
                 file_name, _ = os.path.splitext(base_name)
-                sample_repo_dir = os.path.join('app', 'gui', 'SampleRepo', file_name)
-                results_dir = os.path.join('app', 'gui', 'Results', file_name)
 
-                os.makedirs(sample_repo_dir, exist_ok=True)
-                os.makedirs(results_dir, exist_ok=True)
+                # SampleRepo, Results, SampleRepo/이미지파일명, Results/이미지파일명 폴더 생성
+                for dir_name in ['SampleRepo', 'Results']:
+                    dir_path = os.path.join('app', 'gui', dir_name)
+                    specific_dir_path = os.path.join(dir_path, file_name)
+
+                    for path in [dir_path, specific_dir_path]:
+                        if not os.path.exists(path):
+                            os.makedirs(path)
 
                 # 입력받은 파일을 SampleRepo/이미지파일명 내부에 복사
+                sample_repo_dir = os.path.join('app', 'gui', 'SampleRepo', file_name)
                 shutil.copy2(selected_file_name, sample_repo_dir)
 
                 subprocess.run(["python", predict_process_path, function_name, selected_file_name])
 
             except Exception as e:
                 print(f"An error occurred: {e}")
+
     @Slot()
     def close_ui_3_and_open_ui_1(self):
         # pushButton를 클릭했을 때 실행될 함수입니다.
