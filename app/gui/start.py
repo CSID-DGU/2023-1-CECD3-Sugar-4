@@ -10,8 +10,9 @@ sys.path.append(str(current_path / 'UI'))
 from enum import Enum
 import os
 import shutil
+import subprocess
 from PySide6.QtWidgets import QApplication, QMainWindow, QListView, QPushButton, QFileDialog, QMessageBox, QLabel, QVBoxLayout, QWidget, QListWidget
-from PySide6.QtCore import QDir, Qt, Slot
+from PySide6.QtCore import QDir, Qt, Slot, QModelIndex
 from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap
 from ui_1 import Ui_MainWindow1
 from ui_2 import Ui_MainWindow2
@@ -207,7 +208,6 @@ class UI_3App(QMainWindow):
         super(UI_3App, self).__init__()
         self.ui = Ui_MainWindow3()
         self.ui.setupUi(self)
-
         # pushButton 클릭 이벤트에 대한 핸들러를 연결합니다.
         self.ui.pushButton.clicked.connect(self.close_ui_3_and_open_ui_1)
         # pushButton_2클릭 이벤트에 대한 핸들러를 연결합니다.
@@ -224,12 +224,8 @@ class UI_3App(QMainWindow):
 
         self.show_file_list(directory)
 
-
     def show_file_list(self, directory):
-    # 선택한 디렉토리 내의 파일 목록을 가져옵니다.
         file_list = os.listdir(directory)
-
-    # 모든 파일을 필터링합니다.
         filtered_files = file_list
 
         model = QStandardItemModel()
@@ -237,8 +233,20 @@ class UI_3App(QMainWindow):
             item = CheckableItem(item_text)
             model.appendRow(item)
 
+        # 모델에 itemChanged 시그널 연결
+        model.itemChanged.connect(self.handle_item_changed)
         self.ui.listView.setModel(model)
         self.ui.pushButton_5.clicked.connect(lambda: self.delete_selected_files(model, directory))
+
+    # itemChanged 시그널을 처리하는 슬롯
+    @Slot(QStandardItem)
+    def handle_item_changed(self, item):
+        if item.checkState() == Qt.Checked:
+            # 아이템이 체크될 때 다른 모든 아이템의 체크를 해제
+            model = item.model()
+            for row in range(model.rowCount()):
+                if model.item(row) != item:
+                    model.item(row).setCheckState(Qt.Unchecked)
 
     def get_selected_file_name(self):
         model = self.ui.listView.model()
@@ -403,11 +411,22 @@ class UI_6App(QMainWindow):
         for item_text in file_list:
             item = CheckableItem(item_text)
             model.appendRow(item)
-
+            
+        model.itemChanged.connect(self.handle_item_changed)
         self.ui.listView.setModel(model)
         self.ui.pushButton_5.clicked.connect(lambda: self.delete_selected_files(model, directory))
         self.ui.listView.clicked.connect(self.display_image_preview)
-        
+
+    # itemChanged 시그널을 처리하는 슬롯
+    @Slot(QStandardItem)
+    def handle_item_changed(self, item):
+        if item.checkState() == Qt.Checked:
+            # 아이템이 체크될 때 다른 모든 아이템의 체크를 해제
+            model = item.model()
+            for row in range(model.rowCount()):
+                if model.item(row) != item:
+                    model.item(row).setCheckState(Qt.Unchecked)
+    
     def delete_selected_files(self, model, directory):
         selected_items = [model.item(i) for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
 
