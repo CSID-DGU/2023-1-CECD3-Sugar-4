@@ -106,7 +106,7 @@ def main(args):
             os.path.splitext(os.path.basename(image_file))[0] +
             "_privacy_bbox.txt")
 
-        with open(bbox_save_path, 'w') as bbox_file:
+        with open(bbox_save_path, 'w', encoding='utf-8') as bbox_file:
             bbox_file.write("[\n")
             for i, bbox in enumerate(privacy_bboxes):
                 bbox_str = ','.join(map(str, bbox))
@@ -149,12 +149,12 @@ def main(args):
 def update_file_content(file_path, image_name, new_content):
     # 파일이 존재하지 않으면 새로 생성
     if not os.path.exists(file_path):
-        with open(file_path, 'w') as file:
+        with open(file_path, 'w', encoding='utf-8') as file:
             file.write(new_content)
         return
 
     updated = False
-    with open(file_path, 'r+') as file:
+    with open(file_path, 'r+', encoding='utf-8') as file:
         lines = file.readlines()
         file.seek(0)
         file.truncate()
