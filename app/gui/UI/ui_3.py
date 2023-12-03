@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_3qLWbHe.ui'
+## Form generated from reading UI file 'ui_3msHktY.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -39,7 +39,7 @@ class Ui_MainWindow3(object):
         self.pushButton.setGeometry(QRect(-1, 98, 171, 91))
         self.pushButton_2 = QPushButton(self.centralwidget)
         self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setGeometry(QRect(-1, 362, 171, 91))
+        self.pushButton_2.setGeometry(QRect(-1, 274, 171, 91))
         self.line = QFrame(self.centralwidget)
         self.line.setObjectName(u"line")
         self.line.setGeometry(QRect(161, -30, 16, 521))
@@ -75,9 +75,6 @@ class Ui_MainWindow3(object):
         self.pushButton_6 = QPushButton(self.centralwidget)
         self.pushButton_6.setObjectName(u"pushButton_6")
         self.pushButton_6.setGeometry(QRect(-1, 186, 171, 91))
-        self.pushButton_7 = QPushButton(self.centralwidget)
-        self.pushButton_7.setObjectName(u"pushButton_7")
-        self.pushButton_7.setGeometry(QRect(-1, 274, 171, 91))
         self.pushButton_8 = QPushButton(self.centralwidget)
         self.pushButton_8.setObjectName(u"pushButton_8")
         self.pushButton_8.setGeometry(QRect(-1, 10, 171, 91))
@@ -106,7 +103,6 @@ class Ui_MainWindow3(object):
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Sample Image", None))
         self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
         self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample List", None))
-        self.pushButton_7.setText(QCoreApplication.translate("MainWindow", u"File Repository", None))
         self.pushButton_8.setText(QCoreApplication.translate("MainWindow", u"Privacy Detection", None))
     # retranslateUi
 
