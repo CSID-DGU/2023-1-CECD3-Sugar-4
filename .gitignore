@@ -365,5 +365,9 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,pycharm,visualstudiocode,python,macos
-/app/Model/
+/app/Model/inference
 /output/
+/app/gui/down
+/app/gui/Results
+/app/gui/SampleRepo
+

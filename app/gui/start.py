@@ -403,9 +403,10 @@ class UI_4App(QMainWindow):
 class UI_6App(QMainWindow):
     def __init__(self):
         super(UI_6App, self).__init__()
-        self.ui = Ui_MainWindow6()
+        self.ui = Ui_MainWindow6()  # UI_6App의 UI 사용
         self.ui.setupUi(self)
 
+        # 버튼 이벤트 연결
         self.ui.pushButton.clicked.connect(self.close_ui_6_and_open_ui_1)
         self.ui.pushButton_3.clicked.connect(self.close_ui_6_and_open_ui_2)
         self.ui.pushButton_2.clicked.connect(self.close_ui_6_and_open_ui_4)
@@ -414,15 +415,13 @@ class UI_6App(QMainWindow):
         self.ui.pushButton_4.clicked.connect(self.run_labeling_tool)
 
         self.current_dir = os.path.dirname(os.path.abspath(__file__))
-        directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'SampleRepo')
+        directory = os.path.join(self.current_dir, 'SampleRepo')
         self.show_file_list(directory)
 
         self.selected_file_path = ""
         
     def show_file_list(self, directory):
-    # 선택한 디렉토리 내의 파일 목록을 가져옵니다.
         file_list = os.listdir(directory)
-
         model = QStandardItemModel()
         for item_text in file_list:
             item = CheckableItem(item_text)
@@ -432,27 +431,25 @@ class UI_6App(QMainWindow):
         self.ui.listView.setModel(model)
         self.ui.pushButton_5.clicked.connect(lambda: self.delete_selected_files(model, directory))
         self.ui.listView.clicked.connect(self.display_image_preview)
+        self.ui.listView.doubleClicked.connect(lambda index: self.show_folder_contents(model, directory, index))
 
-    # itemChanged 시그널을 처리하는 슬롯
     @Slot(QStandardItem)
     def handle_item_changed(self, item):
+        # UI_6App의 기능을 그대로 유지합니다.
         if item.checkState() == Qt.Checked:
-            # 아이템이 체크될 때 다른 모든 아이템의 체크를 해제
             model = item.model()
             for row in range(model.rowCount()):
                 if model.item(row) != item:
                     model.item(row).setCheckState(Qt.Unchecked)
-    
+
     def delete_selected_files(self, model, directory):
+        # UI_6App의 기능을 그대로 유지합니다.
         selected_items = [model.item(i) for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
-
         for item in selected_items:
-            # 선택한 항목의 파일 경로
             file_path = os.path.join(directory, item.text())
-
             try:
-                os.remove(file_path)  # 파일 삭제
-                model.removeRow(item.row())  # 모델에서 항목 제거
+                os.remove(file_path)
+                model.removeRow(item.row())
             except OSError as e:
                 print(f"Failed to delete {item.text()}: {str(e)}")
 
@@ -503,23 +500,41 @@ class UI_6App(QMainWindow):
         self.ui_3_window = UI_3App()
         self.ui_3_window.show()
         self.close()
-        
+
+
     @Slot("QModelIndex")
     def display_image_preview(self, index):
-    # 항목이 클릭될 때 선택한 파일 경로를 업데이트
         item = self.ui.listView.model().itemFromIndex(index)
         if item is not None:
             file_name = item.text()
             file_path = os.path.join(self.current_dir, 'down', file_name)
             self.selected_file_path = file_path
             
-        # 미리보기 업데이트 코드 추가
-        pixmap = QPixmap(file_path)
-        # 이미지 크기 조절
-        target_width = 281
-        target_height = 351
-        scaled_pixmap = pixmap.scaled(target_width, target_height, Qt.KeepAspectRatio)
-        self.ui.label_6.setPixmap(scaled_pixmap)
+            pixmap = QPixmap(file_path)
+            target_width = 281
+            target_height = 351
+            scaled_pixmap = pixmap.scaled(target_width, target_height, Qt.KeepAspectRatio)
+            self.ui.label_6.setPixmap(scaled_pixmap)
+
+    def show_folder_contents(self, model, directory, index):
+        item = model.itemFromIndex(index)
+        folder_path = os.path.join(directory, item.text())
+        print(folder_path)
+        folder_path2 = os.path.join(folder_path, 'Upload')
+        print(folder_path2)
+        
+        if os.path.isdir(folder_path):
+            if not os.path.exists(folder_path2):
+                os.makedirs(folder_path2)
+
+            self.show_file_list(folder_path2)
+            self.ui_8_window = UI_8App(folder_path2)
+            self.ui_8_window.show()
+            self.close()
+        else:
+            print(f"{folder_path}은(는) 폴더가 아닙니다.")
+
+
         
 class UI_7App(QMainWindow):
     def __init__(self):
@@ -631,12 +646,24 @@ class UI_8App(QMainWindow):
         
         self.ui.label_2.setText(os.path.basename(directory))
         self.ui.pushButton.clicked.connect(self.close_ui_8_and_open_ui_1)
-        self.ui.pushButton_3.clicked.connect(self.close_ui_8_and_open_ui_7)
+        self.ui.pushButton_3.clicked.connect(self.close_ui_8_and_open_ui_6)
         self.ui.pushButton_7.clicked.connect(self.close_ui_8_and_open_ui_7)
         self.ui.pushButton_2.clicked.connect(self.close_ui_8_and_open_ui_4)
         self.ui.pushButton_6.clicked.connect(self.close_ui_8_and_open_ui_6)
         self.ui.pushButton_9.clicked.connect(self.close_ui_8_and_open_ui_3)
-        self.ui.pushButton_4.clicked.connect(self.perform_ser)
+        self.ui.pushButton_4.clicked.connect(self.perform_sample)
+        
+    def get_selected_file_name(self):
+        model = self.ui.listView.model()
+        selected_items = [model.item(i) for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
+
+        if selected_items:
+            file_name = selected_items[0].text()
+            directory = os.path.join(self.current_dir)  # 또는 원하는 디렉토리로 수정
+            file_path = os.path.join(directory, file_name)
+            return file_path
+        else:
+            return None
 
     def show_file_list(self, directory):
         file_list = os.listdir(directory)
@@ -668,10 +695,49 @@ class UI_8App(QMainWindow):
                 
         self.ui.listView.setModel(self.model)
 
-    def perform_ser(self):
+    @Slot()
+    def run_predict_process(self):
+        selected_file_name = self.get_selected_file_name()
+
+        if selected_file_name:
+            other_directory = os.path.join(self.current_dir, '..', 'Model')
+            predict_process_path = os.path.join(other_directory, 'predictProcess.py')
+            function_name = 'ser_re'  # 'ser' 또는 'ser_re' 중 선택
+
+            try:
+                base_name = os.path.basename(selected_file_name)
+                file_name, _ = os.path.splitext(base_name)
+
+                # SampleRepo, Results, SampleRepo/이미지파일명, Results/이미지파일명 폴더 생성
+                for dir_name in ['SampleRepo', 'Results']:
+                    dir_path = os.path.join('app', 'gui', dir_name)
+                    specific_dir_path = os.path.join(dir_path, file_name)
+
+                    for path in [dir_path, specific_dir_path]:
+                        if not os.path.exists(path):
+                            os.makedirs(path)
+
+                # 입력받은 파일을 SampleRepo/이미지파일명 내부에 복사
+                sample_repo_dir = os.path.join('app', 'gui', 'SampleRepo', file_name)
+                shutil.copy2(selected_file_name, sample_repo_dir)
+
+                subprocess.run(["python", predict_process_path, function_name, selected_file_name])
+
+            except Exception as e:
+                print(f"An error occurred: {e}")
+
+
+    def perform_sample(self):
+        current_dir = self.current_dir
+        selected_file_dir = self.get_selected_file_name()
+        script_path = os.path.join("app", "Model", "SampleProcess.py")
+        subprocess.run(["python", script_path, current_dir, selected_file_dir])
+        
         # SER 작업 수행
-        script_path = os.path.join("app", "Model", "predictProcess.py")
-        subprocess.run(["python", script_path, "ser", self.current_dir])
+        #selected_file_name = self.get_selected_file_name()
+        #print(selected_file_name)
+        #script_path = os.path.join("app", "Model", "predictProcess.py")
+        #subprocess.run(["python", script_path, "ser", self.current_dir])
 
     def delete_selected_files(self, model, directory):
         selected_items = [model.item(i) for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
