@@ -1,8 +1,8 @@
 import subprocess
 import sys
 from pathlib import Path
-
-from userProcess import LabelingTool
+from imageMasking import mask_image_with_bboxes
+from userProcess import LabelingToolByNewImage, LabelingToolBySampleImage
 
 current_path = Path(__file__).resolve().parent
 sys.path.append(str(current_path / 'UI'))
@@ -187,9 +187,14 @@ class UI_3App(QMainWindow):
         file_name = os.path.basename(specific_dir_path)
         file_path = os.path.join(self.current_dir, 'SampleRepo', file_name)
         bbox_path = os.path.join(file_path, file_name + '_privacy_bbox.txt')
-        image_path = os.path.join(file_path, os.path.basename(selected_file_name))
-        print(bbox_path)
-        self.labeling_tool_window = LabelingTool(image_path, bbox_path)
+        image_path = self.get_selected_file_name()
+        image_directory_path = os.path.join(file_path, os.path.basename(selected_file_name))
+        print("d" + image_directory_path)
+        print(file_path)
+        print(selected_file_name)
+        print(os.path.basename(selected_file_name))
+        print(image_path)
+        self.labeling_tool_window = LabelingToolByNewImage(image_path, image_directory_path, bbox_path)
         self.labeling_tool_window.show()
                 
     
@@ -301,14 +306,30 @@ class UI_6App(QMainWindow):
                 model.removeRow(item.row())
             except OSError as e:
                 print(f"Failed to delete {item.text()}: {str(e)}")
+                
+    def get_selected_file_name(self):
+        model = self.ui.listView.model()
+        selected_items = [model.item(i) for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
+
+        if selected_items:
+            file_name = selected_items[0].text()
+            directory = os.path.join('app','gui', 'down')  # 또는 원하는 디렉토리로 수정
+            file_path = os.path.join(directory, file_name)
+            return file_path
+        else:
+            return None
 
     @Slot()
     def run_labeling_tool(self):
         file_base_path, _ = os.path.splitext(self.selected_file_path)
         file_name = os.path.basename(file_base_path)
+        image_path = self.get_selected_file_name()
         bbox_path = os.path.join('app', 'gui', 'SampleRepo', file_name, file_name + '_privacy_bbox.txt')
-        self.labeling_tool_window = LabelingTool(self.selected_file_path, bbox_path)
+        self.labeling_tool_window = LabelingToolBySampleImage(image_path, self.selected_file_path, bbox_path)
         self.labeling_tool_window.show()
+        print(image_path)
+        print(self.selected_file_path)
+        print(bbox_path)
 
     @Slot()
     def close_ui_6_and_open_ui_2(self):
@@ -383,17 +404,13 @@ class UI_8App(QMainWindow):
         self.ui.pushButton_9.clicked.connect(self.close_ui_8_and_open_ui_3)
         self.ui.pushButton_4.clicked.connect(self.perform_sample)
         
-    def get_selected_file_name(self):
+    def get_selected_file_paths(self):
         model = self.ui.listView.model()
         selected_items = [model.item(i) for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
 
-        if selected_items:
-            file_name = selected_items[0].text()
-            directory = os.path.join(self.current_dir)  # 또는 원하는 디렉토리로 수정
-            file_path = os.path.join(directory, file_name)
-            return file_path
-        else:
-            return None
+        selected_file_paths = [item.text() for item in selected_items]
+
+        return selected_file_paths if selected_file_paths else None
 
     def show_file_list(self, directory):
         file_list = os.listdir(directory)
@@ -459,10 +476,22 @@ class UI_8App(QMainWindow):
 
     def perform_sample(self):
         current_dir = self.current_dir
-        selected_file_dir = self.get_selected_file_name()
-        script_path = os.path.join("app", "Model", "SampleProcess.py")
-        subprocess.run(["python", script_path, current_dir, selected_file_dir])
+        parts = current_dir.split(os.sep)
+        upload_index = parts.index('Upload')  
+        Results_folder = parts[upload_index - 1]    
+        selected_file_list = self.get_selected_file_paths()
+        save_dir = os.path.join(os.getcwd(), 'app', 'gui', 'Results')
         
+        for selected_file in selected_file_list :   
+            selected_file_dir = os.path.join(current_dir, selected_file)
+            bbox_basename, extension = os.path.splitext(selected_file)
+            bbox_path = os.path.join(os.getcwd(), 'app', 'gui', 'Results', Results_folder, bbox_basename + '.txt')
+            print(selected_file_dir, bbox_path, save_dir)
+            script_path = os.path.join("app", "Model", "SampleProcess.py")
+            subprocess.run(["python", script_path, current_dir, selected_file_dir])
+            mask_image_with_bboxes(bbox_path, selected_file_dir, save_dir)
+        
+            
         # SER 작업 수행
         #selected_file_name = self.get_selected_file_name()
         #print(selected_file_name)

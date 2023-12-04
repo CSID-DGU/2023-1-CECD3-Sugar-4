@@ -75,9 +75,9 @@ def find_matches_and_format_output(priv_boxes, ocr_boxes, threshold=0.01):
 
 def save_results_to_text_file(results, output_dir, file_name):
     output_file_path = os.path.join(output_dir, file_name + '.txt')
-    with open(output_file_path, 'w', encoding='utf-8') as file:
-        results_str = json.dumps(results, ensure_ascii=False, indent=4)
-        file.write(results_str)
+    with open(output_file_path, 'w', encoding='utf-8') as f:
+        results_str = json.dumps(results, indent=4)
+        f.write(results_str)
             
         
 if __name__ == "__main__":
@@ -88,7 +88,6 @@ if __name__ == "__main__":
     current_dir = sys.argv[1]
     selected_file_dir = sys.argv[2]
     file_name_without_extension = os.path.splitext(os.path.basename(selected_file_dir))[0]
-    print(file_name_without_extension)
 
     image_dir = os.path.join(current_dir, '..')
     corrected_dir = os.path.abspath(image_dir)

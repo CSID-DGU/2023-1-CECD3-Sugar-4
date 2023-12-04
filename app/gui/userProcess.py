@@ -195,7 +195,6 @@ class LabelingToolByNewImage(QWidget):
         
     def loadImageAndBBoxes(self):
         pixmap = QPixmap(self.image_directory_path)
-        print(self.image_directory_path)
         pixmap_item = self.scene.addPixmap(pixmap)
         self.view.setScene(self.scene)
 
@@ -221,8 +220,6 @@ class LabelingToolByNewImage(QWidget):
             self.scene.removeItem(item)
 
     def saveBBoxes(self):
-        print(self.image_directory_path)
-        print(self.image_path)
         bboxes = []
         for item in self.scene.items():
             if isinstance(item, ResizableRectItem):
@@ -279,7 +276,6 @@ class LabelingToolBySampleImage(QWidget):
         
     def loadImageAndBBoxes(self):
         pixmap = QPixmap(self.image_directory_path)
-        print(self.image_directory_path)
         pixmap_item = self.scene.addPixmap(pixmap)
         self.view.setScene(self.scene)
 
@@ -297,8 +293,6 @@ class LabelingToolBySampleImage(QWidget):
             self.scene.removeItem(item)
 
     def saveBBoxes(self):
-        print(self.image_directory_path)
-        print(self.image_path)
         bboxes = []
         for item in self.scene.items():
             if isinstance(item, ResizableRectItem):
