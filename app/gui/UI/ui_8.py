@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_8byegDL.ui'
+## Form generated from reading UI file 'ui_8wUbFmI.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -34,12 +34,9 @@ class Ui_MainWindow8(object):
         font.setBold(False)
         self.label.setFont(font)
         self.label.setStyleSheet(u"background-color:white;")
-        self.pushButton = QPushButton(self.centralwidget)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setGeometry(QRect(-1, 98, 171, 91))
         self.pushButton_2 = QPushButton(self.centralwidget)
         self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setGeometry(QRect(-1, 274, 171, 91))
+        self.pushButton_2.setGeometry(QRect(-1, 186, 171, 91))
         self.line = QFrame(self.centralwidget)
         self.line.setObjectName(u"line")
         self.line.setGeometry(QRect(161, -30, 16, 521))
@@ -71,7 +68,7 @@ class Ui_MainWindow8(object):
         self.listView.setGeometry(QRect(180, 50, 641, 371))
         self.pushButton_6 = QPushButton(self.centralwidget)
         self.pushButton_6.setObjectName(u"pushButton_6")
-        self.pushButton_6.setGeometry(QRect(-1, 186, 171, 91))
+        self.pushButton_6.setGeometry(QRect(-1, 98, 171, 91))
         self.pushButton_5 = QPushButton(self.centralwidget)
         self.pushButton_5.setObjectName(u"pushButton_5")
         self.pushButton_5.setGeometry(QRect(580, 430, 61, 31))
@@ -101,7 +98,6 @@ class Ui_MainWindow8(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.label.setText("")
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Upload Sample Image", None))
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Results", None))
         self.label_2.setText("")
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Back", None))

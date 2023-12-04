@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_2rfiFEz.ui'
+## Form generated from reading UI file 'ui_2fLdrUw.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -36,18 +36,12 @@ class Ui_MainWindow2(object):
         font1.setBold(False)
         self.label.setFont(font1)
         self.label.setStyleSheet(u"background-color:white;")
-        self.pushButton = QPushButton(self.centralwidget)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setGeometry(QRect(430, 120, 271, 141))
+        self.pushButton_2 = QPushButton(self.centralwidget)
+        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.pushButton_2.setGeometry(QRect(290, 270, 271, 141))
         font2 = QFont()
         font2.setPointSize(12)
         font2.setBold(True)
-        self.pushButton.setFont(font2)
-        self.pushButton.setStyleSheet(u"background-color:rgb(35, 39, 36);\n"
-"color:white;")
-        self.pushButton_2 = QPushButton(self.centralwidget)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setGeometry(QRect(430, 270, 271, 141))
         self.pushButton_2.setFont(font2)
         self.pushButton_2.setStyleSheet(u"background-color:rgb(35, 39, 36);\n"
 "color:white;")
@@ -59,7 +53,7 @@ class Ui_MainWindow2(object):
 "color:white;")
         self.pushButton_6 = QPushButton(self.centralwidget)
         self.pushButton_6.setObjectName(u"pushButton_6")
-        self.pushButton_6.setGeometry(QRect(150, 270, 271, 141))
+        self.pushButton_6.setGeometry(QRect(430, 120, 271, 141))
         self.pushButton_6.setFont(font2)
         self.pushButton_6.setStyleSheet(u"background-color:rgb(35, 39, 36);\n"
 "color:white;")
@@ -87,7 +81,6 @@ class Ui_MainWindow2(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.label.setText("")
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Upload Sample Image", None))
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Results", None))
         self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Privacy Detection", None))
         self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample List", None))
