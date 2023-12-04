@@ -4,7 +4,7 @@ import sys
 
 def run_ser_prediction(image_dir):
     kie_algorithm = "LayoutXLM"
-    ser_model_dir = "app/Model/inference/ser_vi_layoutxlm"
+    ser_model_dir = "app/Model/inference_vi/ser_vi_layoutxlm"
     ser_dict_path = "app/Model/utility/class_list.txt"
     vis_font_path = "app/Model/PaddleOCR/doc/fonts/korean.ttf"
     ocr_order_method = "tb-yx"
@@ -27,8 +27,8 @@ def run_ser_prediction(image_dir):
 
 def run_ser_re_prediction(image_dir):
     kie_algorithm = "LayoutXLM"
-    re_model_dir = "app/Model/inference/re_vi_layoutxlm"
-    ser_model_dir = "app/Model/inference/ser_vi_layoutxlm"
+    re_model_dir = "app/Model/inference_vi/re_vi_layoutxlm"
+    ser_model_dir = "app/Model/inference_vi/ser_vi_layoutxlm"
     ser_dict_path = "app/Model/utility/class_list.txt"
     vis_font_path = "app/Model/PaddleOCR/doc/fonts/korean.ttf"
     ocr_order_method = "tb-yx"
