@@ -104,6 +104,7 @@ def main(args):
 
         # bbox 추출 및 저장
         privacy_bboxes = extract_privacy_bboxes(re_res)
+        privacy_bboxes_dicts = [{'bbox': bbox} for bbox in privacy_bboxes]
 
         # 'SampleRepo/이미지파일명' 디렉토리에 txt 파일을 저장
         base_name = os.path.basename(image_file)
@@ -112,14 +113,9 @@ def main(args):
         bbox_save_path = os.path.join(dir_path, f'{file_name}_privacy_bbox.txt')
 
         with open(bbox_save_path, 'w', encoding='utf-8') as bbox_file:
-            bbox_file.write("[\n")
-            for i, bbox in enumerate(privacy_bboxes):
-                bbox_str = ','.join(map(str, bbox))
-                if i != len(privacy_bboxes) - 1:
-                    bbox_file.write('{' + f"'bbox': [{bbox_str}]" + '},\n')
-                else:
-                    bbox_file.write('{' + f"'bbox': [{bbox_str}]" + '}\n')
-            bbox_file.write("]\n")
+                    # JSON 형식 문자열로 변환하여 파일에 쓰기
+                    json_string = json.dumps(privacy_bboxes_dicts, indent=4)
+                    bbox_file.write(json_string)
 
         # 이미지 결과 저장
         if ser_re_predictor.predictor is not None:

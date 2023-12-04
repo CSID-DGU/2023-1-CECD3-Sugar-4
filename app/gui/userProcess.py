@@ -209,25 +209,21 @@ class LabelingTool(QWidget):
         for item in self.scene.items():
             if isinstance(item, ResizableRectItem):
                 rect = item.rect()
-                bbox = [rect.left(), rect.top(), rect.right(), rect.bottom()]
+                bbox = [float(rect.left()), float(rect.top()), float(rect.right()), float(rect.bottom())]
                 bboxes.append({'bbox': bbox})
 
         base_name = os.path.basename(self.image_path)
         file_name, _ = os.path.splitext(base_name)
 
-        # 'app/gui/SampleRepo/원본이미지명' 디렉토리에 txt 파일을 저장
         dir_path = os.path.join('app', 'gui', 'SampleRepo', file_name)
-        os.makedirs(dir_path, exist_ok=True)  # 디렉토리가 없으면 생성하고, 이미 있다면 그대로 둡니다.
+        os.makedirs(dir_path, exist_ok=True)
+
         save_path = os.path.join(dir_path, f'{file_name}_privacy_bbox.txt')
 
-        with open(save_path, 'w') as f:
-            f.write("[\n")
-            for i, bbox in enumerate(bboxes):
-                if i != len(bboxes) - 1:
-                    f.write(str(bbox) + ',\n')
-                else:
-                    f.write(str(bbox) + '\n')
-            f.write("]\n")
+        with open(save_path, 'w', encoding='utf-8') as f:  # UTF-8 인코딩 설정
+            json_string = json.dumps(bboxes, indent=4)  # 리스트를 JSON 형식 문자열로 변환
+            f.write(json_string)
+            
 def main():
     app = QApplication([])
     window = LabelingTool()
