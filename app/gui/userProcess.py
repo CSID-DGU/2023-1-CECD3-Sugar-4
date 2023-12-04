@@ -1,6 +1,7 @@
 import json
 import os
 
+from imageMasking import mask_image_with_bboxes
 from PySide6.QtWidgets import QPushButton,QApplication, QGraphicsScene, QGraphicsView, QGraphicsRectItem, QVBoxLayout, QWidget
 from PySide6.QtGui import QPixmap, QPen, QColor, QMouseEvent
 from PySide6.QtCore import Qt, QRectF, QPointF, QEvent, QSizeF
@@ -154,15 +155,17 @@ class LabelingView(QGraphicsView):
         else:
             super(LabelingView, self).mouseReleaseEvent(event)
 
-class LabelingTool(QWidget):
-    def __init__(self, image_path, bbox_file_path):
-        super(LabelingTool, self).__init__()
+class LabelingToolByNewImage(QWidget):
+    def __init__(self, image_path, image_directory_path, bbox_file_path):
+        super(LabelingToolByNewImage, self).__init__()
 
-        self.image_path = image_path
+        self.image_directory_path = image_directory_path
         with open(bbox_file_path, 'r') as f:
             content = f.read()
             content = content.replace("'", '"')  # 작은따옴표를 큰따옴표로 변환
             self.bbox_coordinates = json.loads(content)
+            
+        self.image_path = image_path
 
         self.scene = QGraphicsScene(self)
         self.view = LabelingView(self.scene)
@@ -185,9 +188,98 @@ class LabelingTool(QWidget):
         self.save_button = QPushButton("Save", self)
         self.save_button.clicked.connect(self.saveBBoxes)
         layout.addWidget(self.save_button)
-
+        
+        self.masking_button = QPushButton("masking", self)
+        self.masking_button.clicked.connect(self.maskingPrivacy)
+        layout.addWidget(self.masking_button)
+        
     def loadImageAndBBoxes(self):
-        pixmap = QPixmap(self.image_path)
+        pixmap = QPixmap(self.image_directory_path)
+        print(self.image_directory_path)
+        pixmap_item = self.scene.addPixmap(pixmap)
+        self.view.setScene(self.scene)
+
+        for bbox_dict in self.bbox_coordinates:
+            bbox = bbox_dict['bbox']
+            rect = QRectF(bbox[0], bbox[1], bbox[2]-bbox[0], bbox[3]-bbox[1])
+            bbox_item = ResizableRectItem(rect)
+            self.scene.addItem(bbox_item)
+            
+    def maskingPrivacy(self):
+        image_dir = self.image_directory_path
+        bbox_name, extension = os.path.splitext(os.path.basename(image_dir))
+        bbox_dir = os.path.join(image_dir, '..', bbox_name + '_privacy_bbox.txt')
+        save_dir = os.path.join(os.getcwd(), 'app', 'gui', 'Results')
+        mask_image_with_bboxes(bbox_dir, image_dir, save_dir)
+
+
+    def toggleDrawingMode(self):
+        self.view.is_drawing = not self.view.is_drawing
+
+    def deleteSelectedBBox(self):
+        for item in self.scene.selectedItems():
+            self.scene.removeItem(item)
+
+    def saveBBoxes(self):
+        print(self.image_directory_path)
+        print(self.image_path)
+        bboxes = []
+        for item in self.scene.items():
+            if isinstance(item, ResizableRectItem):
+                rect = item.rect()
+                bbox = [float(rect.left()), float(rect.top()), float(rect.right()), float(rect.bottom())]
+                bboxes.append({'bbox': bbox})
+
+        base_name = os.path.basename(self.image_directory_path)
+        file_name, _ = os.path.splitext(base_name)
+
+        dir_path = os.path.join('app', 'gui', 'SampleRepo', file_name)
+        os.makedirs(dir_path, exist_ok=True)
+
+        save_path = os.path.join(dir_path, f'{file_name}_privacy_bbox.txt')
+
+        with open(save_path, 'w', encoding='utf-8') as f:  # UTF-8 인코딩 설정
+            json_string = json.dumps(bboxes, indent=4)  # 리스트를 JSON 형식 문자열로 변환
+            f.write(json_string)
+            
+            
+class LabelingToolBySampleImage(QWidget):
+    def __init__(self, image_path, image_directory_path, bbox_file_path):
+        super(LabelingToolBySampleImage, self).__init__()
+
+        self.image_directory_path = image_directory_path
+        with open(bbox_file_path, 'r') as f:
+            content = f.read()
+            content = content.replace("'", '"')  # 작은따옴표를 큰따옴표로 변환
+            self.bbox_coordinates = json.loads(content)
+            
+        self.image_path = image_path
+
+        self.scene = QGraphicsScene(self)
+        self.view = LabelingView(self.scene)
+        self.view.setMouseTracking(True)
+
+        layout = QVBoxLayout(self)
+        layout.addWidget(self.view)
+
+        self.loadImageAndBBoxes()
+
+        self.draw_button = QPushButton("Draw", self)
+        self.draw_button.setCheckable(True)
+        self.draw_button.clicked.connect(self.toggleDrawingMode)
+        layout.addWidget(self.draw_button)
+
+        self.delete_button = QPushButton("Delete", self)
+        self.delete_button.clicked.connect(self.deleteSelectedBBox)
+        layout.addWidget(self.delete_button)
+
+        self.save_button = QPushButton("Save", self)
+        self.save_button.clicked.connect(self.saveBBoxes)
+        layout.addWidget(self.save_button)
+        
+    def loadImageAndBBoxes(self):
+        pixmap = QPixmap(self.image_directory_path)
+        print(self.image_directory_path)
         pixmap_item = self.scene.addPixmap(pixmap)
         self.view.setScene(self.scene)
 
@@ -205,6 +297,8 @@ class LabelingTool(QWidget):
             self.scene.removeItem(item)
 
     def saveBBoxes(self):
+        print(self.image_directory_path)
+        print(self.image_path)
         bboxes = []
         for item in self.scene.items():
             if isinstance(item, ResizableRectItem):
@@ -212,7 +306,7 @@ class LabelingTool(QWidget):
                 bbox = [float(rect.left()), float(rect.top()), float(rect.right()), float(rect.bottom())]
                 bboxes.append({'bbox': bbox})
 
-        base_name = os.path.basename(self.image_path)
+        base_name = os.path.basename(self.image_directory_path)
         file_name, _ = os.path.splitext(base_name)
 
         dir_path = os.path.join('app', 'gui', 'SampleRepo', file_name)
@@ -226,7 +320,7 @@ class LabelingTool(QWidget):
             
 def main():
     app = QApplication([])
-    window = LabelingTool()
+    window = LabelingToolByNewImage()
     window.show()
     app.exec_()
 
