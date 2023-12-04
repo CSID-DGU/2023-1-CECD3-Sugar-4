@@ -184,6 +184,16 @@ class UI_3App(QMainWindow):
             except Exception as e:
                 print(f"An error occurred: {e}")
 
+        file_name = os.path.basename(specific_dir_path)
+        file_path = os.path.join(self.current_dir, 'SampleRepo', file_name)
+        bbox_path = os.path.join(file_path, file_name + '_privacy_bbox.txt')
+        image_path = os.path.join(file_path, os.path.basename(selected_file_name))
+        print(bbox_path)
+        self.labeling_tool_window = LabelingTool(image_path, bbox_path)
+        self.labeling_tool_window.show()
+                
+    
+
     @Slot()
     def close_ui_3_and_open_ui_4(self):
         # pushButton_2를 클릭했을 때 실행될 함수입니다.
