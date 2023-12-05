@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_4oAaLEz.ui'
+## Form generated from reading UI file 'ui_4FVRthb.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -72,6 +72,9 @@ class Ui_MainWindow4(object):
         self.pushButton_8 = QPushButton(self.centralwidget)
         self.pushButton_8.setObjectName(u"pushButton_8")
         self.pushButton_8.setGeometry(QRect(-1, 10, 171, 91))
+        self.pushButton_5 = QPushButton(self.centralwidget)
+        self.pushButton_5.setObjectName(u"pushButton_5")
+        self.pushButton_5.setGeometry(QRect(600, 430, 71, 31))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -96,5 +99,6 @@ class Ui_MainWindow4(object):
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Images", None))
         self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample List", None))
         self.pushButton_8.setText(QCoreApplication.translate("MainWindow", u"Privacy Detection", None))
+        self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"Modify", None))
     # retranslateUi
 
