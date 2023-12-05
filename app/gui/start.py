@@ -245,7 +245,7 @@ class UI_4App(QMainWindow):
         self.ui.listView.doubleClicked.connect(self.handle_listview_doubleclick)
 
     def show_file_list(self, directory):
-        file_list = os.listdir(directory)
+        file_list = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
         model = QStandardItemModel()
 
         for item_text in file_list:
