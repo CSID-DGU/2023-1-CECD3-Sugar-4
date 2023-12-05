@@ -67,9 +67,9 @@ def find_matches_and_format_output(priv_boxes, ocr_boxes, threshold=0.01):
         for ocr in ocr_boxes:
             iou = calculate_iou(priv, ocr)
             if iou >= threshold:
-                bbox_x2 = priv[0] + priv[2]
-                bbox_y2 = priv[1] + priv[3]
-                formatted_matches.append({'bbox': [priv[0], priv[1], bbox_x2, bbox_y2]})
+                bbox_x2 = ocr[0] + ocr[2]
+                bbox_y2 = ocr[1] + ocr[3]
+                formatted_matches.append({'bbox': [ocr[0], ocr[1], bbox_x2, bbox_y2]})
                 break 
     return formatted_matches
 
