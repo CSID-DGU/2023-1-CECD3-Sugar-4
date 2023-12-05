@@ -228,12 +228,66 @@ class UI_4App(QMainWindow):
         super(UI_4App, self).__init__()
         self.ui = Ui_MainWindow4()
         self.ui.setupUi(self)
-        # pushButton_3 클릭 이벤트에 대한 핸들러를 연결합니다.
+
+        # Attach a handler for the pushButton_3 click event.
         self.ui.pushButton_3.clicked.connect(self.close_ui_4_and_open_ui_2)
-        # pushButton_6 클릭 이벤트에 대한 핸들러를 연결합니다.
+        # pushButton_6 Attach a handler for the click event.
         self.ui.pushButton_6.clicked.connect(self.close_ui_4_and_open_ui_6)
         self.ui.pushButton_8.clicked.connect(self.close_ui_4_and_open_ui_3)
-        
+
+        # Populate the list view with files and folders from app/gui/Results
+        self.show_file_list('app/gui/Results')
+
+        # Attach a handler for the File Download button click event.
+        self.ui.pushButton_4.clicked.connect(self.download_files)
+
+        # Attach a handler for the double-click event in the list view
+        self.ui.listView.doubleClicked.connect(self.handle_listview_doubleclick)
+
+    def show_file_list(self, directory):
+        file_list = os.listdir(directory)
+        model = QStandardItemModel()
+
+        for item_text in file_list:
+            item = CheckableItem(item_text)
+            model.appendRow(item)
+
+        model.itemChanged.connect(self.handle_item_changed)
+        self.ui.listView.setModel(model)
+
+    @Slot(QStandardItem)
+    def handle_item_changed(self, item):
+        # Handle item changes, if needed
+        pass
+
+    def download_files(self):
+        # Prompt the user to select a directory for downloading
+        download_folder = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
+
+        if download_folder:
+            model = self.ui.listView.model()
+            selected_items = [model.item(i).text() for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
+
+            for item_text in selected_items:
+                # Move the selected item to the specified download directory
+                source_path = os.path.join('app/gui/Results', item_text)
+                destination_path = os.path.join(download_folder, item_text)
+
+                try:
+                    shutil.move(source_path, destination_path)
+                except OSError as e:
+                    print(f"Failed to move {item_text}: {str(e)}")
+
+            # Update the list view after moving the files
+            self.show_file_list('app/gui/Results')
+
+    @Slot("QModelIndex")
+    def handle_listview_doubleclick(self, index):
+        item = self.ui.listView.model().itemFromIndex(index)
+        if item and os.path.isdir(os.path.join('app/gui/Results', item.text())):
+            # If the double-clicked item is a folder, update the list view to show its contents
+            self.show_file_list(os.path.join('app/gui/Results', item.text()))
+
     @Slot()
     def close_ui_4_and_open_ui_2(self):
         # pushButton_3를 클릭했을 때 실행될 함수입니다.
@@ -241,7 +295,7 @@ class UI_4App(QMainWindow):
         self.ui_2_window = UI_2App()
         self.ui_2_window.show()
         self.close()
-        
+
     @Slot()
     def close_ui_4_and_open_ui_6(self):
         # pushButton_6를 클릭했을 때 실행될 함수입니다.
