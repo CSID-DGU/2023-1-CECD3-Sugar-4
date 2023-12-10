@@ -1,5 +1,6 @@
 import subprocess
 import sys
+import re
 from pathlib import Path
 from imageMasking import mask_image_with_bboxes
 from userProcess import LabelingToolByNewImage, LabelingToolBySampleImage
@@ -236,13 +237,17 @@ class UI_4App(QMainWindow):
         self.ui.pushButton_8.clicked.connect(self.close_ui_4_and_open_ui_3)
 
         # Populate the list view with files and folders from app/gui/Results
-        self.show_file_list('app/gui/Results')
+        self.show_file_dictionary('app/gui/Results')
 
         # Attach a handler for the File Download button click event.
         self.ui.pushButton_4.clicked.connect(self.download_files)
 
         # Attach a handler for the double-click event in the list view
         self.ui.listView.doubleClicked.connect(self.handle_listview_doubleclick)
+        
+        self.ui.pushButton_5.clicked.connect(self.run_labeling_tool)
+        self.checked_item = ""
+        self.folder_item = ""
 
     def show_file_list(self, directory):
         file_list = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
@@ -254,11 +259,31 @@ class UI_4App(QMainWindow):
 
         model.itemChanged.connect(self.handle_item_changed)
         self.ui.listView.setModel(model)
-
+        self.ui.listView.clicked.connect(self.display_image_preview)
+        
+        
+    @Slot("QModelIndex")
+    def display_image_preview(self, index):
+        item = self.ui.listView.model().itemFromIndex(index)
+        if item is not None:
+            file_name = item.text()
+            file_path = os.path.join(os.getcwd(), 'app', 'gui', 'Results', self.folder_item, file_name)
+            self.selected_file_path = file_path
+            
+            pixmap = QPixmap(file_path)
+            target_width = 281
+            target_height = 351
+            scaled_pixmap = pixmap.scaled(target_width, target_height, Qt.KeepAspectRatio)
+            self.ui.label_6.setPixmap(scaled_pixmap)
+            
     @Slot(QStandardItem)
     def handle_item_changed(self, item):
-        # Handle item changes, if needed
-        pass
+        if item.checkState() == Qt.Checked:
+            model = self.ui.listView.model()
+            for i in range(model.rowCount()):
+                if model.item(i) != item:  # 현재 변경된 아이템을 제외한 모든 아이템에 대해
+                    model.item(i).setCheckState(Qt.Unchecked)  # 체크 상태 해제
+        self.checked_item = item.text()
 
     def download_files(self):
         # Prompt the user to select a directory for downloading
@@ -280,12 +305,47 @@ class UI_4App(QMainWindow):
 
             # Update the list view after moving the files
             self.show_file_list('app/gui/Results')
+            
+            
+    @Slot()
+    def run_labeling_tool(self):
+        aa = self.folder_item #kor1
+        print(aa)
+        checked_item = self.checked_item
+        print(checked_item) # masked_kor21
+        image_name = checked_item.replace("masked_", "")
+        basename, ext = os.path.splitext(image_name)
+        print(basename)
+        
+        image_path = os.path.join('app', 'gui', 'Results',  aa)
+        image_directory_path = os.path.join('app', 'gui', 'SampleRepo', aa, 'Upload', image_name)
+        bbox_path = os.path.join('app', 'gui', 'Results', aa, basename +'.txt')
+        print(image_path, image_directory_path, bbox_path)
+         
+
+        self.labeling_tool_window = LabelingToolBySampleImage(image_path, image_directory_path , bbox_path)
+        self.labeling_tool_window.show()
+        
+    def show_file_dictionary(self, directory):
+        file_list = os.listdir(directory)
+        model = QStandardItemModel()
+        for item_text in file_list:
+            item = CheckableItem(item_text)
+            model.appendRow(item)
+            
+        model.itemChanged.connect(self.handle_item_changed)
+        self.ui.listView.setModel(model)
+        self.ui.pushButton_5.clicked.connect(lambda: self.delete_selected_files(model, directory))
+
+        # 더블 클릭 이벤트 핸들러를 handle_listview_doubleclick로 변경
+        self.ui.listView.doubleClicked.connect(self.handle_listview_doubleclick)
 
     @Slot("QModelIndex")
     def handle_listview_doubleclick(self, index):
         item = self.ui.listView.model().itemFromIndex(index)
         if item and os.path.isdir(os.path.join('app/gui/Results', item.text())):
-            # If the double-clicked item is a folder, update the list view to show its contents
+            self.folder_item = item.text()
+            # 디렉토리를 더블 클릭하면 show_file_list 함수 호출
             self.show_file_list(os.path.join('app/gui/Results', item.text()))
 
     @Slot()
@@ -381,7 +441,7 @@ class UI_6App(QMainWindow):
         bbox_path = os.path.join('app', 'gui', 'SampleRepo', file_name, file_name + '_privacy_bbox.txt')
         self.labeling_tool_window = LabelingToolBySampleImage(image_path, self.selected_file_path, bbox_path)
         self.labeling_tool_window.show()
-        print(image_path)
+        print("d" + image_path)
         print(self.selected_file_path)
         print(bbox_path)
 
@@ -426,6 +486,7 @@ class UI_6App(QMainWindow):
 
     def show_folder_contents(self, model, directory, index):
         item = model.itemFromIndex(index)
+        print( item.text())
         folder_path = os.path.join(directory, item.text())
         print(folder_path)
         folder_path2 = os.path.join(folder_path, 'Upload')

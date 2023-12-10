@@ -243,7 +243,7 @@ class LabelingToolByNewImage(QWidget):
 class LabelingToolBySampleImage(QWidget):
     def __init__(self, image_path, image_directory_path, bbox_file_path):
         super(LabelingToolBySampleImage, self).__init__()
-
+        self.bbox_file_path = bbox_file_path
         self.image_directory_path = image_directory_path
         with open(bbox_file_path, 'r') as f:
             content = f.read()
@@ -299,16 +299,10 @@ class LabelingToolBySampleImage(QWidget):
                 rect = item.rect()
                 bbox = [float(rect.left()), float(rect.top()), float(rect.right()), float(rect.bottom())]
                 bboxes.append({'bbox': bbox})
+                
+        dir_path = self.bbox_file_path
 
-        base_name = os.path.basename(self.image_directory_path)
-        file_name, _ = os.path.splitext(base_name)
-
-        dir_path = os.path.join('app', 'gui', 'SampleRepo', file_name)
-        os.makedirs(dir_path, exist_ok=True)
-
-        save_path = os.path.join(dir_path, f'{file_name}_privacy_bbox.txt')
-
-        with open(save_path, 'w', encoding='utf-8') as f:  # UTF-8 인코딩 설정
+        with open(dir_path, 'w', encoding='utf-8') as f:  # UTF-8 인코딩 설정
             json_string = json.dumps(bboxes, indent=4)  # 리스트를 JSON 형식 문자열로 변환
             f.write(json_string)
             
