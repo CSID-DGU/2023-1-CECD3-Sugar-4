@@ -85,6 +85,9 @@ class Ui_MainWindow4(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
+        self.label_6 = QLabel(self.centralwidget)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setGeometry(QRect(530, 60, 281, 351))
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
