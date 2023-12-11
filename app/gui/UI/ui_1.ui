@@ -46,20 +46,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Upload Sample Image</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>-1</x>
-      <y>274</y>
-      <width>171</width>
-      <height>91</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Results</string>
+     <string>Sample List</string>
     </property>
    </widget>
    <widget class="Line" name="line">
@@ -94,7 +81,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Upload Sample Image</string>
+     <string>File Download</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_3">
@@ -113,14 +100,14 @@
    <widget class="QPushButton" name="pushButton_4">
     <property name="geometry">
      <rect>
-      <x>700</x>
+      <x>650</x>
       <y>430</y>
-      <width>101</width>
+      <width>151</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>File Upload</string>
+     <string>File Download</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -152,19 +139,6 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_5">
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>430</y>
-      <width>91</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>디렉토리 설정</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_6">
     <property name="geometry">
      <rect>
@@ -175,7 +149,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Sample List</string>
+     <string>Sample Results</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_8">
@@ -189,6 +163,32 @@
     </property>
     <property name="text">
      <string>Privacy Detection</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_7">
+    <property name="geometry">
+     <rect>
+      <x>-1</x>
+      <y>274</y>
+      <width>171</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>File Download</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>60</y>
+      <width>281</width>
+      <height>351</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

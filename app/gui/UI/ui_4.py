@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_4FVRthb.ui'
+## Form generated from reading UI file 'ui_4etdvrQ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -45,7 +45,7 @@ class Ui_MainWindow4(object):
         self.line.setFrameShadow(QFrame.Sunken)
         self.label_2 = QLabel(self.centralwidget)
         self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(180, 10, 71, 21))
+        self.label_2.setGeometry(QRect(180, 10, 111, 21))
         font1 = QFont()
         font1.setPointSize(11)
         font1.setBold(True)
@@ -53,9 +53,6 @@ class Ui_MainWindow4(object):
         self.pushButton_3 = QPushButton(self.centralwidget)
         self.pushButton_3.setObjectName(u"pushButton_3")
         self.pushButton_3.setGeometry(QRect(220, 430, 61, 31))
-        self.pushButton_4 = QPushButton(self.centralwidget)
-        self.pushButton_4.setObjectName(u"pushButton_4")
-        self.pushButton_4.setGeometry(QRect(680, 430, 121, 31))
         self.label_3 = QLabel(self.centralwidget)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setGeometry(QRect(210, 30, 71, 21))
@@ -74,7 +71,10 @@ class Ui_MainWindow4(object):
         self.pushButton_8.setGeometry(QRect(-1, 10, 171, 91))
         self.pushButton_5 = QPushButton(self.centralwidget)
         self.pushButton_5.setObjectName(u"pushButton_5")
-        self.pushButton_5.setGeometry(QRect(600, 430, 71, 31))
+        self.pushButton_5.setGeometry(QRect(630, 430, 161, 31))
+        self.pushButton_7 = QPushButton(self.centralwidget)
+        self.pushButton_7.setObjectName(u"pushButton_7")
+        self.pushButton_7.setGeometry(QRect(-1, 274, 171, 91))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -85,9 +85,6 @@ class Ui_MainWindow4(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.label_6 = QLabel(self.centralwidget)
-        self.label_6.setObjectName(u"label_6")
-        self.label_6.setGeometry(QRect(530, 60, 281, 351))
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
@@ -95,13 +92,13 @@ class Ui_MainWindow4(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.label.setText("")
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Results", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Results", None))
+        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Sample Results", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Sample Results", None))
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Home", None))
-        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"File Download", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Images", None))
         self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample List", None))
         self.pushButton_8.setText(QCoreApplication.translate("MainWindow", u"Privacy Detection", None))
         self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"Modify", None))
+        self.pushButton_7.setText(QCoreApplication.translate("MainWindow", u"File Download", None))
     # retranslateUi
 

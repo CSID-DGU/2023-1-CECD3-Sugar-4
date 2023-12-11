@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_1dsbuqL.ui'
+## Form generated from reading UI file 'ui_1emNffu.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -37,9 +37,6 @@ class Ui_MainWindow1(object):
         self.pushButton = QPushButton(self.centralwidget)
         self.pushButton.setObjectName(u"pushButton")
         self.pushButton.setGeometry(QRect(-1, 98, 171, 91))
-        self.pushButton_2 = QPushButton(self.centralwidget)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setGeometry(QRect(-1, 274, 171, 91))
         self.line = QFrame(self.centralwidget)
         self.line.setObjectName(u"line")
         self.line.setGeometry(QRect(161, -30, 16, 521))
@@ -58,7 +55,7 @@ class Ui_MainWindow1(object):
         self.pushButton_3.setGeometry(QRect(220, 430, 61, 31))
         self.pushButton_4 = QPushButton(self.centralwidget)
         self.pushButton_4.setObjectName(u"pushButton_4")
-        self.pushButton_4.setGeometry(QRect(700, 430, 101, 31))
+        self.pushButton_4.setGeometry(QRect(650, 430, 151, 31))
         self.label_3 = QLabel(self.centralwidget)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setGeometry(QRect(210, 30, 71, 21))
@@ -69,15 +66,18 @@ class Ui_MainWindow1(object):
         self.listView = QListView(self.centralwidget)
         self.listView.setObjectName(u"listView")
         self.listView.setGeometry(QRect(180, 50, 641, 371))
-        self.pushButton_5 = QPushButton(self.centralwidget)
-        self.pushButton_5.setObjectName(u"pushButton_5")
-        self.pushButton_5.setGeometry(QRect(290, 430, 91, 31))
         self.pushButton_6 = QPushButton(self.centralwidget)
         self.pushButton_6.setObjectName(u"pushButton_6")
         self.pushButton_6.setGeometry(QRect(-1, 186, 171, 91))
         self.pushButton_8 = QPushButton(self.centralwidget)
         self.pushButton_8.setObjectName(u"pushButton_8")
         self.pushButton_8.setGeometry(QRect(-1, 10, 171, 91))
+        self.pushButton_7 = QPushButton(self.centralwidget)
+        self.pushButton_7.setObjectName(u"pushButton_7")
+        self.pushButton_7.setGeometry(QRect(-1, 274, 171, 91))
+        self.label_6 = QLabel(self.centralwidget)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setGeometry(QRect(530, 60, 281, 351))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -95,14 +95,14 @@ class Ui_MainWindow1(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.label.setText("")
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Upload Sample Image", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Results", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Upload Sample Image", None))
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Sample List", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"File Download", None))
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Home", None))
-        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"File Upload", None))
+        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"File Download", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"File Name", None))
-        self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"\ub514\ub809\ud1a0\ub9ac \uc124\uc815", None))
-        self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample List", None))
+        self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample Results", None))
         self.pushButton_8.setText(QCoreApplication.translate("MainWindow", u"Privacy Detection", None))
+        self.pushButton_7.setText(QCoreApplication.translate("MainWindow", u"File Download", None))
+        self.label_6.setText("")
     # retranslateUi
 

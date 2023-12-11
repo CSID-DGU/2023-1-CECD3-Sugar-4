@@ -46,7 +46,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Results</string>
+     <string>Sample Results</string>
     </property>
    </widget>
    <widget class="Line" name="line">
@@ -202,6 +202,19 @@
     </property>
     <property name="text">
      <string>Privacy Detection</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_7">
+    <property name="geometry">
+     <rect>
+      <x>-1</x>
+      <y>274</y>
+      <width>171</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>File Download</string>
     </property>
    </widget>
   </widget>

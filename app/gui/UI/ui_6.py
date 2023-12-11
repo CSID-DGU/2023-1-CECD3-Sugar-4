@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_6ADlaXc.ui'
+## Form generated from reading UI file 'ui_6vUvQqA.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -78,6 +78,9 @@ class Ui_MainWindow6(object):
         self.pushButton_8 = QPushButton(self.centralwidget)
         self.pushButton_8.setObjectName(u"pushButton_8")
         self.pushButton_8.setGeometry(QRect(-1, 10, 171, 91))
+        self.pushButton_7 = QPushButton(self.centralwidget)
+        self.pushButton_7.setObjectName(u"pushButton_7")
+        self.pushButton_7.setGeometry(QRect(-1, 274, 171, 91))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -95,7 +98,7 @@ class Ui_MainWindow6(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.label.setText("")
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Results", None))
+        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Sample Results", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Sample List", None))
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Home", None))
         self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Modify", None))
@@ -104,5 +107,6 @@ class Ui_MainWindow6(object):
         self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
         self.label_6.setText("")
         self.pushButton_8.setText(QCoreApplication.translate("MainWindow", u"Privacy Detection", None))
+        self.pushButton_7.setText(QCoreApplication.translate("MainWindow", u"File Download", None))
     # retranslateUi
 

@@ -16,6 +16,7 @@ import shutil
 from PySide6.QtWidgets import QApplication, QMainWindow, QListView, QPushButton, QFileDialog, QMessageBox, QLabel, QVBoxLayout, QWidget, QListWidget
 from PySide6.QtCore import QDir, Qt, Slot, QModelIndex
 from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap
+from ui_1 import Ui_MainWindow1
 from ui_2 import Ui_MainWindow2
 from ui_3 import Ui_MainWindow3
 from ui_4 import Ui_MainWindow4
@@ -31,6 +32,130 @@ class CheckableItem(QStandardItem):
         self.setCheckable(True)
         self.setCheckState(Qt.Unchecked)
 
+class UI_1App(QMainWindow):
+    def __init__(self):
+        super(UI_1App, self).__init__()
+        self.ui = Ui_MainWindow1()
+        self.ui.setupUi(self)
+        self.ui.pushButton_3.clicked.connect(self.close_ui_1_and_open_ui_2)
+        self.ui.pushButton_6.clicked.connect(self.close_ui_1_and_open_ui_4)
+        self.ui.pushButton_8.clicked.connect(self.close_ui_1_and_open_ui_3)
+        self.ui.pushButton.clicked.connect(self.close_ui_1_and_open_ui_6)
+
+        # Populate the list view with files and folders from app/gui/Results
+        self.show_file_dictionary('app/gui/Results')
+
+        # Attach a handler for the File Download button click event.
+        self.ui.pushButton_4.clicked.connect(self.download_files)
+
+        # Attach a handler for the double-click event in the list view
+        self.ui.listView.doubleClicked.connect(self.handle_listview_doubleclick)
+        
+        self.checked_item = ""
+        self.folder_item = ""
+
+    def show_file_list(self, directory):
+        file_list = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
+        model = QStandardItemModel()
+
+        for item_text in file_list:
+            item = CheckableItem(item_text)
+            model.appendRow(item)
+
+        model.itemChanged.connect(self.handle_item_changed)
+        self.ui.listView.setModel(model)
+        self.ui.listView.clicked.connect(self.display_image_preview)
+        
+        
+    @Slot("QModelIndex")
+    def display_image_preview(self, index):
+        item = self.ui.listView.model().itemFromIndex(index)
+        if item is not None:
+            file_name = item.text()
+            file_path = os.path.join(os.getcwd(), 'app', 'gui', 'Results', self.folder_item, file_name)
+            self.selected_file_path = file_path
+            
+            pixmap = QPixmap(file_path)
+            target_width = 281
+            target_height = 351
+            scaled_pixmap = pixmap.scaled(target_width, target_height, Qt.KeepAspectRatio)
+            self.ui.label_6.setPixmap(scaled_pixmap)
+            
+    @Slot(QStandardItem)
+    def handle_item_changed(self, item):
+        if item.checkState() == Qt.Checked:
+            model = self.ui.listView.model()
+            for i in range(model.rowCount()):
+                if model.item(i) != item:  # 현재 변경된 아이템을 제외한 모든 아이템에 대해
+                    model.item(i).setCheckState(Qt.Unchecked)  # 체크 상태 해제
+        self.checked_item = item.text()
+
+    def download_files(self):
+        # Prompt the user to select a directory for downloading
+        download_folder = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
+
+        if download_folder:
+            model = self.ui.listView.model()
+            selected_items = [model.item(i).text() for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
+
+            for item_text in selected_items:
+                # Move the selected item to the specified download directory
+                source_path = os.path.join('app/gui/Results', item_text)
+                destination_path = os.path.join(download_folder, item_text)
+
+                try:
+                    shutil.move(source_path, destination_path)
+                except OSError as e:
+                    print(f"Failed to move {item_text}: {str(e)}")
+
+            # Update the list view after moving the files
+            self.show_file_list('app/gui/Results')
+        
+    def show_file_dictionary(self, directory):
+        file_list = os.listdir(directory)
+        model = QStandardItemModel()
+        for item_text in file_list:
+            item = CheckableItem(item_text)
+            model.appendRow(item)
+            
+        model.itemChanged.connect(self.handle_item_changed)
+        self.ui.listView.setModel(model)
+
+        # 더블 클릭 이벤트 핸들러를 handle_listview_doubleclick로 변경
+        self.ui.listView.doubleClicked.connect(self.handle_listview_doubleclick)
+
+    @Slot("QModelIndex")
+    def handle_listview_doubleclick(self, index):
+        item = self.ui.listView.model().itemFromIndex(index)
+        if item and os.path.isdir(os.path.join('app/gui/Results', item.text())):
+            self.folder_item = item.text()
+            # 디렉토리를 더블 클릭하면 show_file_list 함수 호출
+            self.show_file_list(os.path.join('app/gui/Results', item.text()))
+
+    @Slot()
+    def close_ui_1_and_open_ui_2(self):
+        self.ui_2_window = UI_2App()
+        self.ui_2_window.show()
+        self.close()
+
+    @Slot()
+    def close_ui_1_and_open_ui_6(self):
+        self.ui_6_window = UI_6App()
+        self.ui_6_window.show()
+        self.close()
+
+    @Slot()
+    def close_ui_1_and_open_ui_3(self):
+        self.ui_3_window = UI_3App()
+        self.ui_3_window.show()
+        self.close()
+    
+    @Slot()    
+    def close_ui_1_and_open_ui_4(self):
+        self.ui_4_window = UI_4App()
+        self.ui_4_window.show()
+        self.close()
+        
 class UI_2App(QMainWindow):
     def __init__(self):
         super(UI_2App, self).__init__()
@@ -41,27 +166,28 @@ class UI_2App(QMainWindow):
         # pushButton_3클릭 이벤트에 대한 핸들러를 연결합니다.
         self.ui.pushButton_4.clicked.connect(self.close_ui_2_and_open_ui_3)
         self.ui.pushButton_6.clicked.connect(self.close_ui_2_and_open_ui_6)
+        self.ui.pushButton_7.clicked.connect(self.close_ui_2_and_open_ui_1)
+        
+    @Slot()
+    def close_ui_2_and_open_ui_1(self):
+        self.ui_1_window = UI_1App()
+        self.ui_1_window.show()
+        self.close()
 
     @Slot()
     def close_ui_2_and_open_ui_4(self):
-        # pushButton_2를 클릭했을 때 실행될 함수입니다.
-        # UI_4App 인스턴스를 생성하여 UI_4 화면으로 전환합니다.
         self.ui_4_window = UI_4App()
         self.ui_4_window.show()
         self.close()
 
     @Slot()
     def close_ui_2_and_open_ui_3(self):
-        # pushButton_4를 클릭했을 때 실행될 함수입니다.
-        # UI_3App 인스턴스를 생성하여 UI_3 화면으로 전환합니다.
         self.ui_3_window = UI_3App()
         self.ui_3_window.show()
         self.close()
         
     @Slot()
     def close_ui_2_and_open_ui_6(self):
-        # pushButton_4를 클릭했을 때 실행될 함수입니다.
-        # UI_3App 인스턴스를 생성하여 UI_3 화면으로 전환합니다.
         self.ui_6_window = UI_6App()
         self.ui_6_window.show()
         self.close()
@@ -72,11 +198,10 @@ class UI_3App(QMainWindow):
         self.ui = Ui_MainWindow3()
         self.ui.setupUi(self)
         self.model = QStandardItemModel()
-        # pushButton_2클릭 이벤트에 대한 핸들러를 연결합니다.
         self.ui.pushButton_2.clicked.connect(self.close_ui_3_and_open_ui_4)
-        # pushButton_2클릭 이벤트에 대한 핸들러를 연결합니다.
         self.ui.pushButton_3.clicked.connect(self.close_ui_3_and_open_ui_2)
         self.ui.pushButton_6.clicked.connect(self.close_ui_3_and_open_ui_6)
+        self.ui.pushButton_7.clicked.connect(self.close_ui_3_and_open_ui_1)
         self.ui.pushButton_4.clicked.connect(self.run_predict_process)
 
         self.current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -198,12 +323,14 @@ class UI_3App(QMainWindow):
         self.labeling_tool_window = LabelingToolByNewImage(image_path, image_directory_path, bbox_path)
         self.labeling_tool_window.show()
                 
-    
+    @Slot()
+    def close_ui_3_and_open_ui_1(self):
+        self.ui_1_window = UI_1App()
+        self.ui_1_window.show()
+        self.close()
 
     @Slot()
     def close_ui_3_and_open_ui_4(self):
-        # pushButton_2를 클릭했을 때 실행될 함수입니다.
-        # UI_4App 인스턴스를 생성하여 UI_4 화면으로 전환합니다.
         self.ui_4_window = UI_4App()
         self.ui_4_window.show()
         self.close()
@@ -235,12 +362,10 @@ class UI_4App(QMainWindow):
         # pushButton_6 Attach a handler for the click event.
         self.ui.pushButton_6.clicked.connect(self.close_ui_4_and_open_ui_6)
         self.ui.pushButton_8.clicked.connect(self.close_ui_4_and_open_ui_3)
+        self.ui.pushButton_7.clicked.connect(self.close_ui_4_and_open_ui_1)
 
         # Populate the list view with files and folders from app/gui/Results
         self.show_file_dictionary('app/gui/Results')
-
-        # Attach a handler for the File Download button click event.
-        self.ui.pushButton_4.clicked.connect(self.download_files)
 
         # Attach a handler for the double-click event in the list view
         self.ui.listView.doubleClicked.connect(self.handle_listview_doubleclick)
@@ -284,28 +409,6 @@ class UI_4App(QMainWindow):
                 if model.item(i) != item:  # 현재 변경된 아이템을 제외한 모든 아이템에 대해
                     model.item(i).setCheckState(Qt.Unchecked)  # 체크 상태 해제
         self.checked_item = item.text()
-
-    def download_files(self):
-        # Prompt the user to select a directory for downloading
-        download_folder = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
-
-        if download_folder:
-            model = self.ui.listView.model()
-            selected_items = [model.item(i).text() for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
-
-            for item_text in selected_items:
-                # Move the selected item to the specified download directory
-                source_path = os.path.join('app/gui/Results', item_text)
-                destination_path = os.path.join(download_folder, item_text)
-
-                try:
-                    shutil.move(source_path, destination_path)
-                except OSError as e:
-                    print(f"Failed to move {item_text}: {str(e)}")
-
-            # Update the list view after moving the files
-            self.show_file_list('app/gui/Results')
-            
             
     @Slot()
     def run_labeling_tool(self):
@@ -349,9 +452,13 @@ class UI_4App(QMainWindow):
             self.show_file_list(os.path.join('app/gui/Results', item.text()))
 
     @Slot()
+    def close_ui_4_and_open_ui_1(self):
+        self.ui_1_window = UI_1App()
+        self.ui_1_window.show()
+        self.close()
+
+    @Slot()
     def close_ui_4_and_open_ui_2(self):
-        # pushButton_3를 클릭했을 때 실행될 함수입니다.
-        # UI_2App 인스턴스를 생성하여 UI_2 화면으로 전환합니다.
         self.ui_2_window = UI_2App()
         self.ui_2_window.show()
         self.close()
@@ -380,6 +487,7 @@ class UI_6App(QMainWindow):
         self.ui.pushButton_3.clicked.connect(self.close_ui_6_and_open_ui_2)
         self.ui.pushButton_2.clicked.connect(self.close_ui_6_and_open_ui_4)
         self.ui.pushButton_8.clicked.connect(self.close_ui_6_and_open_ui_3)
+        self.ui.pushButton_7.clicked.connect(self.close_ui_6_and_open_ui_1)
         self.ui.pushButton_4.clicked.connect(self.run_labeling_tool)
 
         self.current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -446,9 +554,13 @@ class UI_6App(QMainWindow):
         print(bbox_path)
 
     @Slot()
+    def close_ui_6_and_open_ui_1(self):
+        self.ui_1_window = UI_1App()
+        self.ui_1_window.show()
+        self.close()
+
+    @Slot()
     def close_ui_6_and_open_ui_2(self):
-        # pushButton_3를 클릭했을 때 실행될 함수입니다.
-        # UI_2App 인스턴스를 생성하여 UI_2 화면으로 전환합니다.
         self.ui_2_window = UI_2App()
         self.ui_2_window.show()
         self.close()
@@ -516,6 +628,7 @@ class UI_8App(QMainWindow):
         self.ui.pushButton_3.clicked.connect(self.close_ui_8_and_open_ui_6)
         self.ui.pushButton_2.clicked.connect(self.close_ui_8_and_open_ui_4)
         self.ui.pushButton_6.clicked.connect(self.close_ui_8_and_open_ui_6)
+        self.ui.pushButton_7.clicked.connect(self.close_ui_8_and_open_ui_1)
         self.ui.pushButton_9.clicked.connect(self.close_ui_8_and_open_ui_3)
         self.ui.pushButton_4.clicked.connect(self.perform_sample)
         
@@ -627,9 +740,13 @@ class UI_8App(QMainWindow):
                 print(f"Failed to delete {item.text()}: {str(e)}")
         
     @Slot()
+    def close_ui_8_and_open_ui_1(self):
+        self.ui_1_window = UI_1App()
+        self.ui_1_window.show()
+        self.close()
+        
+    @Slot()
     def close_ui_8_and_open_ui_4(self):
-        # pushButton_2를 클릭했을 때 실행될 함수입니다.
-        # UI_4App 인스턴스를 생성하여 UI_4 화면으로 전환합니다.
         self.ui_4_window = UI_4App()
         self.ui_4_window.show()
         self.close()

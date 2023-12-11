@@ -46,7 +46,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Results</string>
+     <string>Sample Results</string>
     </property>
    </widget>
    <widget class="Line" name="line">
@@ -70,7 +70,7 @@
      <rect>
       <x>180</x>
       <y>10</y>
-      <width>71</width>
+      <width>111</width>
       <height>21</height>
      </rect>
     </property>
@@ -81,7 +81,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Results</string>
+     <string>Sample Results</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_3">
@@ -95,19 +95,6 @@
     </property>
     <property name="text">
      <string>Home</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_4">
-    <property name="geometry">
-     <rect>
-      <x>680</x>
-      <y>430</y>
-      <width>121</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>File Download</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -168,14 +155,27 @@
    <widget class="QPushButton" name="pushButton_5">
     <property name="geometry">
      <rect>
-      <x>600</x>
+      <x>630</x>
       <y>430</y>
-      <width>71</width>
+      <width>161</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>Modify</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_7">
+    <property name="geometry">
+     <rect>
+      <x>-1</x>
+      <y>274</y>
+      <width>171</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>File Download</string>
     </property>
    </widget>
   </widget>
