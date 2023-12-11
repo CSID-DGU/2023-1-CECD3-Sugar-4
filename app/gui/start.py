@@ -120,9 +120,27 @@ class UI_1App(QMainWindow):
             
         model.itemChanged.connect(self.handle_item_changed)
         self.ui.listView.setModel(model)
-
+        self.ui.pushButton_5.clicked.connect(lambda: self.delete_selected_files(model, directory))
         # 더블 클릭 이벤트 핸들러를 handle_listview_doubleclick로 변경
         self.ui.listView.doubleClicked.connect(self.handle_listview_doubleclick)
+    
+    def delete_selected_files(self, model, directory):
+        selected_items = [model.item(i) for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
+
+        for item in selected_items:
+            file_path = os.path.join(directory, item.text())
+
+            try:
+                if os.path.isfile(file_path):
+                    os.remove(file_path)
+                    model.removeRow(item.row())
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+                    model.removeRow(item.row())
+                QMessageBox.information(self,"알림","파일이 제거 되었습니다.")
+            except OSError as e:
+                print(f"{item.text()} 삭제 실패: {str(e)}")
+                QMessageBox.information(self,"알림","파일 제거에 실패하였습니다.")
 
     @Slot("QModelIndex")
     def handle_listview_doubleclick(self, index):
@@ -241,8 +259,10 @@ class UI_3App(QMainWindow):
                 shutil.copy(file_path, destination_path)
                 item = CheckableItem(os.path.basename(destination_path))
                 self.model.appendRow(item)
+                QMessageBox.information(self,"알림","파일이 업로드 되었습니다.")
             except Exception as e:
                 print(f"파일 업로드 중 오류 발생: {str(e)}")
+                QMessageBox.information(self,"오류","파일이 업로드 되지 않았습니다.")
         
     # itemChanged 시그널을 처리하는 슬롯
     @Slot(QStandardItem)
@@ -276,8 +296,10 @@ class UI_3App(QMainWindow):
             try:
                 os.remove(file_path)  # 파일 삭제
                 model.removeRow(item.row())  # 모델에서 항목 제거
+                QMessageBox.information(self,"알림","파일이 제거 되었습니다.")
             except OSError as e:
                 print(f"Failed to delete {item.text()}: {str(e)}")
+                QMessageBox.information(self,"알림","파일 제거에 실패하였습니다.")
 
     @Slot()
     def run_predict_process(self):
@@ -306,6 +328,7 @@ class UI_3App(QMainWindow):
                 shutil.copy2(selected_file_name, sample_repo_dir)
 
                 subprocess.run(["python", predict_process_path, function_name, selected_file_name])
+                QMessageBox.information(self,"알림","Privacy Detection이 완료되었습니다.\nSample List에서 Masking을 진행하세요.")
 
             except Exception as e:
                 print(f"An error occurred: {e}")
@@ -424,7 +447,6 @@ class UI_4App(QMainWindow):
         image_directory_path = os.path.join('app', 'gui', 'SampleRepo', aa, 'Upload', image_name)
         bbox_path = os.path.join('app', 'gui', 'Results', aa, basename +'.txt')
         print(image_path, image_directory_path, bbox_path)
-         
 
         self.labeling_tool_window = LabelingToolBySampleImage(image_path, image_directory_path , bbox_path)
         self.labeling_tool_window.show()
@@ -438,10 +460,26 @@ class UI_4App(QMainWindow):
             
         model.itemChanged.connect(self.handle_item_changed)
         self.ui.listView.setModel(model)
-        self.ui.pushButton_5.clicked.connect(lambda: self.delete_selected_files(model, directory))
+        self.ui.pushButton_9.clicked.connect(lambda: self.delete_selected_files(model, directory))
 
         # 더블 클릭 이벤트 핸들러를 handle_listview_doubleclick로 변경
         self.ui.listView.doubleClicked.connect(self.handle_listview_doubleclick)
+        
+    def delete_selected_files(self, model, directory):
+        selected_items = [model.item(i) for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
+        for item in selected_items:
+            file_path = os.path.join(directory, item.text())
+            try:
+                if os.path.isfile(file_path):
+                    os.remove(file_path)
+                    model.removeRow(item.row())
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+                    model.removeRow(item.row())
+                QMessageBox.information(self,"알림","파일이 제거 되었습니다.")
+            except OSError as e:
+                print(f"{item.text()} 삭제 실패: {str(e)}")
+                QMessageBox.information(self,"알림","파일 제거에 실패하였습니다.")
 
     @Slot("QModelIndex")
     def handle_listview_doubleclick(self, index):
@@ -531,8 +569,10 @@ class UI_6App(QMainWindow):
                 elif os.path.isdir(file_path):
                     shutil.rmtree(file_path)
                     model.removeRow(item.row())
+                QMessageBox.information(self,"알림","파일이 제거 되었습니다.")
             except OSError as e:
                 print(f"{item.text()} 삭제 실패: {str(e)}")
+                QMessageBox.information(self,"알림","파일 제거에 실패하였습니다.")
                 
     def get_selected_file_name(self):
         model = self.ui.listView.model()
@@ -670,8 +710,10 @@ class UI_8App(QMainWindow):
                 shutil.copy(file_path, destination_path)
                 item = CheckableItem(os.path.basename(destination_path))
                 self.model.appendRow(item)
+                QMessageBox.information(self,"알림","파일이 업로드 되었습니다.")
             except Exception as e:
                 print(f"파일 업로드 중 오류 발생: {str(e)}")
+                QMessageBox.information(self,"오류","파일이 업로드 되지 않았습니다.")
                 
         self.ui.listView.setModel(self.model)
 
@@ -723,6 +765,8 @@ class UI_8App(QMainWindow):
             script_path = os.path.join("app", "Model", "SampleProcess.py")
             subprocess.run(["python", script_path, current_dir, selected_file_dir])
             mask_image_with_bboxes(bbox_path, selected_file_dir, save_dir)
+        
+        QMessageBox.information(self,"알림","Masking 작업이 완료되었습니다.")
         
             
         # SER 작업 수행

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_4etdvrQ.ui'
+## Form generated from reading UI file 'ui_4bIGoRW.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -71,10 +71,16 @@ class Ui_MainWindow4(object):
         self.pushButton_8.setGeometry(QRect(-1, 10, 171, 91))
         self.pushButton_5 = QPushButton(self.centralwidget)
         self.pushButton_5.setObjectName(u"pushButton_5")
-        self.pushButton_5.setGeometry(QRect(630, 430, 161, 31))
+        self.pushButton_5.setGeometry(QRect(650, 430, 151, 31))
         self.pushButton_7 = QPushButton(self.centralwidget)
         self.pushButton_7.setObjectName(u"pushButton_7")
         self.pushButton_7.setGeometry(QRect(-1, 274, 171, 91))
+        self.pushButton_9 = QPushButton(self.centralwidget)
+        self.pushButton_9.setObjectName(u"pushButton_9")
+        self.pushButton_9.setGeometry(QRect(580, 430, 61, 31))
+        self.label_6 = QLabel(self.centralwidget)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setGeometry(QRect(530, 60, 281, 351))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -100,5 +106,7 @@ class Ui_MainWindow4(object):
         self.pushButton_8.setText(QCoreApplication.translate("MainWindow", u"Privacy Detection", None))
         self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"Modify", None))
         self.pushButton_7.setText(QCoreApplication.translate("MainWindow", u"File Download", None))
+        self.pushButton_9.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
+        self.label_6.setText("")
     # retranslateUi
 

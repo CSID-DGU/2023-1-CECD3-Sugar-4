@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_1emNffu.ui'
+## Form generated from reading UI file 'ui_1ywCbKF.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -78,6 +78,9 @@ class Ui_MainWindow1(object):
         self.label_6 = QLabel(self.centralwidget)
         self.label_6.setObjectName(u"label_6")
         self.label_6.setGeometry(QRect(530, 60, 281, 351))
+        self.pushButton_5 = QPushButton(self.centralwidget)
+        self.pushButton_5.setObjectName(u"pushButton_5")
+        self.pushButton_5.setGeometry(QRect(580, 430, 61, 31))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -104,5 +107,6 @@ class Ui_MainWindow1(object):
         self.pushButton_8.setText(QCoreApplication.translate("MainWindow", u"Privacy Detection", None))
         self.pushButton_7.setText(QCoreApplication.translate("MainWindow", u"File Download", None))
         self.label_6.setText("")
+        self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
     # retranslateUi
 
