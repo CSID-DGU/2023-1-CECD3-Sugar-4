@@ -519,15 +519,20 @@ class UI_6App(QMainWindow):
                     model.item(row).setCheckState(Qt.Unchecked)
 
     def delete_selected_files(self, model, directory):
-        # UI_6App의 기능을 그대로 유지합니다.
         selected_items = [model.item(i) for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
+
         for item in selected_items:
             file_path = os.path.join(directory, item.text())
+
             try:
-                os.remove(file_path)
-                model.removeRow(item.row())
+                if os.path.isfile(file_path):
+                    os.remove(file_path)
+                    model.removeRow(item.row())
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+                    model.removeRow(item.row())
             except OSError as e:
-                print(f"Failed to delete {item.text()}: {str(e)}")
+                print(f"{item.text()} 삭제 실패: {str(e)}")
                 
     def get_selected_file_name(self):
         model = self.ui.listView.model()
