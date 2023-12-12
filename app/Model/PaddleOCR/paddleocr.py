@@ -594,7 +594,7 @@ class PaddleOCR(predict_system.TextSystem):
         params.rec_model_dir = "app/Model/inference_OCR/kor_PP-OCRv3_rec"
         params.rec_char_dict_path = "app/Model/PaddleOCR/ppocr/utils/dict/korean_dict.txt"
 
-        if params.ocr_veparsion in ['PP-OCRv3', 'PP-OCRv4']:
+        if params.ocr_version in ['PP-OCRv3', 'PP-OCRv4']:
             params.rec_image_shape = "3, 48, 320"
         else:
             params.rec_image_shape = "3, 32, 320"
