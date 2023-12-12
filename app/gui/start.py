@@ -55,7 +55,7 @@ class UI_1App(QMainWindow):
         self.folder_item = ""
 
     def show_file_list(self, directory):
-        file_list = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
+        file_list = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f)) and not f.endswith('.txt')]
         model = QStandardItemModel()
 
         for item_text in file_list:
@@ -451,12 +451,13 @@ class UI_4App(QMainWindow):
         self.labeling_tool_window = LabelingToolBySampleImage(image_path, image_directory_path , bbox_path)
         self.labeling_tool_window.show()
         
+        
     def show_file_dictionary(self, directory):
         file_list = os.listdir(directory)
         model = QStandardItemModel()
         for item_text in file_list:
             if os.path.isdir(os.path.join(directory, item_text)):
-                item = CheckableItem(item_text)
+                item = QStandardItem(item_text)
                 model.appendRow(item)
             
         model.itemChanged.connect(self.handle_item_changed)
@@ -531,10 +532,23 @@ class UI_6App(QMainWindow):
 
         self.current_dir = os.path.dirname(os.path.abspath(__file__))
         directory = os.path.join(self.current_dir, 'SampleRepo')
-        self.show_file_list(directory)
+        self.show_directory_list(directory)
 
         self.selected_file_path = ""
         
+    def show_directory_list(self, directory):
+        file_list = os.listdir(directory)
+        model = QStandardItemModel()
+        for item_text in file_list:
+            item = QStandardItem(item_text)
+            model.appendRow(item)
+            
+        model.itemChanged.connect(self.handle_item_changed)
+        self.ui.listView.setModel(model)
+        self.ui.pushButton_5.clicked.connect(lambda: self.delete_selected_files(model, directory))
+        self.ui.listView.clicked.connect(self.display_image_preview)
+        self.ui.listView.doubleClicked.connect(lambda index: self.show_folder_contents(model, directory, index))
+               
     def show_file_list(self, directory):
         file_list = os.listdir(directory)
         model = QStandardItemModel()
