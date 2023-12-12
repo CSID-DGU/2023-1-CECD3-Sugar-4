@@ -398,7 +398,7 @@ class UI_4App(QMainWindow):
         self.folder_item = ""
 
     def show_file_list(self, directory):
-        file_list = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
+        file_list = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f)) and not f.endswith('.txt')]
         model = QStandardItemModel()
 
         for item_text in file_list:
@@ -455,8 +455,9 @@ class UI_4App(QMainWindow):
         file_list = os.listdir(directory)
         model = QStandardItemModel()
         for item_text in file_list:
-            item = CheckableItem(item_text)
-            model.appendRow(item)
+            if os.path.isdir(os.path.join(directory, item_text)):
+                item = CheckableItem(item_text)
+                model.appendRow(item)
             
         model.itemChanged.connect(self.handle_item_changed)
         self.ui.listView.setModel(model)
