@@ -404,7 +404,7 @@ def parse_args(mMain=True):
     import argparse
     parser = init_args()
     parser.add_help = mMain
-    parser.add_argument("--lang", type=str, default='korean')
+    parser.add_argument("--lang", type=str, default='en')
     parser.add_argument("--det", type=str2bool, default=True)
     parser.add_argument("--rec", type=str2bool, default=True)
     parser.add_argument("--type", type=str, default='ocr')
@@ -590,7 +590,11 @@ class PaddleOCR(predict_system.TextSystem):
         params.cls_model_dir, cls_url = confirm_model_dir_url(
             params.cls_model_dir,
             os.path.join(BASE_DIR, 'whl', 'cls'), cls_model_config['url'])
-        if params.ocr_version in ['PP-OCRv3', 'PP-OCRv4']:
+
+        params.rec_model_dir = "app/Model/inference_OCR/kor_PP-OCRv3_rec"
+        params.rec_char_dict_path = "app/Model/PaddleOCR/ppocr/utils/dict/korean_dict.txt"
+
+        if params.ocr_veparsion in ['PP-OCRv3', 'PP-OCRv4']:
             params.rec_image_shape = "3, 48, 320"
         else:
             params.rec_image_shape = "3, 32, 320"
