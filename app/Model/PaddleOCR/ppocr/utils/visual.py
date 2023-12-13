@@ -117,7 +117,7 @@ def draw_re_results(image,
             email_match = re.match(email_pattern, ocr_info_tail["transcription"])
             if email_match:
                 draw_box_txt(ocr_info_tail["bbox"], ocr_info_tail["transcription"],
-                             draw, font, font_size, color_line) 
+                             draw, font, font_size, color_line)
             phone_pattern = r'\b\d{3}[-.\s]?\d{3,4}[-.\s]?\d{4}\b'
             phone_match = re.match(phone_pattern, ocr_info_tail["transcription"])
             if phone_match:
@@ -147,19 +147,36 @@ def calculate_minimum_bounding_box(bboxes):
 
 def extract_privacy_bboxes(result):
     bbox_groups = {}
-    privacy = ['성명', '주소', '휴대전화', '이메일', '연락처', '생년월일', '이름']
+    privacy_keywords = ['성명', '주소', '휴대전화', '이메일', '연락처', '생년월일', '이름',
+                        '교수','주민등록번호', '여권번호', '외국인등록번호', '운전면허번호',
+                        '면허증', '성함',' 사는곳', '거주지', '생일', '취득일', '휴대폰',
+                        '전화번호', '팩스', '핸드폰', '전화', '의료기록번호', '건강보험번호',
+                        '번호', '계좌', '계좌번호', '통장', '카드번호', '신용카드', '자동차번호',
+                        '일련번호', 'IP', 'IP주소', '식별코드', '아이디', '비밀번호', '군번',
+                        '등록번호', '성별', '연령', '나이', '국적', '고향', '우편', '병명',
+                        '등급', '학교', '학과', '전공', '학력', '직업', '직장', '직장명',
+                        '부서', '직급', '계급', '배우자', '자녀', '부모', '형제', '법정대리인',
+                        '학번']
     email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
     phone_pattern = r'\b\d{3}[-.\s]?\d{3,4}[-.\s]?\d{4}\b'
 
-    for ocr_info_head, ocr_info_tail in result:
+    for ocr_info_head, ocr_info_tails in result:
         key_head = ocr_info_head["transcription"]
-        key_tail = ocr_info_tail["transcription"]
 
-        if key_head in privacy:
-            bbox_groups.setdefault(key_head, []).append(ocr_info_tail["bbox"])
-        else:
-            if re.match(email_pattern, key_tail) or re.match(phone_pattern, key_tail):
-                bbox_groups.setdefault('연락처', []).append(ocr_info_tail["bbox"])
+        # Ensure ocr_info_tails is a list
+        if not isinstance(ocr_info_tails, list):
+            ocr_info_tails = [ocr_info_tails]
+
+        # If there are multiple tails per head, iterate over all tails
+        for ocr_tail_info in ocr_info_tails:
+            key_tail = ocr_tail_info["transcription"]
+
+            # Check if any privacy-related keyword is present in the head
+            if any(keyword in key_head for keyword in privacy_keywords):
+                bbox_groups.setdefault(key_head, []).append(ocr_tail_info["bbox"])
+            else:
+                if re.match(email_pattern, key_tail) or re.match(phone_pattern, key_tail):
+                    bbox_groups.setdefault(key_head, []).append(ocr_tail_info["bbox"])
 
     merged_bboxes = []
     for privacy_key, bboxes in bbox_groups.items():
