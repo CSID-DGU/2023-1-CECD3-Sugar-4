@@ -210,6 +210,7 @@ class LabelingToolByNewImage(QWidget):
         bbox_dir = os.path.join(image_dir, '..', bbox_name + '_privacy_bbox.txt')
         save_dir = os.path.join(os.getcwd(), 'app', 'gui', 'Results')
         mask_image_with_bboxes(bbox_dir, image_dir, save_dir)
+        QMessageBox.information(self,"알림","Masking이 완료되었습니다.\nFile Download에서 Download할 수 있습니다.")
 
 
     def toggleDrawingMode(self):
@@ -229,12 +230,10 @@ class LabelingToolByNewImage(QWidget):
 
         base_name = os.path.basename(self.image_directory_path)
         file_name, _ = os.path.splitext(base_name)
-
         dir_path = os.path.join('app', 'gui', 'SampleRepo', file_name)
         os.makedirs(dir_path, exist_ok=True)
-
         save_path = os.path.join(dir_path, f'{file_name}_privacy_bbox.txt')
-
+        QMessageBox.information(self,"알림","저장 되었습니다.")
         with open(save_path, 'w', encoding='utf-8') as f:  # UTF-8 인코딩 설정
             json_string = json.dumps(bboxes, indent=4)  # 리스트를 JSON 형식 문자열로 변환
             f.write(json_string)
