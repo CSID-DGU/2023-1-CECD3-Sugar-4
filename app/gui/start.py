@@ -83,6 +83,11 @@ class UI_1App(QMainWindow):
                     model.item(i).setCheckState(Qt.Unchecked)  # 체크 상태 해제
         self.checked_item = item.text()
 
+    def custom_copy(self, src, dst):
+            """ .txt 파일을 제외하고 복사하는 사용자 정의 함수 """
+            if not src.endswith('.txt'):
+                shutil.copy2(src, dst)
+
     def download_files(self):
         download_folder = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
         if download_folder:
@@ -90,16 +95,21 @@ class UI_1App(QMainWindow):
             selected_items = [model.item(i).text() for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
 
             for item_text in selected_items:
-                source_path = os.path.join('app/gui/Results', self.folder_item,  item_text)
+                source_path = os.path.join('app/gui/Results', self.folder_item, item_text)
                 destination_path = os.path.join(download_folder, item_text)
+
                 try:
-                    shutil.copy2(source_path, destination_path)
+                    if os.path.isfile(source_path):
+                        shutil.copy2(source_path, destination_path)
+                    elif os.path.isdir(source_path):
+                        shutil.copytree(source_path, destination_path, copy_function=self.custom_copy)
+
                     QMessageBox.information(self,"알림","파일이 다운로드 되었습니다.")
                 except OSError as e:
                     print(f"Failed to move {item_text}: {str(e)}")
                     QMessageBox.information(self,"알림","파일이 다운로드에 실패하였습니다.")
             self.show_file_list('app/gui/Results')
-        
+
     def show_file_dictionary(self, directory):
         file_list = os.listdir(directory)
         model = QStandardItemModel()
@@ -111,6 +121,7 @@ class UI_1App(QMainWindow):
         self.ui.listView.setModel(model)
         self.ui.pushButton_5.clicked.connect(lambda: self.delete_selected_files(model, directory))
         self.ui.listView.doubleClicked.connect(self.handle_listview_doubleclick)
+        self.ui.listView.clicked.connect(self.display_image_preview)
     
     def delete_selected_files(self, model, directory):
         selected_items = [model.item(i) for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
