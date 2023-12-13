@@ -302,7 +302,7 @@ class LabelingToolBySampleImage(QWidget):
         with open(dir_path, 'w', encoding='utf-8') as f:  # UTF-8 인코딩 설정
             json_string = json.dumps(bboxes, indent=4)  # 리스트를 JSON 형식 문자열로 변환
             f.write(json_string)
-        save_dir = os.path.join(os.getcwd(), 'app', 'gui', 'Results')
+        mask_image_with_bboxes(self.bbox_file_path, self.image_directory_path, self.image_path)
         
             
 def main():
