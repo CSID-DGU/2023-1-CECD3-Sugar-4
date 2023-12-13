@@ -60,6 +60,12 @@ class UI_1App(QMainWindow):
         self.ui.listView.setModel(model)
         self.ui.listView.clicked.connect(self.display_image_preview)
         
+    def reopen_ui(self):
+        """ 현재 UI를 닫고 새로운 UI_1App 인스턴스를 연다 """
+        self.close()
+        self.new_instance = UI_1App()
+        self.new_instance.show()
+        
     @Slot("QModelIndex")
     def display_image_preview(self, index):
         item = self.ui.listView.model().itemFromIndex(index)
@@ -105,10 +111,13 @@ class UI_1App(QMainWindow):
                         shutil.copytree(source_path, destination_path, copy_function=self.custom_copy)
 
                     QMessageBox.information(self,"알림","파일이 다운로드 되었습니다.")
+                    self.reopen_ui()
                 except OSError as e:
                     print(f"Failed to move {item_text}: {str(e)}")
                     QMessageBox.information(self,"알림","파일이 다운로드에 실패하였습니다.")
-            self.show_file_list('app/gui/Results')
+
+
+
 
     def show_file_dictionary(self, directory):
         file_list = os.listdir(directory)
