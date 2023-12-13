@@ -207,7 +207,7 @@ class LabelingToolByNewImage(QWidget):
     def maskingPrivacy(self):
         image_dir = self.image_directory_path
         bbox_name, extension = os.path.splitext(os.path.basename(image_dir))
-        bbox_dir = os.path.join(image_dir, '..', bbox_name + '_privacy_bbox.txt')
+        bbox_dir = os.path.join(os.getcwd(), 'app', 'gui', 'SampleRepo', bbox_name, bbox_name+'_privacy_bbox.txt')
         save_dir = os.path.join(os.getcwd(), 'app', 'gui', 'Results')
         mask_image_with_bboxes(bbox_dir, image_dir, save_dir)
         QMessageBox.information(self,"알림","Masking이 완료되었습니다.\nFile Download에서 Download할 수 있습니다.")

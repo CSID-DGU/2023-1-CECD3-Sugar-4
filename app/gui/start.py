@@ -85,13 +85,12 @@ class UI_1App(QMainWindow):
 
     def download_files(self):
         download_folder = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
-
         if download_folder:
             model = self.ui.listView.model()
             selected_items = [model.item(i).text() for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]
 
             for item_text in selected_items:
-                source_path = os.path.join('app/gui/Results', item_text)
+                source_path = os.path.join('app/gui/Results', self.folder_item,  item_text)
                 destination_path = os.path.join(download_folder, item_text)
                 try:
                     shutil.copy2(source_path, destination_path)
@@ -107,7 +106,7 @@ class UI_1App(QMainWindow):
         for item_text in file_list:
             item = CheckableItem(item_text)
             model.appendRow(item)
-            
+        
         model.itemChanged.connect(self.handle_item_changed)
         self.ui.listView.setModel(model)
         self.ui.pushButton_5.clicked.connect(lambda: self.delete_selected_files(model, directory))
@@ -137,6 +136,7 @@ class UI_1App(QMainWindow):
         if item and os.path.isdir(os.path.join('app/gui/Results', item.text())):
             self.folder_item = item.text()
             self.show_file_list(os.path.join('app/gui/Results', item.text()))
+            
 
     @Slot()
     def close_ui_1_and_open_ui_2(self):
