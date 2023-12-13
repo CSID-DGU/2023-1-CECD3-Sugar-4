@@ -212,7 +212,6 @@ class LabelingToolByNewImage(QWidget):
         mask_image_with_bboxes(bbox_dir, image_dir, save_dir)
         QMessageBox.information(self,"알림","Masking이 완료되었습니다.\nFile Download에서 Download할 수 있습니다.")
 
-
     def toggleDrawingMode(self):
         self.view.is_drawing = not self.view.is_drawing
 
@@ -304,7 +303,6 @@ class LabelingToolBySampleImage(QWidget):
             json_string = json.dumps(bboxes, indent=4)  # 리스트를 JSON 형식 문자열로 변환
             f.write(json_string)
         save_dir = os.path.join(os.getcwd(), 'app', 'gui', 'Results')
-        mask_image_with_bboxes(self.bbox_file_path, self.image_directory_path, save_dir)
         
             
 def main():

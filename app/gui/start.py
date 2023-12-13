@@ -94,7 +94,7 @@ class UI_1App(QMainWindow):
                 source_path = os.path.join('app/gui/Results', item_text)
                 destination_path = os.path.join(download_folder, item_text)
                 try:
-                    shutil.move(source_path, destination_path)
+                    shutil.copy2(source_path, destination_path)
                     QMessageBox.information(self,"알림","파일이 다운로드 되었습니다.")
                 except OSError as e:
                     print(f"Failed to move {item_text}: {str(e)}")
@@ -386,7 +386,7 @@ class UI_4App(QMainWindow):
             file_name = item.text()
             file_path = os.path.join(os.getcwd(), 'app', 'gui', 'Results', self.folder_item, file_name)
             self.selected_file_path = file_path
-            
+
             pixmap = QPixmap(file_path)
             target_width = 281
             target_height = 351
@@ -717,7 +717,7 @@ class UI_8App(QMainWindow):
         upload_index = parts.index('Upload')  
         Results_folder = parts[upload_index - 1]    
         selected_file_list = self.get_selected_file_paths()
-        save_dir = os.path.join(os.getcwd(), 'app', 'gui', 'Results')
+        save_dir = os.path.join(os.getcwd(), 'app', 'gui', 'Results',Results_folder)
         
         for selected_file in selected_file_list :   
             selected_file_dir = os.path.join(current_dir, selected_file)

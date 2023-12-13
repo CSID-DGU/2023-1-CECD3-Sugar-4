@@ -24,5 +24,5 @@ def mask_image_with_bboxes(json_file_path, image_file_path, output_path):
     base_name = os.path.basename(image_file_path)
     file_name, file_ext = os.path.splitext(base_name)
     masked_file_name = f"masked_{file_name}{file_ext}"
-    output_file_path = os.path.join(output_path, base_sample_name, masked_file_name)
+    output_file_path = os.path.join(output_path, masked_file_name)
     cv2.imwrite(output_file_path, image)
