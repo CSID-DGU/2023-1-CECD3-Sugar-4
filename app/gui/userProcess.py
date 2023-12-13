@@ -297,7 +297,7 @@ class LabelingToolBySampleImage(QWidget):
                 rect = item.rect()
                 bbox = [float(rect.left()), float(rect.top()), float(rect.right()), float(rect.bottom())]
                 bboxes.append({'bbox': bbox})
-        QMessageBox.information(self,"알림","설정된 bbox가 저장되었습니다.\nMasking을 진행하세요.")
+        QMessageBox.information(self,"알림","저장 되었습니다.")
         dir_path = self.bbox_file_path
         with open(dir_path, 'w', encoding='utf-8') as f:  # UTF-8 인코딩 설정
             json_string = json.dumps(bboxes, indent=4)  # 리스트를 JSON 형식 문자열로 변환
