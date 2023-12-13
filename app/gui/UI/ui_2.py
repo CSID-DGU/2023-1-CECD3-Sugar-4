@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_2tCoisX.ui'
+## Form generated from reading UI file 'ui_2HsTZaV.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -17,6 +17,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QLabel, QMainWindow, QMenuBar,
     QPushButton, QSizePolicy, QStatusBar, QWidget)
+import resources_rc
 
 class Ui_MainWindow2(object):
     def setupUi(self, MainWindow):
@@ -35,7 +36,8 @@ class Ui_MainWindow2(object):
         font1.setPointSize(9)
         font1.setBold(False)
         self.label.setFont(font1)
-        self.label.setStyleSheet(u"background-color:white;")
+        self.label.setStyleSheet(u"background-color:white;\n"
+"border-radius: 20px;")
         self.pushButton_2 = QPushButton(self.centralwidget)
         self.pushButton_2.setObjectName(u"pushButton_2")
         self.pushButton_2.setGeometry(QRect(150, 270, 271, 141))
@@ -70,6 +72,18 @@ class Ui_MainWindow2(object):
         self.pushButton_7.setFont(font2)
         self.pushButton_7.setStyleSheet(u"background-color:rgb(35, 39, 36);\n"
 "color:white;")
+        self.pushButton = QPushButton(self.centralwidget)
+        self.pushButton.setObjectName(u"pushButton")
+        self.pushButton.setEnabled(True)
+        self.pushButton.setGeometry(QRect(0, 0, 41, 41))
+        self.pushButton.setAutoFillBackground(False)
+        self.pushButton.setStyleSheet(u"background-color:white;\n"
+"border-radius: 20px;")
+        icon = QIcon()
+        icon.addFile(u":/Icon/Help.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.pushButton.setIcon(icon)
+        self.pushButton.setIconSize(QSize(50, 50))
+        self.pushButton.setCheckable(False)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -92,5 +106,6 @@ class Ui_MainWindow2(object):
         self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Sample List", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\uac1c\uc778\uc815\ubcf4 \ube44\uc2dd\ubcc4\ud654 \uc2dc\uc2a4\ud15c", None))
         self.pushButton_7.setText(QCoreApplication.translate("MainWindow", u"File Download", None))
+        self.pushButton.setText("")
     # retranslateUi
 

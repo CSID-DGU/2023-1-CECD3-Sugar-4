@@ -22,6 +22,7 @@ from ui_3 import Ui_MainWindow3
 from ui_4 import Ui_MainWindow4
 from ui_6 import Ui_MainWindow6
 from ui_8 import Ui_MainWindow8
+from ui_help import Ui_MainWindowhelp
 
 script_directory = os.path.dirname(os.path.abspath(sys.argv[0]))
 
@@ -179,12 +180,17 @@ class UI_2App(QMainWindow):
         super(UI_2App, self).__init__()
         self.ui = Ui_MainWindow2()
         self.ui.setupUi(self)
-        # pushButton_2클릭 이벤트에 대한 핸들러를 연결합니다.
+        self.ui.pushButton.clicked.connect(self.close_ui_2_and_open_ui_help)
         self.ui.pushButton_2.clicked.connect(self.close_ui_2_and_open_ui_4)
-        # pushButton_3클릭 이벤트에 대한 핸들러를 연결합니다.
         self.ui.pushButton_4.clicked.connect(self.close_ui_2_and_open_ui_3)
         self.ui.pushButton_6.clicked.connect(self.close_ui_2_and_open_ui_6)
         self.ui.pushButton_7.clicked.connect(self.close_ui_2_and_open_ui_1)
+    
+    @Slot()
+    def close_ui_2_and_open_ui_help(self):
+        self.ui_help_window = UI_helpApp()
+        self.ui_help_window.show()
+        self.close()
         
     @Slot()
     def close_ui_2_and_open_ui_1(self):
@@ -831,11 +837,21 @@ class UI_8App(QMainWindow):
         self.ui_3_window.show()
         self.close()
 
+class UI_helpApp(QMainWindow):
+    def __init__(self):
+        super(UI_helpApp, self).__init__()
+        self.ui = Ui_MainWindowhelp()
+        self.ui.setupUi(self)
+        self.ui.pushButton_3.clicked.connect(self.close_ui_help_and_open_ui_2)
+    
+    @Slot()
+    def close_ui_help_and_open_ui_2(self):
+        self.ui_2_window = UI_2App()
+        self.ui_2_window.show()
+        self.close()
+        
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-
-    # UI_2App 인스턴스를 생성하여 처음 화면으로 보여줍니다.
     ui2_window = UI_2App()
     ui2_window.show()
-
     sys.exit(app.exec())
