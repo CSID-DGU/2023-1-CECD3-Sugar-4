@@ -4,7 +4,7 @@ import zipfile
 
 # ------------------Vi-LayoutXLM Model----------------
 # 파일 ID와 다운로드 경로를 설정
-file_link = "https://drive.google.com/file/d/1SM6v9xSEeZQMjDFvbJqAuEOKJDHdwn_6/view?usp=drive_link"
+file_link = "https://drive.google.com/file/d/1Y17HkBtBchfOyuJYA4dShAz0-E25aZ2M/view?usp=drive_link"
 file_id = file_link.split("/d/")[1].split("/view")[0]
 
 # 현재 스크립트 파일이 위치한 디렉토리를 얻어옴
