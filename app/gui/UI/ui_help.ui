@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>828</width>
-    <height>515</height>
+    <width>1040</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <rect>
       <x>-20</x>
       <y>-50</y>
-      <width>851</width>
+      <width>1141</width>
       <height>621</height>
      </rect>
     </property>
@@ -39,15 +39,15 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>20</x>
       <y>10</y>
-      <width>291</width>
-      <height>31</height>
+      <width>351</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>20</pointsize>
+      <pointsize>24</pointsize>
       <bold>true</bold>
      </font>
     </property>
@@ -58,11 +58,16 @@
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>700</x>
-      <y>400</y>
-      <width>101</width>
-      <height>61</height>
+      <x>890</x>
+      <y>460</y>
+      <width>131</width>
+      <height>81</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>Home</string>
@@ -73,8 +78,8 @@
      <rect>
       <x>20</x>
       <y>60</y>
-      <width>791</width>
-      <height>331</height>
+      <width>1001</width>
+      <height>381</height>
      </rect>
     </property>
     <property name="html">
@@ -85,35 +90,35 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'맑은 고딕'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;이 애플리케이션은 이미지 형식의 문서에서 개인정보를 자동으로 추출하고, 필요한 경우 사용자가 직접 수정하여 개인정보가 마스킹 처리된 이미지를 저장할 수 있도록 지원합니다.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;단일 이미지에서의 개인정보를 비식별화하는 기능과, 한 개의 샘플 이미지를 등록하여 동일한 양식의 문서들에 있는 개인정보를 빠르게 비식별화하는 기능을 제공합니다.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;아래의 과정에 따라 애플리케이션을 사용하시길 바랍니다&lt;span style=&quot; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;이 애플리케이션은 이미지 형식의 문서에서 개인정보를 자동으로 추출하고, 필요한 경우 사용자가 직접 수정하여 개인정보가 마스킹 처리된 이미지를 저장할 수 있도록 지원합니다.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;단일 이미지에서의 개인정보를 비식별화하는 기능과, 한 개의 샘플 이미지를 등록하여 동일한 양식의 문서들에 있는 개인정보를 빠르게 비식별화하는 기능을 제공합니다.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;아래의 과정에 따라 애플리케이션을 사용하시길 바랍니다.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;- 단일 이미지 작업&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:14pt; font-weight:700;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1. Privacy Detection에서 개인정보 비식별화를 원하는 이미지를 선택한 뒤 체크박스를 클릭하여 Privacy Detect 버튼을 클릭합니다.(최대 1분 소요)&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2. 완료되었다는 알림이 발생하면, 확인버튼을 누른 뒤 직접 비식별화 할 영역을 나타내는 직사각형을 추가, 제거 또는 수정한 뒤, &lt;span style=&quot; font-size:10pt; font-weight:700;&quot;&gt;저장, 마스킹 버튼을 순서대로&lt;/span&gt; 클릭합니다.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3. 처리된 이미지는 File Download에 {masked_원본파일명}으로 저장됩니다. 다운로드할 이미지를 체크한 뒤, 경로를 지정하면 해당 경로로 저장됩니다.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;1. Privacy Detection에서 개인정보 비식별화를 원하는 이미지를 선택한 뒤 체크박스를 클릭하여 Privacy Detect 버튼을 클릭합니다.(최대 1분 소요)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;2. 완료되었다는 알림이 발생하면, 확인버튼을 누른 뒤 직접 비식별화 할 영역을 나타내는 직사각형을 추가, 제거 또는 수정한 뒤, &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:700;&quot;&gt;저장, 마스킹 버튼을 순서대로&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt; 클릭합니다.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;3. 처리된 이미지는 File Download에 {masked_원본파일명}으로 저장됩니다. 다운로드할 이미지를 체크한 뒤, 경로를 지정하면 해당 경로로 저장됩니다.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;- 샘플 문서를 활용한 여러개의 이미지 작업&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:14pt; font-weight:700;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1. Privacy Detection에서 샘플 양식으로 등록할 이미지를 선택한 뒤 체크박스를 클릭하여 Privacy Detect 버튼을 클릭합니다. 이미지에는 비식별화를 원하는 항목이 반드시 입력된 상태여야 합니다.(최대 1분 소요)&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2. 완료되었다는 알림이 발생하면, 확인버튼을 누른 뒤 직접 비식별화 할 영역을 나타내는 직사각형을 추가, 제거 또는 수정한 뒤, &lt;span style=&quot; font-size:10pt; font-weight:700;&quot;&gt;저장 버튼&lt;/span&gt;만을 클릭합니다.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3. 샘플 이미지는 샘플 리스트에 폴더 형태로 지정됩니다. 수정 버튼을 통해 비식별 처리할 영역을 수정할 수 있으며, 수정 후에는 반드시 저장 버튼을 클릭해야합니다.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;샘플파일명을 더블클릭하면 파일을 업로드할 수 있는 화면이 나타납니다. &lt;span style=&quot; font-size:10pt; font-weight:700;&quot;&gt;반드시 샘플 이미지와 동일한 양식을 가진 문서들만을 업로드하여야 합니다.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt; font-weight:700;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;4. 업로드한 문서들을 체크한 뒤 &lt;span style=&quot; font-size:10pt; font-weight:700;&quot;&gt;마스킹 버튼&lt;/span&gt;을 클릭합니다.(이미지의 수에 따라 다소 시간이 걸릴 수 있음) 완료되었다는 알림이 발생하면 처리 결과를 Sample Results에서 샘플별로 확인할 수 있습니다.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;5. Sample Results에서 샘플파일명을 더블클릭하면 앞서 처리한 문서들을 확인할 수 있습니다. 문서를 선택하여 수정 버튼을 누르면, 직접 비식별화할 영역을 수정할 수 있습니다. 수정 후 반드시 &lt;span style=&quot; font-size:10pt; font-weight:700;&quot;&gt;저장 버튼&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;을 눌러 저장하여야 합니다. &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;1. Privacy Detection에서 샘플 양식으로 등록할 이미지를 선택한 뒤 체크박스를 클릭하여 Privacy Detect 버튼을 클릭합니다. 이미지에는 비식별화를 원하는 항목이 반드시 입력된 상태여야 합니다.(최대 1분 소요)&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;6. 마찬가지로 마스킹된 이미지들은 File Download에 샘플파일명 내부에 저장됩니다.  일괄적으로 다운받기 위해 샘플파일명 폴더를 체크하여 다운로드하거나, 샘플파일명을 더블클릭한 뒤{masked_원본파일명}으로 저장된 파일들을 체크하여 다운로드 할 수 있습니다.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;2. 완료되었다는 알림이 발생하면, 확인버튼을 누른 뒤 직접 비식별화 할 영역을 나타내는 직사각형을 추가, 제거 또는 수정한 뒤, &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:700;&quot;&gt;저장 버튼&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;만을 클릭합니다.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;3. 샘플 이미지는 샘플 리스트에 폴더 형태로 지정됩니다. 수정 버튼을 통해 비식별 처리할 영역을 수정할 수 있으며, 수정 후에는 반드시 저장 버튼을 클릭해야합니다.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;샘플파일명을 더블클릭하면 파일을 업로드할 수 있는 화면이 나타납니다. &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:700;&quot;&gt;반드시 샘플 이미지와 동일한 양식을 가진 문서들만을 업로드하여야 합니다.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt; font-weight:700;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;4. 업로드한 문서들을 체크한 뒤 &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:700;&quot;&gt;마스킹 버튼&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;을 클릭합니다.(이미지의 수에 따라 다소 시간이 걸릴 수 있음) 완료되었다는 알림이 발생하면 처리 결과를 Sample Results에서 샘플별로 확인할 수 있습니다.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;5. Sample Results에서 샘플파일명을 더블클릭하면 앞서 처리한 문서들을 확인할 수 있습니다. 문서를 선택하여 수정 버튼을 누르면, 직접 비식별화할 영역을 수정할 수 있습니다. 수정 후 반드시 &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:700;&quot;&gt;저장 버튼&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;을 눌러 저장하여야 합니다. &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;6. 마찬가지로 마스킹된 이미지들은 File Download에 샘플파일명 내부에 저장됩니다.  일괄적으로 다운받기 위해 샘플파일명 폴더를 체크하여 다운로드하거나, 샘플파일명을 더블클릭한 뒤{masked_원본파일명}으로 저장된 파일들을 체크하여 다운로드 할 수 있습니다.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
   </widget>
@@ -122,7 +127,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>828</width>
+     <width>1040</width>
      <height>22</height>
     </rect>
    </property>
