@@ -1,3 +1,2 @@
-"""
-프로그램 실행시 자동화 코드 작성 예정
-"""
+from .SampleProcess import *
+from .predictProcess import *
