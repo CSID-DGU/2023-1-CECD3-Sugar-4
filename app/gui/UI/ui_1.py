@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_1ITzkXR.ui'
+## Form generated from reading UI file 'ui_1OwPDOZ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QListView,
-    QMainWindow, QMenuBar, QPushButton, QSizePolicy,
-    QStatusBar, QWidget)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QFrame, QLabel,
+    QListView, QMainWindow, QMenuBar, QPushButton,
+    QSizePolicy, QStatusBar, QWidget)
 
 class Ui_MainWindow1(object):
     def setupUi(self, MainWindow):
@@ -90,6 +90,9 @@ class Ui_MainWindow1(object):
         font3.setPointSize(13)
         font3.setBold(True)
         self.label_3.setFont(font3)
+        self.checkBox = QCheckBox(self.centralwidget)
+        self.checkBox.setObjectName(u"checkBox")
+        self.checkBox.setGeometry(QRect(200, 48, 76, 20))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -117,5 +120,6 @@ class Ui_MainWindow1(object):
         self.pushButton_7.setText(QCoreApplication.translate("MainWindow", u"\uacb0\uacfc \ub2e4\uc6b4\ub85c\ub4dc", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"File Name", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\uacb0\uacfc \ub2e4\uc6b4\ub85c\ub4dc", None))
+        self.checkBox.setText("")
     # retranslateUi
 
