@@ -25,7 +25,7 @@ import os
 import shutil
 import subprocess
 import shutil
-from PySide6.QtWidgets import QApplication, QMainWindow, QListView, QPushButton, QFileDialog, QMessageBox, QLabel, QVBoxLayout, QWidget, QListWidget
+from PySide6.QtWidgets import QApplication, QMainWindow, QListView, QPushButton, QFileDialog, QMessageBox, QLabel, QVBoxLayout, QWidget, QListWidget, QCheckBox
 from PySide6.QtCore import QDir, Qt, Slot, QModelIndex
 from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap
 
@@ -44,16 +44,26 @@ class UI_1App(QMainWindow):
         super(UI_1App, self).__init__()
         self.ui = Ui_MainWindow1()
         self.ui.setupUi(self)
+        self.setFixedSize(1040, 600)
         self.ui.pushButton_3.clicked.connect(self.close_ui_1_and_open_ui_2)
         self.ui.pushButton_8.clicked.connect(self.close_ui_1_and_open_ui_3)
         self.ui.pushButton_6.clicked.connect(self.close_ui_1_and_open_ui_4)
         self.ui.pushButton.clicked.connect(self.close_ui_1_and_open_ui_6)
+        self.ui.checkBox.stateChanged.connect(self.handle_stateChanged)
         self.show_file_dictionary(os.path.join(script_directory,'app', 'gui', 'Results'))
         self.ui.pushButton_4.clicked.connect(self.download_files)
         self.ui.listView.doubleClicked.connect(self.handle_listview_doubleclick)
         self.checked_item = ""
         self.folder_item = ""
+        
+    def handle_stateChanged(self, state):
+        model = self.ui.listView.model()
+        check_state = Qt.CheckState(state)
 
+        for row in range(model.rowCount()):
+            item = model.item(row)
+            item.setCheckState(check_state)
+            
     def show_file_list(self, directory):
         file_list = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f)) and not f.endswith('.txt')]
         model = QStandardItemModel()
@@ -65,6 +75,7 @@ class UI_1App(QMainWindow):
         model.itemChanged.connect(self.handle_item_changed)
         self.ui.listView.setModel(model)
         self.ui.listView.clicked.connect(self.display_image_preview)
+        self.ui.checkBox.stateChanged.connect(self.handle_stateChanged)
         
     def reopen_ui(self):
         """ 현재 UI를 닫고 새로운 UI_1App 인스턴스를 연다 """
@@ -90,9 +101,6 @@ class UI_1App(QMainWindow):
     def handle_item_changed(self, item):
         if item.checkState() == Qt.Checked:
             model = self.ui.listView.model()
-            for i in range(model.rowCount()):
-                if model.item(i) != item:  # 현재 변경된 아이템을 제외한 모든 아이템에 대해
-                    model.item(i).setCheckState(Qt.Unchecked)  # 체크 상태 해제
         self.checked_item = item.text()
 
     def custom_copy(self, src, dst):
@@ -121,9 +129,6 @@ class UI_1App(QMainWindow):
                 except OSError as e:
                     print(f"Failed to move {item_text}: {str(e)}")
                     QMessageBox.information(self,"알림","파일이 다운로드에 실패하였습니다.")
-
-
-
 
     def show_file_dictionary(self, directory):
         file_list = os.listdir(directory)
@@ -163,7 +168,6 @@ class UI_1App(QMainWindow):
             self.folder_item = item.text()
             self.show_file_list(os.path.join(script_directory, 'app/gui/Results', item.text()))
             
-
     @Slot()
     def close_ui_1_and_open_ui_2(self):
         self.ui_2_window = UI_2App()
@@ -193,6 +197,7 @@ class UI_2App(QMainWindow):
         super(UI_2App, self).__init__()
         self.ui = Ui_MainWindow2()
         self.ui.setupUi(self)
+        self.setFixedSize(1040, 600)
         self.ui.pushButton.clicked.connect(self.close_ui_2_and_open_ui_help)
         self.ui.pushButton_7.clicked.connect(self.close_ui_2_and_open_ui_1)
         self.ui.pushButton_4.clicked.connect(self.close_ui_2_and_open_ui_3)
@@ -207,9 +212,12 @@ class UI_2App(QMainWindow):
         
     @Slot()
     def close_ui_2_and_open_ui_1(self):
-        self.ui_1_window = UI_1App()
-        self.ui_1_window.show()
-        self.close()
+        try:
+            self.ui_1_window = UI_1App()
+            self.ui_1_window.show()
+            self.close()
+        except:
+            QMessageBox.critical(self,"오류","개인정보 자동 인식을 먼저 시도하세요.")
 
     @Slot()
     def close_ui_2_and_open_ui_3(self):
@@ -219,21 +227,28 @@ class UI_2App(QMainWindow):
 
     @Slot()
     def close_ui_2_and_open_ui_4(self):
-        self.ui_4_window = UI_4App()
-        self.ui_4_window.show()
-        self.close()
+        try:
+            self.ui_4_window = UI_4App()
+            self.ui_4_window.show()
+            self.close()
+        except:
+            QMessageBox.critical(self,"오류","개인정보 자동 인식을 먼저 시도하세요.")
         
     @Slot()
     def close_ui_2_and_open_ui_6(self):
-        self.ui_6_window = UI_6App()
-        self.ui_6_window.show()
-        self.close()
+        try:
+            self.ui_6_window = UI_6App()
+            self.ui_6_window.show()
+            self.close()
+        except:
+            QMessageBox.critical(self,"오류","개인정보 자동 인식을 먼저 시도하세요.")
 
 class UI_3App(QMainWindow):
     def __init__(self):
         super(UI_3App, self).__init__()
         self.ui = Ui_MainWindow3()
         self.ui.setupUi(self)
+        self.setFixedSize(1040, 600)
         self.model = QStandardItemModel()
         self.ui.pushButton_7.clicked.connect(self.close_ui_3_and_open_ui_1)
         self.ui.pushButton_3.clicked.connect(self.close_ui_3_and_open_ui_2)
@@ -336,7 +351,7 @@ class UI_3App(QMainWindow):
                 sample_repo_dir = os.path.join(script_directory, 'app', 'gui', 'SampleRepo', file_name)
                 shutil.copy2(selected_file_name, sample_repo_dir)
                 subprocess.run(["python3", predict_process_path, function_name, selected_file_name])
-                QMessageBox.information(self,"알림","Privacy Detection이 완료되었습니다.\nSample List에서 Masking을 진행하세요.")
+                QMessageBox.information(self,"알림","개인정보 자동 인식이 완료되었습니다.\n샘플 문서 목록에서 마스킹을 진행하세요.")
 
             except Exception as e:
                 print(f"An error occurred: {e}")
@@ -383,6 +398,7 @@ class UI_4App(QMainWindow):
         super(UI_4App, self).__init__()
         self.ui = Ui_MainWindow4()
         self.ui.setupUi(self)
+        self.setFixedSize(1040, 600)
         self.ui.pushButton_7.clicked.connect(self.close_ui_4_and_open_ui_1)
         self.ui.pushButton_3.clicked.connect(self.close_ui_4_and_open_ui_2)
         self.ui.pushButton_8.clicked.connect(self.close_ui_4_and_open_ui_3)
@@ -512,6 +528,7 @@ class UI_6App(QMainWindow):
         super(UI_6App, self).__init__()
         self.ui = Ui_MainWindow6()
         self.ui.setupUi(self)
+        self.setFixedSize(1040, 600)
         self.ui.pushButton_7.clicked.connect(self.close_ui_6_and_open_ui_1)
         self.ui.pushButton_3.clicked.connect(self.close_ui_6_and_open_ui_2)
         self.ui.pushButton_8.clicked.connect(self.close_ui_6_and_open_ui_3)
@@ -662,6 +679,7 @@ class UI_8App(QMainWindow):
         super(UI_8App, self).__init__()
         self.ui = Ui_MainWindow8()
         self.ui.setupUi(self)
+        self.setFixedSize(1040, 600)
         self.model = QStandardItemModel()
         self.current_dir = directory
         self.show_file_list(self.current_dir)
@@ -755,7 +773,7 @@ class UI_8App(QMainWindow):
             subprocess.run(["python3", script_path, current_dir, selected_file_dir])
             mask_image_with_bboxes(bbox_path, selected_file_dir, save_dir)
         
-        QMessageBox.information(self,"알림","Masking 작업이 완료되었습니다.")
+        QMessageBox.information(self,"알림","마스킹 작업이 완료되었습니다.")
         
             
         # SER 작업 수행
@@ -805,6 +823,7 @@ class UI_helpApp(QMainWindow):
         super(UI_helpApp, self).__init__()
         self.ui = Ui_MainWindowhelp()
         self.ui.setupUi(self)
+        self.setFixedSize(1040, 600)
         self.ui.pushButton_3.clicked.connect(self.close_ui_help_and_open_ui_2)
     
     @Slot()
@@ -816,5 +835,6 @@ class UI_helpApp(QMainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ui2_window = UI_2App()
+    ui2_window.setFixedSize(1040, 600)
     ui2_window.show()
     sys.exit(app.exec())
