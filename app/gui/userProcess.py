@@ -7,8 +7,7 @@ from PySide6.QtGui import QPixmap, QPen, QColor, QMouseEvent
 from PySide6.QtCore import Qt, QRectF, QPointF, QEvent, QSizeF
 from .imageMasking import mask_image_with_bboxes
 
-script_directory = os.path.dirname(os.path.abspath(sys.argv[0]))
-
+script_directory = os.path.join(os.path.dirname(os.path.abspath(__file__)))
 
 class ResizableRectItem(QGraphicsRectItem):
     handleSize = +8.0
@@ -210,8 +209,8 @@ class LabelingToolByNewImage(QWidget):
     def maskingPrivacy(self):
         image_dir = self.image_directory_path
         bbox_name, extension = os.path.splitext(os.path.basename(image_dir))
-        bbox_dir = os.path.join(script_directory, 'app', 'gui', 'SampleRepo', bbox_name, bbox_name+'_privacy_bbox.txt')
-        save_dir = os.path.join(script_directory, 'app', 'gui', 'Results')
+        bbox_dir = os.path.join(script_directory, 'SampleRepo', bbox_name, bbox_name+'_privacy_bbox.txt')
+        save_dir = os.path.join(script_directory, 'Results')
         mask_image_with_bboxes(bbox_dir, image_dir, save_dir)
         QMessageBox.information(self,"알림","Masking이 완료되었습니다.\nFile Download에서 Download할 수 있습니다.")
 
@@ -232,7 +231,7 @@ class LabelingToolByNewImage(QWidget):
 
         base_name = os.path.basename(self.image_directory_path)
         file_name, _ = os.path.splitext(base_name)
-        dir_path = os.path.join(script_directory, 'app', 'gui', 'SampleRepo', file_name)
+        dir_path = os.path.join(script_directory, 'SampleRepo', file_name)
         os.makedirs(dir_path, exist_ok=True)
         save_path = os.path.join(dir_path, f'{file_name}_privacy_bbox.txt')
         QMessageBox.information(self,"알림","저장 되었습니다.")
