@@ -16,14 +16,7 @@ import shutil
 from PySide6.QtWidgets import QApplication, QMainWindow, QListView, QPushButton, QFileDialog, QMessageBox, QLabel, QVBoxLayout, QWidget, QListWidget
 from PySide6.QtCore import QDir, Qt, Slot, QModelIndex
 from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap
-from ui_1 import Ui_MainWindow1
-from ui_2 import Ui_MainWindow2
-from ui_3 import Ui_MainWindow3
-from ui_4 import Ui_MainWindow4
-from ui_6 import Ui_MainWindow6
-from ui_8 import Ui_MainWindow8
-from ui_help import Ui_MainWindowhelp
-
+import UI
 script_directory = os.path.dirname(os.path.abspath(sys.argv[0]))
 
 class CheckableItem(QStandardItem):
@@ -36,7 +29,7 @@ class CheckableItem(QStandardItem):
 class UI_1App(QMainWindow):
     def __init__(self):
         super(UI_1App, self).__init__()
-        self.ui = Ui_MainWindow1()
+        self.ui = UI.Ui_MainWindow1()
         self.ui.setupUi(self)
         self.ui.pushButton_3.clicked.connect(self.close_ui_1_and_open_ui_2)
         self.ui.pushButton_8.clicked.connect(self.close_ui_1_and_open_ui_3)
@@ -185,7 +178,7 @@ class UI_1App(QMainWindow):
 class UI_2App(QMainWindow):
     def __init__(self):
         super(UI_2App, self).__init__()
-        self.ui = Ui_MainWindow2()
+        self.ui = UI.Ui_MainWindow2()
         self.ui.setupUi(self)
         self.ui.pushButton.clicked.connect(self.close_ui_2_and_open_ui_help)
         self.ui.pushButton_7.clicked.connect(self.close_ui_2_and_open_ui_1)
@@ -226,7 +219,7 @@ class UI_2App(QMainWindow):
 class UI_3App(QMainWindow):
     def __init__(self):
         super(UI_3App, self).__init__()
-        self.ui = Ui_MainWindow3()
+        self.ui = UI.Ui_MainWindow3()
         self.ui.setupUi(self)
         self.model = QStandardItemModel()
         self.ui.pushButton_7.clicked.connect(self.close_ui_3_and_open_ui_1)
@@ -374,7 +367,7 @@ class UI_3App(QMainWindow):
 class UI_4App(QMainWindow):
     def __init__(self):
         super(UI_4App, self).__init__()
-        self.ui = Ui_MainWindow4()
+        self.ui = UI.Ui_MainWindow4()
         self.ui.setupUi(self)
         self.ui.pushButton_7.clicked.connect(self.close_ui_4_and_open_ui_1)
         self.ui.pushButton_3.clicked.connect(self.close_ui_4_and_open_ui_2)
@@ -503,7 +496,7 @@ class UI_4App(QMainWindow):
 class UI_6App(QMainWindow):
     def __init__(self):
         super(UI_6App, self).__init__()
-        self.ui = Ui_MainWindow6()
+        self.ui = UI.Ui_MainWindow6()
         self.ui.setupUi(self)
         self.ui.pushButton_7.clicked.connect(self.close_ui_6_and_open_ui_1)
         self.ui.pushButton_3.clicked.connect(self.close_ui_6_and_open_ui_2)
@@ -653,7 +646,7 @@ class UI_6App(QMainWindow):
 class UI_8App(QMainWindow):
     def __init__(self, directory):
         super(UI_8App, self).__init__()
-        self.ui = Ui_MainWindow8()
+        self.ui = UI.Ui_MainWindow8()
         self.ui.setupUi(self)
         self.model = QStandardItemModel()
         self.current_dir = directory
@@ -796,7 +789,7 @@ class UI_8App(QMainWindow):
 class UI_helpApp(QMainWindow):
     def __init__(self):
         super(UI_helpApp, self).__init__()
-        self.ui = Ui_MainWindowhelp()
+        self.ui = UI.Ui_MainWindowhelp()
         self.ui.setupUi(self)
         self.ui.pushButton_3.clicked.connect(self.close_ui_help_and_open_ui_2)
     
