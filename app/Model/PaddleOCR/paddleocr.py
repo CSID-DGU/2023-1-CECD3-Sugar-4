@@ -30,6 +30,7 @@ import base64
 from io import BytesIO
 from PIL import Image
 
+script_directory = os.path.dirname(os.path.abspath(__file__))
 
 def _import_file(module_name, file_path, make_importable=False):
     spec = importlib.util.spec_from_file_location(module_name, file_path)
@@ -591,8 +592,8 @@ class PaddleOCR(predict_system.TextSystem):
             params.cls_model_dir,
             os.path.join(BASE_DIR, 'whl', 'cls'), cls_model_config['url'])
 
-        params.rec_model_dir = "app/Model/inference_OCR/kor_PP-OCRv3_rec"
-        params.rec_char_dict_path = "app/Model/PaddleOCR/ppocr/utils/dict/korean_dict.txt"
+        params.rec_model_dir = os.path.join(script_directory, '..', "inference_OCR/kor_PP-OCRv3_rec")
+        params.rec_char_dict_path = os.path.join(script_directory, "ppocr/utils/dict/korean_dict.txt")
 
         if params.ocr_version in ['PP-OCRv3', 'PP-OCRv4']:
             params.rec_image_shape = "3, 48, 320"

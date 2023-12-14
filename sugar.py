@@ -1,6 +1,7 @@
 import subprocess
 import sys
 import re
+import cv2
 from pathlib import Path
 import app
 current_path = Path(__file__).resolve().parent
@@ -361,11 +362,6 @@ class UI_3App(QMainWindow):
         bbox_path = os.path.join(file_path, file_name + '_privacy_bbox.txt')
         image_path = self.get_selected_file_name()
         image_directory_path = os.path.join(file_path, os.path.basename(selected_file_name))
-        print("d" + image_directory_path)
-        print(file_path)
-        print(selected_file_name)
-        print(os.path.basename(selected_file_name))
-        print(image_path)
         self.labeling_tool_window = LabelingToolByNewImage(image_path, image_directory_path, bbox_path)
         self.labeling_tool_window.show()
                 
@@ -448,17 +444,13 @@ class UI_4App(QMainWindow):
     @Slot()
     def run_labeling_tool(self):
         aa = self.folder_item
-        print(aa)
         checked_item = self.checked_item
-        print(checked_item)
         image_name = checked_item.replace("masked_", "")
         basename, ext = os.path.splitext(image_name)
-        print(basename)
         
         image_path = os.path.join(script_directory, 'app', 'gui', 'Results',  aa)
         image_directory_path = os.path.join(script_directory, 'app', 'gui', 'SampleRepo', aa, 'Upload', image_name)
         bbox_path = os.path.join(script_directory, 'app', 'gui', 'Results', aa, basename +'.txt')
-        print(image_path, image_directory_path, bbox_path)
 
         self.labeling_tool_window = LabelingToolBySampleImage(image_path, image_directory_path , bbox_path)
         self.labeling_tool_window.show()
@@ -545,7 +537,7 @@ class UI_6App(QMainWindow):
         file_list = os.listdir(directory)
         model = QStandardItemModel()
         for item_text in file_list:
-            item = QStandardItem(item_text)
+            item = CheckableItem(item_text)
             model.appendRow(item)
             
         model.itemChanged.connect(self.handle_item_changed)
@@ -613,9 +605,6 @@ class UI_6App(QMainWindow):
         bbox_path = os.path.join(script_directory, 'app', 'gui', 'SampleRepo', file_name, file_name + '_privacy_bbox.txt')
         self.labeling_tool_window = LabelingToolBySampleImage(image_path, self.selected_file_path, bbox_path)
         self.labeling_tool_window.show()
-        print(self.selected_file_path)
-        print(bbox_path)
-        print(image_path)
 
     @Slot()
     def close_ui_6_and_open_ui_1(self):
@@ -657,11 +646,8 @@ class UI_6App(QMainWindow):
 
     def show_folder_contents(self, model, directory, index):
         item = model.itemFromIndex(index)
-        print( item.text())
         folder_path = os.path.join(directory, item.text())
-        print(folder_path)
         folder_path2 = os.path.join(folder_path, 'Upload')
-        print(folder_path2)
         
         if os.path.isdir(folder_path):
             if not os.path.exists(folder_path2):
@@ -764,11 +750,10 @@ class UI_8App(QMainWindow):
         selected_file_list = self.get_selected_file_paths()
         save_dir = os.path.join(script_directory, 'app', 'gui', 'Results',Results_folder)
         
-        for selected_file in selected_file_list :   
+        for selected_file in selected_file_list :  
             selected_file_dir = os.path.join(current_dir, selected_file)
             bbox_basename, extension = os.path.splitext(selected_file)
             bbox_path = os.path.join(script_directory, 'app', 'gui', 'Results', Results_folder, bbox_basename + '.txt')
-            print(selected_file_dir, bbox_path, save_dir)
             script_path = os.path.join(script_directory, "app", "Model", "SampleProcess.py")
             subprocess.run(["python3", script_path, current_dir, selected_file_dir])
             mask_image_with_bboxes(bbox_path, selected_file_dir, save_dir)

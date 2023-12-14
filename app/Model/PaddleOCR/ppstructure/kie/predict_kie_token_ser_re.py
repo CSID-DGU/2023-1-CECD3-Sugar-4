@@ -36,7 +36,8 @@ from ppstructure.kie.predict_kie_token_ser import SerPredictor
 
 logger = get_logger()
 
-
+script_directory = os.path.dirname(os.path.abspath(__file__))
+bbox_dir = os.path.join(script_directory, '..', '..', '..','..')
 class SerRePredictor(object):
     def __init__(self, args):
         self.use_visual_backbone = args.use_visual_backbone
@@ -109,7 +110,7 @@ def main(args):
         # 'SampleRepo/이미지파일명' 디렉토리에 txt 파일을 저장
         base_name = os.path.basename(image_file)
         file_name, _ = os.path.splitext(base_name)
-        dir_path = os.path.join('app', 'gui', 'SampleRepo', file_name)
+        dir_path = os.path.join(bbox_dir, 'gui', 'SampleRepo', file_name)
         bbox_save_path = os.path.join(dir_path, f'{file_name}_privacy_bbox.txt')
 
         with open(bbox_save_path, 'w', encoding='utf-8') as bbox_file:

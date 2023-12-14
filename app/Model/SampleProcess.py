@@ -4,6 +4,8 @@ import json
 import sys
 import ast
 
+script_directory = os.path.dirname(os.path.abspath(__file__))
+base_dir = os.path.join(script_directory, '..', '..')
 def load_privacy_boxes(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         data = file.read()
@@ -82,7 +84,6 @@ def save_results_to_text_file(results, output_dir, file_name):
         
 if __name__ == "__main__":
     # 현재 디렉토리 설정
-    base_dir = os.getcwd()
     results_dir = os.path.join(base_dir, 'app', 'gui', 'Results')
     
     current_dir = sys.argv[1]

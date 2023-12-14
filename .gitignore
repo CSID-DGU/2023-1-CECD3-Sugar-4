@@ -370,4 +370,5 @@ $RECYCLE.BIN/
 /app/gui/down
 /app/gui/Results
 /app/gui/SampleRepo
+/app/Model/inference_OCR
 
