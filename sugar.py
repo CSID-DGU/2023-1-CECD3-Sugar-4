@@ -1,12 +1,8 @@
 import subprocess
 import sys
-import re
-import cv2
 from pathlib import Path
 import app
-current_path = Path(__file__).resolve().parent
-sys.path.append(str(current_path / 'UI'))
-
+import argparse
 from app import mask_image_with_bboxes
 from app import LabelingToolByNewImage, LabelingToolBySampleImage
 
@@ -15,23 +11,28 @@ from app.gui.UI.ui_1 import Ui_MainWindow1
 from app.gui.UI.ui_2 import Ui_MainWindow2
 from app.gui.UI.ui_3 import Ui_MainWindow3
 from app.gui.UI.ui_4 import Ui_MainWindow4
-from app.gui.UI.ui_5 import Ui_MainWindow5
 from app.gui.UI.ui_6 import Ui_MainWindow6
-from app.gui.UI.ui_7 import Ui_MainWindow7
 from app.gui.UI.ui_8 import Ui_MainWindow8
 from app.gui.UI.ui_help import Ui_MainWindowhelp
-
-from enum import Enum
 import os
 import shutil
 import subprocess
 import shutil
+
+current_path = Path(__file__).resolve().parent
+abc = os.path.dirname(os.path.abspath(app.__file__))
+
+script_directory = os.path.join(abc, '..')
+paddle_directory = os.path.join(abc, "Model", "PaddleOCR")
+
+sys.path.append(str(current_path / 'UI'))
+sys.path.insert(0, paddle_directory)
+from app.Model.PaddleOCR.ppstructure.kie import predict_kie_token_ser_re as predict_new
+from app.Model.PaddleOCR.ppstructure.kie import predict_kie_token_ser as predict_sample
 from PySide6.QtWidgets import QApplication, QMainWindow, QListView, QPushButton, QFileDialog, QMessageBox, QLabel, QVBoxLayout, QWidget, QListWidget, QCheckBox
 from PySide6.QtCore import QDir, Qt, Slot, QModelIndex
 from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap
 
-abc = os.path.dirname(os.path.abspath(app.__file__))
-script_directory = os.path.join(abc, '..')
 
 class CheckableItem(QStandardItem):
     def __init__(self, text, is_folder=False):
@@ -351,7 +352,111 @@ class UI_3App(QMainWindow):
 
                 sample_repo_dir = os.path.join(script_directory, 'app', 'gui', 'SampleRepo', file_name)
                 shutil.copy2(selected_file_name, sample_repo_dir)
-                subprocess.run(["python3", predict_process_path, function_name, selected_file_name])
+                model_dir_re = os.path.join(script_directory, "app", "Model", "inference_vi/re_vi_layoutxlm")
+                model_dir_ser = os.path.join(script_directory, "app", "Model", "inference_vi/ser_vi_layoutxlm")
+                dict_path_ser = os.path.join(script_directory, "app", "Model", "utility/class_list.txt")
+                font_path_vis = os.path.join(script_directory, "app", "Model", "PaddleOCR/doc/fonts/korean.ttf")
+                
+                
+                args = argparse.Namespace(
+                    kie_algorithm="LayoutXLM",
+                    re_model_dir=model_dir_re,
+                    ser_model_dir=model_dir_ser,
+                    use_visual_backbone=False,
+                    image_dir=selected_file_name,
+                    ser_dict_path=dict_path_ser,
+                    vis_font_path=font_path_vis,
+                    ocr_order_method="tb-yx",
+                    use_angle_cls=False,
+                    use_gpu=True,
+                    use_xpu=False,
+                    use_npu=False,
+                    ir_optim=True,
+                    use_tensorrt=False,
+                    min_subgraph_size=15,
+                    precision='fp32',
+                    gpu_mem=500,
+                    gpu_id=0,
+                    page_num=0,
+                    det_algorithm='DB',
+                    det_model_dir=None,
+                    det_limit_side_len=960,
+                    det_limit_type='max',
+                    det_box_type='quad',
+                    det_db_thresh=0.3,
+                    det_db_box_thresh=0.6,
+                    det_db_unclip_ratio=1.5,
+                    max_batch_size=10,
+                    use_dilation=False,
+                    det_db_score_mode='fast',
+                    det_east_score_thresh=0.8,
+                    det_east_cover_thresh=0.1,
+                    det_east_nms_thresh=0.2,
+                    det_sast_score_thresh=0.5,
+                    det_sast_nms_thresh=0.2,
+                    det_pse_thresh=0,
+                    det_pse_box_thresh=0.85,
+                    det_pse_min_area=16,
+                    det_pse_scale=1,
+                    scales=[8, 16, 32],
+                    alpha=1.0,
+                    beta=1.0,
+                    fourier_degree=5,
+                    rec_algorithm='SVTR_LCNet',
+                    rec_model_dir=None,
+                    rec_image_inverse=True,
+                    rec_image_shape='3, 48, 320',
+                    rec_batch_num=6,
+                    max_text_length=25,
+                    rec_char_dict_path='./ppocr/utils/ppocr_keys_v1.txt',
+                    use_space_char=True,
+                    drop_score=0.5,
+                    e2e_algorithm='PGNet',
+                    e2e_model_dir=None,
+                    e2e_limit_side_len=768,
+                    e2e_limit_type='max',
+                    e2e_pgnet_score_thresh=0.5,
+                    e2e_char_dict_path='./ppocr/utils/ic15_dict.txt',
+                    e2e_pgnet_valid_set='totaltext',
+                    e2e_pgnet_mode='fast',
+                    cls_model_dir=None,
+                    cls_image_shape='3, 48, 192',
+                    label_list=['0', '180'],
+                    cls_batch_num=6,
+                    cls_thresh=0.9,
+                    enable_mkldnn=False,
+                    cpu_threads=10,
+                    total_process_num=1,
+                    process_id=0,
+                    benchmark=False,
+                    save_log_path='./log_output/',
+                    show_log=True,
+                    use_onnx=False,
+                    output='./output',
+                    table_max_len=488,
+                    table_algorithm='TableAttn',
+                    table_model_dir=None,
+                    merge_no_span_structure=True,
+                    table_char_dict_path='../ppocr/utils/dict/table_structure_dict_ch.txt',
+                    layout_model_dir=None,
+                    layout_dict_path='../ppocr/utils/dict/layout_dict/layout_publaynet_dict.txt',
+                    layout_score_threshold=0.5,
+                    layout_nms_threshold=0.5,
+                    mode='structure',
+                    image_orientation=False,
+                    layout=True,
+                    table=True,
+                    ocr=True,
+                    recovery=False,
+                    use_pdf2docx_api=False,
+                    invert=False,
+                    binarize=False,
+                    alphacolor=(255, 255, 255)
+                )
+
+                sys.path.append(paddle_directory)
+                predict_new.main(args)
+                sys.path.append(script_directory)
                 QMessageBox.information(self,"알림","개인정보 자동 인식이 완료되었습니다.\n샘플 문서 목록에서 마스킹을 진행하세요.")
 
             except Exception as e:
@@ -737,7 +842,7 @@ class UI_8App(QMainWindow):
 
                 sample_repo_dir = os.path.join(script_directory, 'app', 'gui', 'SampleRepo', file_name)
                 shutil.copy2(selected_file_name, sample_repo_dir)
-                subprocess.run(["python3", predict_process_path, function_name, selected_file_name])
+                subprocess.run(["python", predict_process_path, function_name, selected_file_name])
 
             except Exception as e:
                 print(f"An error occurred: {e}")
@@ -754,8 +859,8 @@ class UI_8App(QMainWindow):
             selected_file_dir = os.path.join(current_dir, selected_file)
             bbox_basename, extension = os.path.splitext(selected_file)
             bbox_path = os.path.join(script_directory, 'app', 'gui', 'Results', Results_folder, bbox_basename + '.txt')
-            script_path = os.path.join(script_directory, "app", "Model", "SampleProcess.py")
-            subprocess.run(["python3", script_path, current_dir, selected_file_dir])
+            predict_sample.predict_by_sample(current_dir, selected_file_dir)
+            print(bbox_path)
             mask_image_with_bboxes(bbox_path, selected_file_dir, save_dir)
         
         QMessageBox.information(self,"알림","마스킹 작업이 완료되었습니다.")
@@ -765,7 +870,7 @@ class UI_8App(QMainWindow):
         #selected_file_name = self.get_selected_file_name()
         #print(selected_file_name)
         #script_path = os.path.join("app", "Model", "predictProcess.py")
-        #subprocess.run(["python3", script_path, "ser", self.current_dir])
+        #subprocess.run(["python", script_path, "ser", self.current_dir])
 
     def delete_selected_files(self, model, directory):
         selected_items = [model.item(i) for i in range(model.rowCount()) if model.item(i).checkState() == Qt.Checked]

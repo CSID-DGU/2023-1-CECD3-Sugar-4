@@ -591,7 +591,8 @@ class PaddleOCR(predict_system.TextSystem):
         params.cls_model_dir, cls_url = confirm_model_dir_url(
             params.cls_model_dir,
             os.path.join(BASE_DIR, 'whl', 'cls'), cls_model_config['url'])
-
+        
+        params.det_model_dir = os.path.join(script_directory, '..', "inference_OCR/kor_PP-OCRv3_det")
         params.rec_model_dir = os.path.join(script_directory, '..', "inference_OCR/kor_PP-OCRv3_rec")
         params.rec_char_dict_path = os.path.join(script_directory, "ppocr/utils/dict/korean_dict.txt")
 

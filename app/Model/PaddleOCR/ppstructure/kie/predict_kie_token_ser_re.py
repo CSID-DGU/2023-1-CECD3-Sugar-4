@@ -171,4 +171,5 @@ def update_file_content(file_path, image_name, new_content):
 
 
 if __name__ == "__main__":
-    main(parse_args())
+    args = parse_args()
+    main(args)
