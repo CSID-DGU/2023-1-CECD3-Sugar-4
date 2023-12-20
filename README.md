@@ -25,7 +25,7 @@ pip install paddlepaddle -i https://mirror.baidu.com/pypi/simple
 pip install paddleocr -U
 cd app && cd Model && cd utility
 python download_model.py
-cd ../.. && cd ../.. && cd ../..
+cd .. && cd .. && cd ..
 python sugar.py
 ```
 
