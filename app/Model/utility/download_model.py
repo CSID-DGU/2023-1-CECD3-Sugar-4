@@ -31,7 +31,7 @@ os.remove(output_path)
 
 # -----------------OCR Model---------------
 # 파일 ID와 다운로드 경로를 설정
-file_link = "https://drive.google.com/file/d/1ZAyy6RaZMc-MQ71VKcEIL4MpdMyJufrG/view?usp=drive_link"
+file_link = "https://drive.google.com/file/d/1EQtcbHI9B1co6DaXYYIx7TaOzlM28k6k/view?usp=sharing"
 file_id = file_link.split("/d/")[1].split("/view")[0]
 
 # 현재 스크립트 파일이 위치한 디렉토리를 얻어옴
